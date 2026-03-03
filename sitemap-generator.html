@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sitemap XML Generator – Free Online SEO Tool | WebDesign001</title>
+<meta name="description" content="Generate a valid XML sitemap for your website instantly. Paste your URLs, set priority and change frequency, then download the sitemap.xml file free."/>
+<link rel="canonical" href="https://webdesign001.net/sitemap-generator.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{font-family:'Inter',sans-serif;box-sizing:border-box;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glow{box-shadow:0 0 30px rgba(99,102,241,.25);}
+a{text-decoration:none;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
+      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+    </a>
+    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400 transition">Gradient</a>
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400 transition">Shadow</a>
+      <a href="border-radius-generator.html" class="hover:text-indigo-400 transition">Radius</a>
+      <a href="px-to-rem-converter.html" class="hover:text-indigo-400 transition">PX→REM</a>
+      <a href="color-palette-generator.html" class="hover:text-indigo-400 transition">Colors</a>
+      <a href="sitemap-generator.html" class="text-indigo-400 font-semibold">Sitemap</a>
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
+      <a href="privacy-policy-generator.html" class="hover:text-indigo-400 transition">Privacy</a>
+      <a href="terms-conditions-generator.html" class="hover:text-indigo-400 transition">Terms</a>
+      <a href="refund-policy-generator.html" class="hover:text-indigo-400 transition">Refund</a>
+    </div>
+    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-12">
+  <div class="mb-8">
+    <h1 class="text-4xl font-extrabold mb-2">Sitemap <span class="gradient-text">XML Generator</span></h1>
+    <p class="text-gray-400">Generate a valid XML sitemap for any website. Paste your URLs, configure settings, and download your sitemap.xml instantly — free.</p>
+  </div>
+
+  <div class="bg-gray-900 rounded-2xl border border-gray-800 p-6 glow">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm text-gray-400 mb-2 block">Website URLs (one per line)</label>
+          <textarea id="surls" rows="12" placeholder="https://example.com/&#10;https://example.com/about&#10;https://example.com/contact&#10;https://example.com/blog" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 resize-none font-mono text-sm"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-gray-400 mb-2 block">Change Frequency</label>
+            <select id="sfreq" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none">
+              <option>always</option><option>daily</option><option>weekly</option><option selected>monthly</option><option>yearly</option><option>never</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm text-gray-400 mb-2 block">Priority</label>
+            <select id="spri" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none">
+              <option>1.0</option><option>0.9</option><option>0.8</option><option selected>0.7</option><option>0.5</option><option>0.3</option><option>0.1</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="genSM()" class="w-full py-3 rounded-xl bg-gradient-to-r from-teal-600 to-green-600 font-semibold text-sm text-white hover:opacity-90 transition">⚡ Generate Sitemap</button>
+      </div>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-400 font-medium">sitemap.xml Preview</span>
+          <div class="flex gap-2">
+            <button onclick="copySM()" id="smcp" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">Copy</button>
+            <button onclick="dlSM()" class="bg-teal-600 hover:bg-teal-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">⬇ Download</button>
+          </div>
+        </div>
+        <pre id="smout" class="bg-gray-800 rounded-xl p-4 text-green-400 text-xs overflow-auto h-80 whitespace-pre-wrap">&lt;!-- Paste your URLs and click Generate --&gt;</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+    <h2 class="text-xl font-bold mb-3">What is an XML Sitemap?</h2>
+    <p class="text-gray-400 text-sm leading-7">An XML sitemap is a file that lists all pages on your website to help search engines like Google and Bing discover and index your content faster. Upload the generated sitemap.xml to your website root directory and submit it via Google Search Console under Sitemaps. It is especially important for new websites or pages with few internal links.</p>
+  </div>
+</main>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-8">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
+      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
+    </a>
+    <p class="text-gray-500 text-sm mb-3">Free online web design tools for developers and designers.</p>
+    <div class="flex flex-wrap justify-center gap-2 text-xs text-gray-600">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400">CSS Gradient</a> |
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400">Box Shadow</a> |
+      <a href="border-radius-generator.html" class="hover:text-indigo-400">Border Radius</a> |
+      <a href="px-to-rem-converter.html" class="hover:text-indigo-400">PX to REM</a> |
+      <a href="color-palette-generator.html" class="hover:text-indigo-400">Color Palette</a> |
+      <a href="sitemap-generator.html" class="hover:text-indigo-400">Sitemap</a> |
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400">Robots.txt</a> |
+      <a href="privacy-policy-generator.html" class="hover:text-indigo-400">Privacy Policy</a> |
+      <a href="terms-conditions-generator.html" class="hover:text-indigo-400">Terms</a> |
+      <a href="refund-policy-generator.html" class="hover:text-indigo-400">Refund Policy</a>
+    </div>
+    <p class="text-gray-700 text-xs mt-4">© 2025 WebDesign001.net — All tools free forever</p>
+  </div>
+</footer>
+
+<script>
+var smXml = '';
+function genSM() {
+  var urls = document.getElementById('surls').value.split('\n').map(function(u){return u.trim();}).filter(function(u){return u.indexOf('http')===0;});
+  if (!urls.length) { alert('Please enter at least one URL starting with http'); return; }
+  var freq = document.getElementById('sfreq').value;
+  var pri = document.getElementById('spri').value;
+  var today = new Date().toISOString().split('T')[0];
+  smXml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + urls.map(function(u){
+        return '  <url>\n    <loc>' + u + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + freq + '</changefreq>\n    <priority>' + pri + '</priority>\n  </url>';
+      }).join('\n')
+    + '\n</urlset>';
+  document.getElementById('smout').textContent = smXml;
+}
+function copySM() {
+  if (!smXml) { alert('Generate a sitemap first'); return; }
+  navigator.clipboard.writeText(smXml);
+  var btn = document.getElementById('smcp');
+  btn.textContent = '✅ Copied!'; btn.style.background = '#16a34a';
+  setTimeout(function(){ btn.textContent = 'Copy'; btn.style.background = ''; }, 2000);
+}
+function dlSM() {
+  if (!smXml) { alert('Generate a sitemap first'); return; }
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([smXml], {type: 'application/xml'}));
+  a.download = 'sitemap.xml'; a.click();
+}
+</script>
+</body>
+</html>

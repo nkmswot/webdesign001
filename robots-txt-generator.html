@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Robots.txt Generator – Free SEO Tool | WebDesign001</title>
+<meta name="description" content="Generate a custom robots.txt file for your website. Control search engine crawlers with allow and disallow rules. Free, instant download."/>
+<link rel="canonical" href="https://webdesign001.net/robots-txt-generator.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{font-family:'Inter',sans-serif;box-sizing:border-box;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glow{box-shadow:0 0 30px rgba(99,102,241,.25);}
+a{text-decoration:none;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
+      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+    </a>
+    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400 transition">Gradient</a>
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400 transition">Shadow</a>
+      <a href="border-radius-generator.html" class="hover:text-indigo-400 transition">Radius</a>
+      <a href="px-to-rem-converter.html" class="hover:text-indigo-400 transition">PX→REM</a>
+      <a href="color-palette-generator.html" class="hover:text-indigo-400 transition">Colors</a>
+      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
+      <a href="robots-txt-generator.html" class="text-indigo-400 font-semibold">Robots</a>
+      <a href="privacy-policy-generator.html" class="hover:text-indigo-400 transition">Privacy</a>
+      <a href="terms-conditions-generator.html" class="hover:text-indigo-400 transition">Terms</a>
+      <a href="refund-policy-generator.html" class="hover:text-indigo-400 transition">Refund</a>
+    </div>
+    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-12">
+  <div class="mb-8">
+    <h1 class="text-4xl font-extrabold mb-2">Robots.txt <span class="gradient-text">Generator</span></h1>
+    <p class="text-gray-400">Generate a valid robots.txt file to control how search engine crawlers access your website. Configure rules and download instantly.</p>
+  </div>
+
+  <div class="bg-gray-900 rounded-2xl border border-gray-800 p-6 glow">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm text-gray-400 mb-2 block">User-Agent</label>
+          <select id="rba" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none">
+            <option value="*">* (All Robots)</option>
+            <option>Googlebot</option><option>Bingbot</option><option>Slurp</option><option>DuckDuckBot</option><option>Baiduspider</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-sm text-gray-400 mb-2 flex justify-between">
+            <span>Allow / Disallow Rules</span>
+            <button onclick="addRule()" class="text-indigo-400 text-xs hover:underline">+ Add Rule</button>
+          </label>
+          <div id="rbc" class="space-y-2"></div>
+        </div>
+        <div>
+          <label class="text-sm text-gray-400 mb-2 block">Sitemap URL (optional)</label>
+          <input type="text" id="rbsm" placeholder="https://example.com/sitemap.xml" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none text-sm"/>
+        </div>
+        <div class="flex gap-6">
+          <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"><input type="checkbox" id="rball" onchange="upRB()" class="w-4 h-4 accent-indigo-500"/> Block all crawlers</label>
+          <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"><input type="checkbox" id="rbalw" checked onchange="upRB()" class="w-4 h-4 accent-green-500"/> Allow all</label>
+        </div>
+        <button onclick="upRB()" class="w-full py-3 rounded-xl bg-gradient-to-r from-slate-600 to-slate-800 border border-slate-600 font-semibold text-sm text-white hover:opacity-90 transition">⚡ Generate robots.txt</button>
+      </div>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-400 font-medium">robots.txt Preview</span>
+          <div class="flex gap-2">
+            <button onclick="copyRB()" id="rbcp" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">Copy</button>
+            <button onclick="dlRB()" class="bg-slate-600 hover:bg-slate-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">⬇ Download</button>
+          </div>
+        </div>
+        <pre id="rbout" class="bg-gray-800 rounded-xl p-4 text-green-400 text-sm overflow-auto h-80 whitespace-pre-wrap font-mono">User-agent: *
+Allow: /</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+    <h2 class="text-xl font-bold mb-3">What is robots.txt?</h2>
+    <p class="text-gray-400 text-sm leading-7">The robots.txt file tells search engine crawlers which pages or sections of your website they can or cannot access. It must be placed in the root of your domain (e.g., https://example.com/robots.txt). Use Disallow rules to block admin panels, staging paths, or duplicate content. Always add your sitemap URL at the bottom to help crawlers find all your pages.</p>
+  </div>
+</main>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-8">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
+      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
+    </a>
+    <p class="text-gray-500 text-sm mb-3">Free online web design tools for developers and designers.</p>
+    <div class="flex flex-wrap justify-center gap-2 text-xs text-gray-600">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400">CSS Gradient</a> |
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400">Box Shadow</a> |
+      <a href="border-radius-generator.html" class="hover:text-indigo-400">Border Radius</a> |
+      <a href="px-to-rem-converter.html" class="hover:text-indigo-400">PX to REM</a> |
+      <a href="color-palette-generator.html" class="hover:text-indigo-400">Color Palette</a> |
+      <a href="sitemap-generator.html" class="hover:text-indigo-400">Sitemap</a> |
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400">Robots.txt</a> |
+      <a href="privacy-policy-generator.html" class="hover:text-indigo-400">Privacy Policy</a> |
+      <a href="terms-conditions-generator.html" class="hover:text-indigo-400">Terms</a> |
+      <a href="refund-policy-generator.html" class="hover:text-indigo-400">Refund Policy</a>
+    </div>
+    <p class="text-gray-700 text-xs mt-4">© 2025 WebDesign001.net — All tools free forever</p>
+  </div>
+</footer>
+
+<script>
+var rules = [];
+function addRule() { rules.push({id: Date.now(), type: 'Disallow', path: '/'}); renderR(); upRB(); }
+function removeRule(id) { rules = rules.filter(function(r){ return r.id !== id; }); renderR(); upRB(); }
+function renderR() {
+  document.getElementById('rbc').innerHTML = rules.map(function(r){
+    return '<div style="display:flex;gap:8px;align-items:center">'
+      + '<select onchange="rules.find(function(x){return x.id==='+r.id+'}).type=this.value;upRB()" style="background:#374151;border:1px solid #4b5563;border-radius:8px;padding:6px 8px;color:#fff;font-size:12px;width:105px">'
+      + '<option '+(r.type==='Allow'?'selected':'')+'>Allow</option>'
+      + '<option '+(r.type==='Disallow'?'selected':'')+'>Disallow</option></select>'
+      + '<input type="text" value="'+r.path+'" oninput="rules.find(function(x){return x.id==='+r.id+'}).path=this.value;upRB()" style="flex:1;background:#374151;border:1px solid #4b5563;border-radius:8px;padding:6px 10px;color:#fff;font-size:12px;font-family:monospace"/>'
+      + '<button onclick="removeRule('+r.id+')" style="color:#f87171;font-size:18px;font-weight:bold;background:none;border:none;cursor:pointer;padding:0 4px">×</button></div>';
+  }).join('');
+}
+function upRB() {
+  var a = document.getElementById('rba').value;
+  var sm = document.getElementById('rbsm').value.trim();
+  var bl = document.getElementById('rball').checked;
+  var alw = document.getElementById('rbalw').checked;
+  var out = 'User-agent: ' + a + '\n';
+  if (bl) { out += 'Disallow: /\n'; }
+  else if (alw && rules.length === 0) { out += 'Allow: /\n'; }
+  else { rules.forEach(function(r){ out += r.type + ': ' + r.path + '\n'; }); }
+  if (sm) out += '\nSitemap: ' + sm;
+  document.getElementById('rbout').textContent = out;
+}
+function copyRB() {
+  navigator.clipboard.writeText(document.getElementById('rbout').textContent);
+  var btn = document.getElementById('rbcp');
+  btn.textContent = '✅ Copied!'; btn.style.background = '#16a34a';
+  setTimeout(function(){ btn.textContent = 'Copy'; btn.style.background = ''; }, 2000);
+}
+function dlRB() {
+  var txt = document.getElementById('rbout').textContent;
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([txt], {type: 'text/plain'}));
+  a.download = 'robots.txt'; a.click();
+}
+upRB();
+</script>
+</body>
+</html>

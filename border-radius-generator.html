@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CSS Border Radius Generator – Free Online Tool | WebDesign001</title>
+<meta name="description" content="Generate custom CSS border radius values for each corner. Live preview with instant copy. Free web design tool, no login required."/>
+<link rel="canonical" href="https://webdesign001.net/border-radius-generator.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{font-family:'Inter',sans-serif;box-sizing:border-box;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glow{box-shadow:0 0 30px rgba(99,102,241,.25);}
+input[type=range]{accent-color:#6366f1;}
+input[type=color]{cursor:pointer;}
+a{text-decoration:none;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
+      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+    </a>
+    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400 transition">Gradient</a>
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400 transition">Shadow</a>
+      <a href="border-radius-generator.html" class="text-indigo-400 font-semibold">Radius</a>
+      <a href="px-to-rem-converter.html" class="hover:text-indigo-400 transition">PX→REM</a>
+      <a href="color-palette-generator.html" class="hover:text-indigo-400 transition">Colors</a>
+      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
+      <a href="privacy-policy-generator.html" class="hover:text-indigo-400 transition">Privacy</a>
+      <a href="terms-conditions-generator.html" class="hover:text-indigo-400 transition">Terms</a>
+      <a href="refund-policy-generator.html" class="hover:text-indigo-400 transition">Refund</a>
+    </div>
+    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-12">
+  <div class="mb-8">
+    <h1 class="text-4xl font-extrabold mb-2">CSS <span class="gradient-text">Border Radius Generator</span></h1>
+    <p class="text-gray-400">Set each corner independently or link them all. Live preview with instant CSS copy — free.</p>
+  </div>
+
+  <div class="bg-gray-900 rounded-2xl border border-gray-800 p-6 glow">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="lnk" checked onchange="upR()" class="w-4 h-4 accent-indigo-500"/>
+          <label for="lnk" class="text-sm text-gray-400">Link all corners</label>
+        </div>
+        <div><label class="text-sm text-gray-400 mb-1 flex justify-between"><span>Top-Left</span><span id="vtl">20px</span></label><input type="range" min="0" max="100" value="20" id="rtl" oninput="upR()" class="w-full"/></div>
+        <div><label class="text-sm text-gray-400 mb-1 flex justify-between"><span>Top-Right</span><span id="vtr">20px</span></label><input type="range" min="0" max="100" value="20" id="rtr" oninput="upR()" class="w-full"/></div>
+        <div><label class="text-sm text-gray-400 mb-1 flex justify-between"><span>Bottom-Right</span><span id="vbr">20px</span></label><input type="range" min="0" max="100" value="20" id="rbr" oninput="upR()" class="w-full"/></div>
+        <div><label class="text-sm text-gray-400 mb-1 flex justify-between"><span>Bottom-Left</span><span id="vbl">20px</span></label><input type="range" min="0" max="100" value="20" id="rbl" oninput="upR()" class="w-full"/></div>
+        <div><label class="text-sm text-gray-400 mb-2 block">Fill Color</label><input type="color" value="#6366f1" id="rcl" oninput="upR()" class="w-full h-12 rounded-lg border border-gray-700 bg-gray-800"/></div>
+      </div>
+      <div class="space-y-4">
+        <div class="w-full h-52 rounded-xl bg-gray-800 flex items-center justify-center">
+          <div id="rp" class="w-44 h-36 transition-all" style="background:#6366f1;border-radius:20px 20px 20px 20px"></div>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-4">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs text-gray-400 font-mono">CSS Output</span>
+            <button onclick="copyCSS()" id="rcb" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">Copy</button>
+          </div>
+          <code id="rout" class="text-green-400 text-sm">border-radius: 20px 20px 20px 20px;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+    <h2 class="text-xl font-bold mb-3">How to Use the Border Radius Generator</h2>
+    <p class="text-gray-400 text-sm leading-7">Use the sliders to set border radius for each corner individually, or check "Link all corners" to apply the same value to all four. Choose a fill color to preview the shape, then copy the CSS output directly into your stylesheet.</p>
+  </div>
+</main>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-8">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
+      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
+    </a>
+    <p class="text-gray-500 text-sm mb-3">Free online web design tools for developers and designers.</p>
+    <div class="flex flex-wrap justify-center gap-2 text-xs text-gray-600">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400">CSS Gradient</a> |
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400">Box Shadow</a> |
+      <a href="border-radius-generator.html" class="hover:text-indigo-400">Border Radius</a> |
+      <a href="px-to-rem-converter.html" class="hover:text-indigo-400">PX to REM</a> |
+      <a href="color-palette-generator.html" class="hover:text-indigo-400">Color Palette</a> |
+      <a href="sitemap-generator.html" class="hover:text-indigo-400">Sitemap</a> |
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400">Robots.txt</a> |
+      <a href="privacy-policy-generator.html" class="hover:text-indigo-400">Privacy Policy</a> |
+      <a href="terms-conditions-generator.html" class="hover:text-indigo-400">Terms</a> |
+      <a href="refund-policy-generator.html" class="hover:text-indigo-400">Refund Policy</a>
+    </div>
+    <p class="text-gray-700 text-xs mt-4">© 2025 WebDesign001.net — All tools free forever</p>
+  </div>
+</footer>
+
+<script>
+function upR() {
+  var lk = document.getElementById('lnk').checked;
+  var tl = document.getElementById('rtl'), tr = document.getElementById('rtr');
+  var br = document.getElementById('rbr'), bl = document.getElementById('rbl');
+  if (lk) { tr.value = tl.value; br.value = tl.value; bl.value = tl.value; }
+  document.getElementById('vtl').textContent = tl.value + 'px';
+  document.getElementById('vtr').textContent = tr.value + 'px';
+  document.getElementById('vbr').textContent = br.value + 'px';
+  document.getElementById('vbl').textContent = bl.value + 'px';
+  var v = tl.value + 'px ' + tr.value + 'px ' + br.value + 'px ' + bl.value + 'px';
+  document.getElementById('rp').style.borderRadius = v;
+  document.getElementById('rp').style.background = document.getElementById('rcl').value;
+  document.getElementById('rout').textContent = 'border-radius: ' + v + ';';
+}
+function copyCSS() {
+  navigator.clipboard.writeText(document.getElementById('rout').textContent);
+  var btn = document.getElementById('rcb');
+  btn.textContent = '✅ Copied!'; btn.style.background = '#16a34a';
+  setTimeout(function() { btn.textContent = 'Copy'; btn.style.background = ''; }, 2000);
+}
+upR();
+</script>
+</body>
+</html>
