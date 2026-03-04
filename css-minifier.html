@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CSS Minifier & Beautifier – Free Online Tool | WebDesign001</title>
+<meta name="description" content="Minify CSS for production or beautify CSS for editing. Free online CSS minifier and formatter with live stats, compression ratio, and download."/>
+<link rel="canonical" href="https://webdesign001.net/css-minifier.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#060a0f;
+  --surface:#0c1219;
+  --card:#101820;
+  --border:#1a2535;
+  --cyan:#06b6d4;
+  --violet:#7c3aed;
+  --gold:#f59e0b;
+  --green:#10b981;
+  --red:#ef4444;
+  --text:#dde4f0;
+  --sub:#4a6080;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{text-decoration:none;color:inherit;}
+
+/* Gradient text */
+.g1{background:linear-gradient(120deg,#06b6d4,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* Mode switcher */
+.mode-switcher{display:flex;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px;}
+.mode-btn{flex:1;text-align:center;padding:8px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:'DM Sans',sans-serif;}
+.mode-btn.active-min{background:var(--cyan);color:#000;}
+.mode-btn.active-beau{background:var(--violet);color:#fff;}
+.mode-btn:not(.active-min):not(.active-beau){background:transparent;color:var(--sub);}
+
+/* Editor */
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.panel-label{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--sub);text-transform:uppercase;}
+textarea{
+  flex:1;width:100%;background:transparent;border:none;outline:none;resize:none;
+  padding:16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;
+  color:var(--text);min-height:420px;
+}
+.code-view{
+  flex:1;padding:16px;overflow:auto;min-height:420px;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;
+  white-space:pre-wrap;word-break:break-word;color:var(--text);
+}
+.panel-foot{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:10px 16px;background:var(--surface);border-top:1px solid var(--border);
+  font-size:11px;color:var(--sub);flex-shrink:0;
+}
+.stat{margin-right:16px;}
+.stat b{color:var(--cyan);}
+
+/* Compression ring */
+.ring-wrap{display:flex;align-items:center;gap:12px;}
+.ring{position:relative;width:52px;height:52px;}
+.ring svg{transform:rotate(-90deg);}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--cyan);}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:9px;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:all .15s;}
+.btn-cyan{background:var(--cyan);color:#000;}
+.btn-cyan:hover{filter:brightness(1.1);}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--sub);}
+.btn-ghost:hover{border-color:var(--violet);color:var(--violet);}
+
+/* CSS highlight */
+.css-sel{color:#93c5fd;}
+.css-prop{color:#f9a8d4;}
+.css-val{color:#86efac;}
+.css-at{color:#fde68a;}
+.css-comment{color:#4a6080;font-style:italic;}
+.css-num{color:#fca5a5;}
+.css-unit{color:#c4b5fd;}
+.css-hex{color:#fb923c;}
+.css-str{color:#86efac;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .3s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav style="background:#060a0f;border-bottom:1px solid var(--border);">
+  <div style="max-width:1280px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <a href="index.html" style="display:flex;align-items:center;gap:8px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#06b6d4,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">W</div>
+      <span style="font-weight:800;font-size:17px;"><span class="g1">WebDesign</span><span style="color:#334155;">001</span></span>
+    </a>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--sub);">
+      <a href="html-formatter.html" style="transition:color .15s;">HTML</a>
+      <a href="css-minifier.html" style="color:var(--cyan);font-weight:700;">CSS</a>
+      <a href="regex-tester.html" style="transition:color .15s;">Regex</a>
+      <a href="json-formatter.html" style="transition:color .15s;">JSON</a>
+      <a href="meta-tag-generator.html" style="transition:color .15s;">Meta Tags</a>
+      <a href="sitemap-generator.html" style="transition:color .15s;">Sitemap</a>
+    </div>
+    <a href="index.html" style="background:var(--violet);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;">All Tools</a>
+  </div>
+</nav>
+
+<main style="max-width:1280px;margin:0 auto;padding:36px 20px;">
+
+  <!-- Header -->
+  <div class="fu" style="margin-bottom:28px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#06b6d41a;border:1px solid #06b6d440;color:var(--cyan);font-size:11px;font-weight:700;padding:4px 14px;border-radius:999px;margin-bottom:14px;letter-spacing:.06em;">{ } CSS Tool</div>
+    <h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:10px;">CSS <span class="g1">Minifier</span> &amp; Beautifier</h1>
+    <p style="color:var(--sub);max-width:600px;line-height:1.7;font-size:14px;">Compress CSS for lightning-fast production deploys, or beautify minified CSS for easy editing. Live syntax highlighting, compression stats, and one-click download.</p>
+  </div>
+
+  <!-- Mode switcher -->
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;" class="fu">
+    <div class="mode-switcher" id="mode-sw">
+      <button class="mode-btn active-min" id="btn-min" onclick="setMode('min')">⚡ Minify</button>
+      <button class="mode-btn" id="btn-beau" onclick="setMode('beau')">✨ Beautify</button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--sub);">
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+        <input type="checkbox" id="rm-comments" checked onchange="process()" style="accent-color:var(--cyan);"/> Remove comments
+      </label>
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+        <input type="checkbox" id="rm-empty" checked onchange="process()" style="accent-color:var(--cyan);"/> Remove empty rules
+      </label>
+    </div>
+  </div>
+
+  <!-- Main layout -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" id="main-grid">
+
+    <!-- Input -->
+    <div class="panel fu" style="animation-delay:.05s;">
+      <div class="panel-head">
+        <span class="panel-label">Input CSS</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" onclick="loadSample()" style="padding:4px 10px;font-size:11px;">Sample</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('input').value='';process();" style="padding:4px 10px;font-size:11px;">Clear</button>
+        </div>
+      </div>
+      <textarea id="input" spellcheck="false" placeholder="Paste your CSS here…" oninput="process()"></textarea>
+      <div class="panel-foot">
+        <div>
+          <span class="stat">Rules <b id="in-rules">0</b></span>
+          <span class="stat">Lines <b id="in-lines">0</b></span>
+          <span class="stat">Size <b id="in-size">0 B</b></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="panel fu" style="animation-delay:.1s;">
+      <div class="panel-head">
+        <span class="panel-label" id="out-label">Minified CSS</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-cyan" onclick="copyOut()" id="copy-btn" style="padding:4px 12px;font-size:11px;">⎘ Copy</button>
+          <button class="btn btn-ghost" onclick="dlOut()" style="padding:4px 10px;font-size:11px;">⬇ .css</button>
+        </div>
+      </div>
+      <div id="output" class="code-view mono" style="user-select:all;"></div>
+      <div class="panel-foot">
+        <div>
+          <span class="stat">Size <b id="out-size">0 B</b></span>
+          <span class="stat">Saved <b id="out-saved" style="color:var(--green);">—</b></span>
+        </div>
+        <!-- Compression ring -->
+        <div class="ring-wrap" id="ring-wrap" style="display:none;">
+          <div class="ring">
+            <svg width="52" height="52" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="20" fill="none" stroke="#1a2535" stroke-width="6"/>
+              <circle cx="26" cy="26" r="20" fill="none" stroke="#06b6d4" stroke-width="6"
+                stroke-dasharray="125.6" stroke-dashoffset="125.6" id="ring-circle" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-pct" id="ring-pct">0%</div>
+          </div>
+          <div style="font-size:11px;color:var(--sub);line-height:1.5;">Compression<br/><b style="color:var(--green);font-size:14px;" id="ring-label">—</b></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Info -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:24px;" class="fu">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;">
+      <div style="font-size:18px;margin-bottom:6px;">🗜️</div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Minify for Production</div>
+      <div style="color:var(--sub);font-size:12px;line-height:1.6;">Strips whitespace, comments, and redundant semicolons. Reduces file size by up to 50–70%.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;">
+      <div style="font-size:18px;margin-bottom:6px;">🌸</div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Beautify for Editing</div>
+      <div style="color:var(--sub);font-size:12px;line-height:1.6;">Expands minified CSS into readable, properly indented code with one selector per line.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;">
+      <div style="font-size:18px;margin-bottom:6px;">🎨</div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Syntax Highlighting</div>
+      <div style="color:var(--sub);font-size:12px;line-height:1.6;">Selectors, properties, values, hex colors, and units are all colour-coded in the output.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;">
+      <div style="font-size:18px;margin-bottom:6px;">🔒</div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:4px;">100% Client-Side</div>
+      <div style="color:var(--sub);font-size:12px;line-height:1.6;">Your CSS never leaves your browser. Zero server calls, works offline.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer style="background:#060a0f;border-top:1px solid var(--border);padding:24px 20px;margin-top:40px;text-align:center;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;">
+    <div style="width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#06b6d4,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;">W</div>
+    <span style="font-weight:800;"><span class="g1">WebDesign</span><span style="color:#334155;">001.net</span></span>
+  </a>
+  <p style="color:var(--sub);font-size:13px;">Free online web design and coding tools.</p>
+</footer>
+
+<script>
+var currentMode = 'min';
+var lastOutput = '';
+
+var SAMPLE = `/* Navigation Styles */
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav__logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #f8fafc;
+    text-decoration: none;
+}
+
+.nav__links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav__links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav__links a:hover,
+.nav__links a.active {
+    color: #38bdf8;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 80px 24px;
+    background: radial-gradient(ellipse at center, #0f2040 0%, #060a0f 70%);
+}
+
+.hero__title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #f8fafc;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+    .nav__links { display: none; }
+    .hero__title { font-size: 2.5rem; }
+}`;
+
+function setMode(mode){
+  currentMode = mode;
+  var bMin = document.getElementById('btn-min');
+  var bBeau = document.getElementById('btn-beau');
+  var outLabel = document.getElementById('out-label');
+  if(mode==='min'){
+    bMin.className='mode-btn active-min';
+    bBeau.className='mode-btn';
+    outLabel.textContent='Minified CSS';
+  } else {
+    bMin.className='mode-btn';
+    bBeau.className='mode-btn active-beau';
+    outLabel.textContent='Beautified CSS';
+  }
+  process();
+}
+
+function process(){
+  var raw = document.getElementById('input').value;
+  updateInStats(raw);
+  if(!raw.trim()){ document.getElementById('output').innerHTML=''; lastOutput=''; hideRing(); return; }
+
+  var result = currentMode==='min' ? minify(raw) : beautify(raw);
+  lastOutput = result;
+  document.getElementById('output').innerHTML = highlightCSS(escHtml(result));
+  updateOutStats(result, raw);
+}
+
+function minify(css){
+  if(document.getElementById('rm-comments').checked){
+    css = css.replace(/\/\*[\s\S]*?\*\//g,'');
+  }
+  css = css
+    .replace(/\s+/g,' ')
+    .replace(/\s*{\s*/g,'{')
+    .replace(/\s*}\s*/g,'}')
+    .replace(/\s*:\s*/g,':')
+    .replace(/\s*;\s*/g,';')
+    .replace(/\s*,\s*/g,',')
+    .replace(/;}/g,'}')
+    .trim();
+
+  if(document.getElementById('rm-empty').checked){
+    css = css.replace(/[^{}]+\{\}/g,'');
+  }
+  return css;
+}
+
+function beautify(css){
+  // First minify to normalize
+  var m = css.replace(/\/\*[\s\S]*?\*\//g, function(c){ return document.getElementById('rm-comments').checked?'':'\n'+c+'\n'; });
+  m = m.replace(/\s+/g,' ').replace(/\s*{\s*/g,'{\n  ').replace(/;\s*/g,';\n  ').replace(/\s*}\s*/g,'\n}\n\n').trim();
+  // Clean up extra spaces
+  m = m.replace(/  \n}/g,'\n}').replace(/\n\n\n+/g,'\n\n');
+  return m;
+}
+
+function highlightCSS(code){
+  return code
+    .replace(/(\/\*[\s\S]*?\*\/)/g,'<span class="css-comment">$1</span>')
+    .replace(/@[\w-]+/g,'<span class="css-at">$&</span>')
+    .replace(/(#[0-9a-fA-F]{3,8})\b/g,'<span class="css-hex">$1</span>')
+    .replace(/\b(\d*\.?\d+)(px|em|rem|vh|vw|%|s|ms|deg|fr|ch|ex|vmin|vmax)\b/g,'<span class="css-num">$1</span><span class="css-unit">$2</span>')
+    .replace(/([^{};,\n]+)\s*(?={)/g,'<span class="css-sel">$&</span>')
+    .replace(/([\w-]+)\s*:/g,'<span class="css-prop">$1</span>:');
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function updateInStats(raw){
+  document.getElementById('in-lines').textContent = raw?raw.split('\n').length:0;
+  document.getElementById('in-rules').textContent = (raw.match(/\{/g)||[]).length;
+  document.getElementById('in-size').textContent = formatBytes(new Blob([raw]).size);
+}
+
+function updateOutStats(out, raw){
+  var inSz = new Blob([raw]).size;
+  var outSz = new Blob([out]).size;
+  document.getElementById('out-size').textContent = formatBytes(outSz);
+  var saved = inSz - outSz;
+  var el = document.getElementById('out-saved');
+  if(saved > 0){
+    el.textContent = '−'+formatBytes(saved);
+    el.style.color='var(--green)';
+  } else {
+    el.textContent = '+'+formatBytes(Math.abs(saved));
+    el.style.color='var(--sub)';
+  }
+
+  // Ring
+  if(inSz > 0 && currentMode==='min'){
+    var pct = Math.max(0, Math.round((1 - outSz/inSz)*100));
+    updateRing(pct, formatBytes(saved));
+  } else {
+    hideRing();
+  }
+}
+
+function updateRing(pct, saved){
+  document.getElementById('ring-wrap').style.display='flex';
+  var circ = document.getElementById('ring-circle');
+  var full = 125.6;
+  circ.style.strokeDashoffset = full - (full * pct / 100);
+  document.getElementById('ring-pct').textContent = pct+'%';
+  document.getElementById('ring-label').textContent = '−'+saved;
+}
+function hideRing(){ document.getElementById('ring-wrap').style.display='none'; }
+
+function formatBytes(b){ if(b<1024) return b+' B'; return (b/1024).toFixed(1)+' KB'; }
+
+function copyOut(){
+  if(!lastOutput) return;
+  navigator.clipboard.writeText(lastOutput);
+  var btn = document.getElementById('copy-btn');
+  btn.textContent='✅ Copied!';
+  setTimeout(function(){ btn.textContent='⎘ Copy'; },2000);
+}
+
+function dlOut(){
+  if(!lastOutput) return;
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([lastOutput],{type:'text/css'}));
+  a.download=currentMode==='min'?'style.min.css':'style.css'; a.click();
+}
+
+function loadSample(){
+  document.getElementById('input').value = SAMPLE;
+  process();
+}
+
+// Responsive
+function fixGrid(){
+  var g = document.getElementById('main-grid');
+  g.style.gridTemplateColumns = window.innerWidth < 800 ? '1fr' : '1fr 1fr';
+}
+window.addEventListener('resize',fixGrid); fixGrid();
+</script>
+</body>
+</html>

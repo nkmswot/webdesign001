@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Meta Tag Generator – Free SEO Meta Tags Tool | WebDesign001</title>
+<meta name="description" content="Generate complete HTML meta tags instantly — SEO, Open Graph, Twitter Cards, robots, canonical and more. Free online meta tag generator."/>
+<link rel="canonical" href="https://webdesign001.net/meta-tag-generator.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;}
+body{font-family:'Syne',sans-serif;}
+code,pre,.mono{font-family:'DM Mono',monospace;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glow{box-shadow:0 0 30px rgba(99,102,241,.2);}
+.tab-btn{transition:all .2s;border-bottom:2px solid transparent;}
+.tab-btn.active{border-bottom-color:#6366f1;color:#a5b4fc;}
+.tag-line{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #1f2937;}
+.tag-line:last-child{border-bottom:none;}
+.copy-line-btn{opacity:0;transition:opacity .15s;flex-shrink:0;margin-top:2px;}
+.tag-line:hover .copy-line-btn{opacity:1;}
+a{text-decoration:none;}
+input,select,textarea{font-family:'Syne',sans-serif;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease forwards;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
+      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+    </a>
+    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
+      <a href="css-gradient-generator.html" class="hover:text-indigo-400 transition">Gradient</a>
+      <a href="box-shadow-generator.html" class="hover:text-indigo-400 transition">Shadow</a>
+      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
+      <a href="meta-tag-generator.html" class="text-indigo-400 font-semibold">Meta Tags</a>
+      <a href="og-preview.html" class="hover:text-indigo-400 transition">OG Preview</a>
+      <a href="schema-generator.html" class="hover:text-indigo-400 transition">Schema</a>
+      <a href="htaccess-generator.html" class="hover:text-indigo-400 transition">HTAccess</a>
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
+    </div>
+    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 py-12">
+  <div class="mb-10 fade-in">
+    <div class="inline-flex items-center gap-2 bg-indigo-950 border border-indigo-800 text-indigo-300 text-xs px-3 py-1 rounded-full mb-4">🏷️ SEO Tool</div>
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-3">Meta Tag <span class="gradient-text">Generator</span></h1>
+    <p class="text-gray-400 max-w-2xl">Fill in the fields below to generate complete, production-ready meta tags — SEO, Open Graph, Twitter Cards, robots directives, and more. Copy the whole block or individual tags.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- LEFT: Inputs -->
+    <div class="space-y-5">
+
+      <!-- Basic SEO -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 glow fade-in">
+        <h2 class="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-4">Basic SEO</h2>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Page Title <span class="text-gray-600">(50–60 chars ideal)</span></label>
+            <input id="f-title" type="text" placeholder="My Awesome Page | Brand" maxlength="120"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+            <div class="flex justify-between mt-1"><span class="text-xs text-gray-600">Characters:</span><span id="cnt-title" class="text-xs text-gray-500">0</span></div>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Meta Description <span class="text-gray-600">(150–160 chars ideal)</span></label>
+            <textarea id="f-desc" rows="3" placeholder="A concise description of your page content for search results…" maxlength="300"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500 resize-none" oninput="generate()"></textarea>
+            <div class="flex justify-between mt-1"><span class="text-xs text-gray-600">Characters:</span><span id="cnt-desc" class="text-xs text-gray-500">0</span></div>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Keywords <span class="text-gray-600">(comma separated, optional)</span></label>
+            <input id="f-kw" type="text" placeholder="seo tool, meta tags, generator"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Canonical URL</label>
+            <input id="f-canonical" type="url" placeholder="https://example.com/page"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Robots</label>
+              <select id="f-robots" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none" onchange="generate()">
+                <option value="index, follow">index, follow</option>
+                <option value="noindex, follow">noindex, follow</option>
+                <option value="index, nofollow">index, nofollow</option>
+                <option value="noindex, nofollow">noindex, nofollow</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Language</label>
+              <input id="f-lang" type="text" placeholder="en" value="en"
+                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+            </div>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Author</label>
+            <input id="f-author" type="text" placeholder="Your Name or Brand"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open Graph -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 fade-in">
+        <h2 class="text-sm font-bold text-pink-300 uppercase tracking-widest mb-4">Open Graph (Facebook, LinkedIn)</h2>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">OG Title</label>
+            <input id="f-og-title" type="text" placeholder="Defaults to Page Title"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">OG Description</label>
+            <textarea id="f-og-desc" rows="2" placeholder="Defaults to Meta Description"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500 resize-none" oninput="generate()"></textarea>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">OG Image URL <span class="text-gray-600">(1200×630px recommended)</span></label>
+            <input id="f-og-img" type="url" placeholder="https://example.com/og-image.jpg"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">OG Type</label>
+              <select id="f-og-type" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none" onchange="generate()">
+                <option>website</option><option>article</option><option>product</option><option>profile</option><option>video</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Site Name</label>
+              <input id="f-og-site" type="text" placeholder="My Site"
+                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Twitter Card -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 fade-in">
+        <h2 class="text-sm font-bold text-cyan-300 uppercase tracking-widest mb-4">Twitter / X Card</h2>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Card Type</label>
+            <select id="f-tw-card" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none" onchange="generate()">
+              <option value="summary_large_image">summary_large_image (recommended)</option>
+              <option value="summary">summary</option>
+              <option value="app">app</option>
+              <option value="player">player</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Twitter @site</label>
+              <input id="f-tw-site" type="text" placeholder="@yourbrand"
+                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Twitter @creator</label>
+              <input id="f-tw-creator" type="text" placeholder="@author"
+                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="generate()"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Output -->
+    <div class="lg:sticky lg:top-20 lg:self-start space-y-4">
+
+      <!-- Live preview header -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 glow fade-in">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm font-bold text-white">Google Search Preview</span>
+          <span class="text-xs text-gray-500">Approximate</span>
+        </div>
+        <div class="bg-white rounded-xl p-4">
+          <div class="text-xs text-gray-500 mb-1 truncate" id="prev-url">https://example.com/page</div>
+          <div id="prev-title" class="text-blue-700 text-base font-medium leading-tight mb-1 truncate">Page Title</div>
+          <div id="prev-desc" class="text-gray-600 text-xs leading-relaxed line-clamp-2">Your meta description will appear here in search results.</div>
+        </div>
+      </div>
+
+      <!-- Output tabs -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 fade-in">
+        <div class="flex gap-4 mb-4 border-b border-gray-800">
+          <button class="tab-btn active text-sm pb-2 text-gray-300" onclick="switchTab('all',this)">All Tags</button>
+          <button class="tab-btn text-sm pb-2 text-gray-500" onclick="switchTab('seo',this)">SEO</button>
+          <button class="tab-btn text-sm pb-2 text-gray-500" onclick="switchTab('og',this)">Open Graph</button>
+          <button class="tab-btn text-sm pb-2 text-gray-500" onclick="switchTab('tw',this)">Twitter</button>
+        </div>
+
+        <div id="tag-output" class="space-y-0 mb-4 max-h-80 overflow-y-auto pr-1"></div>
+
+        <div class="flex gap-2 pt-3 border-t border-gray-800">
+          <button onclick="copyAll()" id="copy-all-btn"
+            class="flex-1 bg-indigo-600 hover:bg-indigo-500 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition">
+            Copy All Tags
+          </button>
+          <button onclick="downloadHtml()"
+            class="bg-teal-600 hover:bg-teal-500 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition">
+            ⬇ .html snippet
+          </button>
+        </div>
+      </div>
+
+      <!-- Char counters & tips -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4 fade-in">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">SEO Health Check</h3>
+        <div id="health-checks" class="space-y-1.5 text-xs"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-12">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
+      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
+    </a>
+    <p class="text-gray-500 text-sm">Free online web design and SEO tools.</p>
+  </div>
+</footer>
+
+<script>
+var currentTab = 'all';
+var allTags = [];
+
+function v(id){ return document.getElementById(id).value.trim(); }
+
+function generate(){
+  var title = v('f-title');
+  var desc = v('f-desc');
+  var kw = v('f-kw');
+  var canonical = v('f-canonical');
+  var robots = v('f-robots') || 'index, follow';
+  var lang = v('f-lang') || 'en';
+  var author = v('f-author');
+  var ogTitle = v('f-og-title') || title;
+  var ogDesc = v('f-og-desc') || desc;
+  var ogImg = v('f-og-img');
+  var ogType = document.getElementById('f-og-type').value;
+  var ogSite = v('f-og-site');
+  var twCard = document.getElementById('f-tw-card').value;
+  var twSite = v('f-tw-site');
+  var twCreator = v('f-tw-creator');
+
+  // Update char counts
+  document.getElementById('cnt-title').textContent = title.length;
+  document.getElementById('cnt-desc').textContent = desc.length;
+  colorCount('cnt-title', title.length, 50, 60, 90);
+  colorCount('cnt-desc', desc.length, 140, 160, 200);
+
+  // Update google preview
+  document.getElementById('prev-title').textContent = title || 'Your Page Title';
+  document.getElementById('prev-desc').textContent = desc || 'Your meta description will appear here.';
+  document.getElementById('prev-url').textContent = canonical || 'https://example.com/page';
+
+  // Build tags
+  var seo = [], og = [], tw = [];
+
+  seo.push({tag: '<meta charset="UTF-8"/>', label: 'charset'});
+  seo.push({tag: '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>', label: 'viewport'});
+  if(title) seo.push({tag: '<title>'+esc(title)+'</title>', label: 'title'});
+  if(desc) seo.push({tag: '<meta name="description" content="'+esc(desc)+'"/>', label: 'description'});
+  if(kw) seo.push({tag: '<meta name="keywords" content="'+esc(kw)+'"/>', label: 'keywords'});
+  if(author) seo.push({tag: '<meta name="author" content="'+esc(author)+'"/>', label: 'author'});
+  seo.push({tag: '<meta name="robots" content="'+robots+'"/>', label: 'robots'});
+  seo.push({tag: '<meta http-equiv="Content-Language" content="'+esc(lang)+'"/>', label: 'language'});
+  if(canonical) seo.push({tag: '<link rel="canonical" href="'+esc(canonical)+'"/>', label: 'canonical'});
+
+  if(ogTitle) og.push({tag: '<meta property="og:title" content="'+esc(ogTitle)+'"/>', label: 'og:title'});
+  if(ogDesc) og.push({tag: '<meta property="og:description" content="'+esc(ogDesc)+'"/>', label: 'og:description'});
+  if(ogImg) og.push({tag: '<meta property="og:image" content="'+esc(ogImg)+'"/>', label: 'og:image'});
+  og.push({tag: '<meta property="og:type" content="'+ogType+'"/>', label: 'og:type'});
+  if(canonical) og.push({tag: '<meta property="og:url" content="'+esc(canonical)+'"/>', label: 'og:url'});
+  if(ogSite) og.push({tag: '<meta property="og:site_name" content="'+esc(ogSite)+'"/>', label: 'og:site_name'});
+
+  tw.push({tag: '<meta name="twitter:card" content="'+twCard+'"/>', label: 'twitter:card'});
+  if(ogTitle || title) tw.push({tag: '<meta name="twitter:title" content="'+esc(ogTitle||title)+'"/>', label: 'twitter:title'});
+  if(ogDesc || desc) tw.push({tag: '<meta name="twitter:description" content="'+esc(ogDesc||desc)+'"/>', label: 'twitter:description'});
+  if(ogImg) tw.push({tag: '<meta name="twitter:image" content="'+esc(ogImg)+'"/>', label: 'twitter:image'});
+  if(twSite) tw.push({tag: '<meta name="twitter:site" content="'+esc(twSite)+'"/>', label: 'twitter:site'});
+  if(twCreator) tw.push({tag: '<meta name="twitter:creator" content="'+esc(twCreator)+'"/>', label: 'twitter:creator'});
+
+  allTags = {seo, og, tw, all: [...seo, ...og, ...tw]};
+  renderOutput();
+  renderHealth(title, desc, canonical, ogImg);
+}
+
+function colorCount(id, len, min, max, hard){
+  var el = document.getElementById(id);
+  if(len===0) el.className='text-xs text-gray-500';
+  else if(len<min) el.className='text-xs text-yellow-400';
+  else if(len<=max) el.className='text-xs text-green-400';
+  else if(len<=hard) el.className='text-xs text-orange-400';
+  else el.className='text-xs text-red-400';
+}
+
+function renderOutput(){
+  var tags = allTags[currentTab] || [];
+  var html = tags.map(function(t, i){
+    return '<div class="tag-line">'
+      +'<code class="text-green-400 text-xs leading-5 break-all flex-1">'+escHtml(t.tag)+'</code>'
+      +'<button class="copy-line-btn bg-gray-700 hover:bg-indigo-600 text-white text-xs px-2 py-0.5 rounded transition" onclick="copyLine('+i+')" title="Copy">⎘</button>'
+      +'</div>';
+  }).join('');
+  document.getElementById('tag-output').innerHTML = html || '<p class="text-gray-600 text-xs">Fill in the fields on the left to generate tags.</p>';
+}
+
+function renderHealth(title, desc, canonical, ogImg){
+  var checks = [
+    {label:'Title length (50–60)', ok: title.length>=50&&title.length<=60, warn: title.length>0&&(title.length<50||title.length>60), msg: title.length===0?'Missing title':title.length<50?'Too short ('+title.length+')':title.length>60?'Too long ('+title.length+')':'✓ Good ('+title.length+')'},
+    {label:'Description (150–160)', ok: desc.length>=140&&desc.length<=165, warn: desc.length>0&&(desc.length<140||desc.length>165), msg: desc.length===0?'Missing description':desc.length<140?'Too short ('+desc.length+')':desc.length>165?'Too long ('+desc.length+')':'✓ Good ('+desc.length+')'},
+    {label:'Canonical URL', ok:!!canonical, msg: canonical?'✓ Set':'Not set'},
+    {label:'OG Image', ok:!!ogImg, msg: ogImg?'✓ Set':'Not set — social shares won\'t show an image'},
+  ];
+  document.getElementById('health-checks').innerHTML = checks.map(function(c){
+    var color = c.ok ? 'text-green-400' : c.warn ? 'text-yellow-400' : 'text-gray-500';
+    var dot = c.ok ? '●' : c.warn ? '◐' : '○';
+    return '<div class="flex justify-between gap-2"><span class="text-gray-400">'+c.label+'</span><span class="'+color+' font-mono shrink-0">'+dot+' '+c.msg+'</span></div>';
+  }).join('');
+}
+
+function switchTab(tab, btn){
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');b.classList.add('text-gray-500');b.classList.remove('text-gray-300');});
+  btn.classList.add('active','text-gray-300');btn.classList.remove('text-gray-500');
+  renderOutput();
+}
+
+function copyLine(i){
+  var tags = allTags[currentTab] || [];
+  if(tags[i]) navigator.clipboard.writeText(tags[i].tag);
+}
+
+function getAllTagsText(){
+  var parts = [];
+  if(allTags.seo&&allTags.seo.length) parts.push('<!-- Basic SEO -->\n'+allTags.seo.map(function(t){return t.tag;}).join('\n'));
+  if(allTags.og&&allTags.og.length) parts.push('\n<!-- Open Graph -->\n'+allTags.og.map(function(t){return t.tag;}).join('\n'));
+  if(allTags.tw&&allTags.tw.length) parts.push('\n<!-- Twitter Card -->\n'+allTags.tw.map(function(t){return t.tag;}).join('\n'));
+  return parts.join('\n');
+}
+
+function copyAll(){
+  var text = getAllTagsText();
+  if(!text) return;
+  navigator.clipboard.writeText(text);
+  var btn = document.getElementById('copy-all-btn');
+  btn.textContent='✅ Copied!'; btn.style.background='#16a34a';
+  setTimeout(function(){btn.textContent='Copy All Tags';btn.style.background='';},2000);
+}
+
+function downloadHtml(){
+  var text = getAllTagsText();
+  if(!text) return;
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text],{type:'text/html'}));
+  a.download='meta-tags.html'; a.click();
+}
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// init
+generate();
+</script>
+</body>
+</html>

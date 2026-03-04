@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Regex Tester – Live Regular Expression Tool | WebDesign001</title>
+<meta name="description" content="Test regular expressions live in your browser. See matches highlighted in real-time, capture groups, match count, and a cheat sheet. Free online regex tester."/>
+<link rel="canonical" href="https://webdesign001.net/regex-tester.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Cascadia+Code:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07060d;
+  --s1:#0d0b18;
+  --s2:#110f20;
+  --border:#1f1c35;
+  --accent:#a855f7;
+  --accent2:#ec4899;
+  --green:#4ade80;
+  --red:#f87171;
+  --yellow:#fbbf24;
+  --blue:#60a5fa;
+  --text:#e8e4f8;
+  --muted:#6b6490;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.mono{font-family:'Cascadia Code','Fira Code',monospace;}
+a{text-decoration:none;color:inherit;}
+
+.g1{background:linear-gradient(120deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* Regex input area */
+.regex-bar{
+  background:var(--s1);border:1px solid var(--border);border-radius:14px;
+  display:flex;align-items:center;padding:6px 14px;gap:8px;
+  transition:border-color .2s;
+}
+.regex-bar:focus-within{border-color:var(--accent);}
+.regex-slash{color:var(--accent);font-size:20px;font-weight:300;font-family:'Cascadia Code',monospace;}
+.regex-input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:'Cascadia Code',monospace;font-size:16px;color:var(--text);
+  padding:6px 0;
+}
+.regex-input::placeholder{color:var(--muted);}
+.flags-wrap{display:flex;gap:4px;}
+.flag-btn{
+  width:28px;height:28px;border-radius:7px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Cascadia Code',monospace;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;
+}
+.flag-btn.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+.flag-btn:hover:not(.on){border-color:var(--accent);color:var(--accent);}
+
+/* Test input */
+.test-area{
+  position:relative;background:var(--s1);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;min-height:180px;
+}
+.test-area textarea{
+  position:relative;z-index:2;background:transparent;width:100%;border:none;outline:none;resize:none;
+  padding:14px;font-family:'Cascadia Code',monospace;font-size:13px;line-height:1.8;
+  color:transparent;caret-color:var(--text);min-height:180px;
+}
+.test-highlight{
+  position:absolute;inset:0;padding:14px;font-family:'Cascadia Code',monospace;font-size:13px;
+  line-height:1.8;color:var(--text);pointer-events:none;white-space:pre-wrap;word-break:break-word;z-index:1;overflow:hidden;
+}
+mark.m0{background:#a855f730;border-radius:3px;outline:2px solid #a855f770;}
+mark.m1{background:#ec489930;border-radius:3px;outline:2px solid #ec489970;}
+mark.m2{background:#60a5fa30;border-radius:3px;outline:2px solid #60a5fa70;}
+mark.m3{background:#4ade8030;border-radius:3px;outline:2px solid #4ade8070;}
+mark.m4{background:#fbbf2430;border-radius:3px;outline:2px solid #fbbf2470;}
+
+/* Match result cards */
+.match-card{
+  background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;
+  margin-bottom:8px;border-left:3px solid var(--accent);
+}
+.match-card:nth-child(2n){border-left-color:var(--accent2);}
+.match-card:nth-child(3n){border-left-color:var(--blue);}
+.match-card:nth-child(4n){border-left-color:var(--green);}
+
+/* Status */
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-green{background:var(--green);}
+.dot-red{background:var(--red);}
+.dot-grey{background:var(--muted);}
+
+/* Cheat sheet */
+.cheat-item{
+  display:flex;align-items:flex-start;gap:10px;padding:8px 0;
+  border-bottom:1px solid var(--border);font-size:12px;
+}
+.cheat-item:last-child{border-bottom:none;}
+.cheat-code{
+  background:#1a1530;border:1px solid var(--border);padding:2px 8px;border-radius:6px;
+  font-family:'Cascadia Code',monospace;color:var(--accent);font-size:11px;white-space:nowrap;flex-shrink:0;
+  cursor:pointer;transition:background .15s;
+}
+.cheat-code:hover{background:#2a1d50;border-color:var(--accent);}
+.cheat-desc{color:var(--muted);line-height:1.5;}
+
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fs{animation:fadeSlide .25s ease forwards;}
+</style>
+</head>
+<body>
+
+<nav style="background:#07060d;border-bottom:1px solid var(--border);">
+  <div style="max-width:1280px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <a href="index.html" style="display:flex;align-items:center;gap:8px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#a855f7,#ec4899);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;">W</div>
+      <span style="font-weight:800;font-size:17px;"><span class="g1">WebDesign</span><span style="color:#3d3660;">001</span></span>
+    </a>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);">
+      <a href="html-formatter.html" style="transition:color .15s;">HTML</a>
+      <a href="css-minifier.html" style="transition:color .15s;">CSS</a>
+      <a href="regex-tester.html" style="color:var(--accent);font-weight:700;">Regex</a>
+      <a href="json-formatter.html" style="transition:color .15s;">JSON</a>
+      <a href="meta-tag-generator.html" style="transition:color .15s;">Meta Tags</a>
+      <a href="sitemap-generator.html" style="transition:color .15s;">Sitemap</a>
+    </div>
+    <a href="index.html" style="background:linear-gradient(135deg,#a855f7,#ec4899);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;">All Tools</a>
+  </div>
+</nav>
+
+<main style="max-width:1280px;margin:0 auto;padding:36px 20px;">
+
+  <div class="fs" style="margin-bottom:28px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#a855f71a;border:1px solid #a855f740;color:var(--accent);font-size:11px;font-weight:700;padding:4px 14px;border-radius:999px;margin-bottom:14px;letter-spacing:.06em;">.* Regex Tool</div>
+    <h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:10px;">Live Regex <span class="g1">Tester</span></h1>
+    <p style="color:var(--muted);max-width:600px;line-height:1.7;font-size:14px;">Write a regular expression and see matches highlighted in real-time. View capture groups, named groups, and match positions. Click cheat sheet items to insert them.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:20px;" id="main-grid">
+
+    <!-- LEFT -->
+    <div>
+      <!-- Regex input -->
+      <div class="fs" style="margin-bottom:14px;animation-delay:.05s;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">Regular Expression</div>
+        <div class="regex-bar">
+          <span class="regex-slash">/</span>
+          <input id="regex" class="regex-input" placeholder="[a-z]+" oninput="test()" spellcheck="false" autocomplete="off"/>
+          <span class="regex-slash">/</span>
+          <div class="flags-wrap">
+            <button class="flag-btn on" id="flag-g" onclick="toggleFlag('g')" title="Global">g</button>
+            <button class="flag-btn on" id="flag-i" onclick="toggleFlag('i')" title="Case insensitive">i</button>
+            <button class="flag-btn" id="flag-m" onclick="toggleFlag('m')" title="Multiline">m</button>
+            <button class="flag-btn" id="flag-s" onclick="toggleFlag('s')" title="Dot all">s</button>
+          </div>
+        </div>
+        <!-- Error/status -->
+        <div id="regex-status" style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px;color:var(--muted);">
+          <div class="status-dot dot-grey"></div>
+          <span>Enter a pattern above</span>
+        </div>
+      </div>
+
+      <!-- Test string -->
+      <div class="fs" style="margin-bottom:14px;animation-delay:.08s;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;">Test String</div>
+          <div style="display:flex;gap:8px;">
+            <button onclick="loadSample('email')" style="background:#1a1530;border:1px solid var(--border);color:var(--muted);padding:3px 10px;border-radius:7px;font-size:11px;cursor:pointer;font-family:'Exo 2',sans-serif;">Emails</button>
+            <button onclick="loadSample('url')" style="background:#1a1530;border:1px solid var(--border);color:var(--muted);padding:3px 10px;border-radius:7px;font-size:11px;cursor:pointer;font-family:'Exo 2',sans-serif;">URLs</button>
+            <button onclick="loadSample('code')" style="background:#1a1530;border:1px solid var(--border);color:var(--muted);padding:3px 10px;border-radius:7px;font-size:11px;cursor:pointer;font-family:'Exo 2',sans-serif;">Code</button>
+          </div>
+        </div>
+        <div class="test-area">
+          <div id="highlight-layer" class="test-highlight mono"></div>
+          <textarea id="teststr" class="mono" placeholder="Paste your test string here…" oninput="syncScroll();test()" onscroll="syncScroll()" spellcheck="false"></textarea>
+        </div>
+      </div>
+
+      <!-- Match results -->
+      <div class="fs" style="animation-delay:.12s;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;">
+          Matches <span id="match-count" style="color:var(--accent);margin-left:6px;">0</span>
+        </div>
+        <div id="match-list" style="max-height:260px;overflow-y:auto;"></div>
+        <div id="match-empty" style="color:var(--muted);font-size:13px;padding:20px 0;text-align:center;">No matches yet — enter a pattern and test string above.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Cheat sheet -->
+    <div class="fs" style="animation-delay:.1s;">
+      <div style="background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:18px;position:sticky;top:80px;max-height:calc(100vh - 120px);overflow-y:auto;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Quick Reference</div>
+
+        <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px;margin-top:10px;">Characters</div>
+        <div id="cheat-sheet"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer style="background:#07060d;border-top:1px solid var(--border);padding:24px 20px;margin-top:40px;text-align:center;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;">
+    <div style="width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#a855f7,#ec4899);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;">W</div>
+    <span style="font-weight:800;"><span class="g1">WebDesign</span><span style="color:#3d3660;">001.net</span></span>
+  </a>
+  <p style="color:var(--muted);font-size:13px;">Free online web design and coding tools.</p>
+</footer>
+
+<script>
+var flags = {g:true, i:true, m:false, s:false};
+var HIGHLIGHT_COLORS = ['m0','m1','m2','m3','m4'];
+
+var CHEAT = [
+  {cat:'Characters', items:[
+    {p:'.', d:'Any character (except newline)'},
+    {p:'\\w', d:'Word character [a-zA-Z0-9_]'},
+    {p:'\\d', d:'Digit [0-9]'},
+    {p:'\\s', d:'Whitespace (space, tab, newline)'},
+    {p:'\\W', d:'Non-word character'},
+    {p:'\\D', d:'Non-digit'},
+    {p:'\\S', d:'Non-whitespace'},
+    {p:'\\n', d:'Newline'},
+    {p:'\\t', d:'Tab'},
+  ]},
+  {cat:'Quantifiers', items:[
+    {p:'*', d:'0 or more'},
+    {p:'+', d:'1 or more'},
+    {p:'?', d:'0 or 1 (optional)'},
+    {p:'{3}', d:'Exactly 3'},
+    {p:'{2,5}', d:'Between 2 and 5'},
+    {p:'*?', d:'Non-greedy (lazy)'},
+  ]},
+  {cat:'Anchors', items:[
+    {p:'^', d:'Start of string/line'},
+    {p:'$', d:'End of string/line'},
+    {p:'\\b', d:'Word boundary'},
+    {p:'\\B', d:'Non-word boundary'},
+  ]},
+  {cat:'Groups', items:[
+    {p:'(abc)', d:'Capture group'},
+    {p:'(?:abc)', d:'Non-capturing group'},
+    {p:'(?<name>)', d:'Named capture group'},
+    {p:'(?=abc)', d:'Positive lookahead'},
+    {p:'(?!abc)', d:'Negative lookahead'},
+    {p:'(?<=abc)', d:'Positive lookbehind'},
+    {p:'a|b', d:'Alternation (a or b)'},
+  ]},
+  {cat:'Character Classes', items:[
+    {p:'[abc]', d:'a, b, or c'},
+    {p:'[^abc]', d:'Not a, b, or c'},
+    {p:'[a-z]', d:'Lowercase a to z'},
+    {p:'[A-Z]', d:'Uppercase A to Z'},
+    {p:'[0-9]', d:'Digits 0 to 9'},
+  ]},
+];
+
+// Build cheat sheet
+var csHtml = '';
+CHEAT.forEach(function(section){
+  csHtml += '<div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:6px;margin-top:14px;">'+section.cat+'</div>';
+  section.items.forEach(function(item){
+    csHtml += '<div class="cheat-item">'
+      +'<span class="cheat-code" onclick="insertPattern(\''+item.p.replace(/'/g,"\\'")+'\')" title="Click to insert">'+escHtml(item.p)+'</span>'
+      +'<span class="cheat-desc">'+item.d+'</span>'
+      +'</div>';
+  });
+});
+document.getElementById('cheat-sheet').innerHTML = csHtml;
+
+function toggleFlag(f){
+  flags[f] = !flags[f];
+  document.getElementById('flag-'+f).classList.toggle('on', flags[f]);
+  test();
+}
+
+function getFlags(){
+  return Object.keys(flags).filter(function(f){ return flags[f]; }).join('');
+}
+
+function insertPattern(p){
+  var el = document.getElementById('regex');
+  var start = el.selectionStart;
+  var val = el.value;
+  el.value = val.slice(0,start)+p+val.slice(el.selectionEnd);
+  el.selectionStart = el.selectionEnd = start+p.length;
+  el.focus();
+  test();
+}
+
+function test(){
+  var pat = document.getElementById('regex').value;
+  var str = document.getElementById('teststr').value;
+  var status = document.getElementById('regex-status');
+
+  if(!pat){
+    setStatus('grey','Enter a pattern above');
+    document.getElementById('highlight-layer').textContent = str;
+    document.getElementById('match-list').innerHTML='';
+    document.getElementById('match-count').textContent='0';
+    document.getElementById('match-empty').style.display='block';
+    return;
+  }
+
+  var re;
+  try{
+    re = new RegExp(pat, getFlags());
+  } catch(e){
+    setStatus('red','Error: '+e.message);
+    document.getElementById('highlight-layer').textContent = str;
+    document.getElementById('match-list').innerHTML='';
+    document.getElementById('match-empty').style.display='block';
+    return;
+  }
+
+  // Find all matches
+  var matches = [];
+  if(flags.g){
+    var m;
+    re.lastIndex = 0;
+    while((m = re.exec(str)) !== null){
+      matches.push(m);
+      if(m[0].length===0) re.lastIndex++;
+      if(matches.length > 1000) break;
+    }
+  } else {
+    var m = re.exec(str);
+    if(m) matches.push(m);
+  }
+
+  document.getElementById('match-count').textContent = matches.length;
+
+  if(matches.length === 0){
+    setStatus('red','No matches');
+    document.getElementById('highlight-layer').textContent = str;
+    document.getElementById('match-list').innerHTML='';
+    document.getElementById('match-empty').style.display='block';
+    return;
+  }
+
+  setStatus('green', matches.length + (matches.length===1?' match':' matches'));
+  buildHighlight(str, matches);
+  buildMatchList(matches);
+}
+
+function buildHighlight(str, matches){
+  var result = '';
+  var pos = 0;
+  matches.forEach(function(m, i){
+    var start = m.index;
+    var end = m.index + m[0].length;
+    if(start < pos) return;
+    result += escHtml(str.slice(pos, start));
+    result += '<mark class="'+HIGHLIGHT_COLORS[i % HIGHLIGHT_COLORS.length]+'">'+escHtml(m[0])+'</mark>';
+    pos = end;
+  });
+  result += escHtml(str.slice(pos));
+  document.getElementById('highlight-layer').innerHTML = result;
+}
+
+function buildMatchList(matches){
+  document.getElementById('match-empty').style.display = 'none';
+  var html = matches.map(function(m, i){
+    var groups = '';
+    if(m.length > 1){
+      groups = '<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;">';
+      for(var j=1;j<m.length;j++){
+        groups += '<span style="background:#1a1530;border:1px solid var(--border);padding:2px 8px;border-radius:6px;font-size:11px;font-family:\'Cascadia Code\',monospace;color:var(--blue);">Group '+j+': '+(m[j]!==undefined?escHtml(m[j]):'<i style="color:var(--muted)">undefined</i>')+'</span>';
+      }
+      groups += '</div>';
+    }
+    // Named groups
+    if(m.groups){
+      Object.keys(m.groups).forEach(function(k){
+        groups += '<span style="background:#1a1530;border:1px solid var(--border);padding:2px 8px;border-radius:6px;font-size:11px;font-family:\'Cascadia Code\',monospace;color:var(--green);">'+escHtml(k)+': '+escHtml(m.groups[k]||'')+'</span>';
+      });
+    }
+    return '<div class="match-card">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">'
+      +'<div style="font-family:\'Cascadia Code\',monospace;font-size:13px;color:var(--text);word-break:break-all;">'+escHtml(m[0])+'</div>'
+      +'<div style="font-size:11px;color:var(--muted);white-space:nowrap;">index '+m.index+'–'+(m.index+m[0].length)+'</div>'
+      +'</div>'
+      +groups
+      +'</div>';
+  }).join('');
+  document.getElementById('match-list').innerHTML = html;
+}
+
+function setStatus(type, msg){
+  var el = document.getElementById('regex-status');
+  var dot = el.querySelector('.status-dot');
+  dot.className = 'status-dot dot-'+type;
+  el.querySelector('span').textContent = msg;
+}
+
+function syncScroll(){
+  var ta = document.getElementById('teststr');
+  var hl = document.getElementById('highlight-layer');
+  hl.scrollTop = ta.scrollTop;
+  hl.scrollLeft = ta.scrollLeft;
+}
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>').replace(/ /g,'&nbsp;'); }
+
+var SAMPLES = {
+  email:{
+    pat:'[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}',
+    str:'Reach us at hello@example.com or support@webdesign001.net\nInvalid: not-an-email, @nodomain, noDot@com\nMore: jane.doe+filter@company.co.uk, user123@sub.domain.org'
+  },
+  url:{
+    pat:'https?:\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w.,@?^=%&:\\/~+#\\-]*[\\w@?^=%&\\/~+#\\-])?',
+    str:'Visit https://www.google.com or http://example.org/page?q=test&lang=en\nDocs at https://docs.webdesign001.net/api/v2#reference\nBlog: https://blog.example.com/posts/my-first-post-2025'
+  },
+  code:{
+    pat:'\\b(const|let|var|function|return|if|else|for|while|class)\\b',
+    str:'const greeting = "Hello, World!";\nfunction sayHello(name) {\n  if (name) {\n    return "Hello, " + name;\n  } else {\n    return greeting;\n  }\n}\nfor (let i = 0; i < 10; i++) {\n  console.log(i);\n}'
+  }
+};
+
+function loadSample(type){
+  var s = SAMPLES[type];
+  document.getElementById('regex').value = s.pat;
+  document.getElementById('teststr').value = s.str;
+  test();
+}
+
+// Responsive
+function fixGrid(){
+  var g=document.getElementById('main-grid');
+  g.style.gridTemplateColumns = window.innerWidth<900?'1fr':'1fr 340px';
+}
+window.addEventListener('resize',fixGrid); fixGrid();
+
+// Init
+test();
+</script>
+</body>
+</html>

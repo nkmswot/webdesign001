@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HTML Formatter & Beautifier – Free Online Tool | WebDesign001</title>
+<meta name="description" content="Beautify and format minified HTML instantly. Paste your HTML code and get clean, properly indented output. Free online HTML formatter and beautifier."/>
+<link rel="canonical" href="https://webdesign001.net/html-formatter.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0f1e;
+  --panel:#0d1526;
+  --border:#1a2540;
+  --accent:#38bdf8;
+  --accent2:#818cf8;
+  --green:#34d399;
+  --red:#f87171;
+  --text:#e2e8f0;
+  --muted:#64748b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Lexend',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.mono{font-family:'Fira Code',monospace;}
+a{text-decoration:none;color:inherit;}
+.gradient-text{background:linear-gradient(135deg,#38bdf8,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* Editor panels */
+.editor{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  height:480px;
+}
+.editor-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 16px;
+  background:#0a1020;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.editor-dots{display:flex;gap:6px;}
+.dot{width:11px;height:11px;border-radius:50%;}
+.dot-r{background:#f87171;}
+.dot-y{background:#fbbf24;}
+.dot-g{background:#34d399;}
+textarea,.code-out{
+  flex:1;
+  width:100%;
+  background:transparent;
+  border:none;
+  outline:none;
+  resize:none;
+  padding:16px;
+  font-family:'Fira Code',monospace;
+  font-size:12.5px;
+  line-height:1.7;
+  color:var(--text);
+  overflow:auto;
+}
+.code-out{
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+/* Syntax highlight tokens */
+.ht{color:#f472b6;}  /* tag */
+.ha{color:#fbbf24;}  /* attr name */
+.hv{color:#86efac;}  /* attr value */
+.hc{color:#6b7280; font-style:italic;} /* comment */
+.hd{color:#93c5fd;}  /* doctype */
+.hs{color:#e2e8f0;}  /* text */
+
+/* Controls */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:10px;font-size:12px;font-weight:600;font-family:'Lexend',sans-serif;cursor:pointer;border:none;transition:all .15s;}
+.btn-primary{background:var(--accent);color:#0a0f1e;}
+.btn-primary:hover{opacity:.85;}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2);}
+.btn-green{background:var(--green);color:#0a0f1e;}
+.btn-green:hover{opacity:.85;}
+
+/* Stats bar */
+.stats-bar{
+  display:flex;gap:20px;padding:10px 16px;
+  background:#0a1020;border-top:1px solid var(--border);
+  font-size:11px;color:var(--muted);flex-shrink:0;
+}
+.stat-val{color:var(--accent);font-weight:600;margin-left:4px;}
+
+/* Nav */
+nav{background:#080d1a;border-bottom:1px solid var(--border);}
+
+/* Options row */
+.opt-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.opt-label{font-size:12px;color:var(--muted);}
+.opt-select{background:#0d1526;border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:12px;font-family:'Lexend',sans-serif;cursor:pointer;outline:none;}
+.opt-select:focus{border-color:var(--accent);}
+.toggle-opt{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;}
+.toggle-opt input{accent-color:var(--accent);width:14px;height:14px;}
+
+/* Status */
+.status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;}
+.status-ok{background:#052e16;color:#34d399;border:1px solid #166534;}
+.status-err{background:#2d0808;color:#f87171;border:1px solid #7f1d1d;}
+.status-idle{background:#1e1b4b;color:#818cf8;border:1px solid #3730a3;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeIn .25s ease forwards;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pulsing{animation:pulse 1s infinite;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div style="max-width:1280px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <a href="index.html" style="display:flex;align-items:center;gap:8px;">
+      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#38bdf8,#818cf8);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">W</div>
+      <span style="font-weight:800;font-size:17px;"><span class="gradient-text">WebDesign</span><span style="color:#475569;">001</span></span>
+    </a>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);">
+      <a href="html-formatter.html" style="color:var(--accent);font-weight:600;">HTML</a>
+      <a href="css-minifier.html" class="hover:text-sky-400" style="transition:color .15s;">CSS</a>
+      <a href="regex-tester.html" style="transition:color .15s;">Regex</a>
+      <a href="json-formatter.html" style="transition:color .15s;">JSON</a>
+      <a href="meta-tag-generator.html" style="transition:color .15s;">Meta Tags</a>
+      <a href="sitemap-generator.html" style="transition:color .15s;">Sitemap</a>
+      <a href="schema-generator.html" style="transition:color .15s;">Schema</a>
+    </div>
+    <a href="index.html" style="background:var(--accent2);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;">All Tools</a>
+  </div>
+</nav>
+
+<main style="max-width:1280px;margin:0 auto;padding:36px 20px;">
+
+  <!-- Header -->
+  <div class="fade" style="margin-bottom:28px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#0d1a2e;border:1px solid #1a3050;color:var(--accent);font-size:11px;font-weight:700;padding:4px 14px;border-radius:999px;margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase;">⟨/⟩ Code Tool</div>
+    <h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:10px;">HTML <span class="gradient-text">Formatter</span></h1>
+    <p style="color:var(--muted);max-width:580px;line-height:1.7;font-size:14px;">Paste minified or messy HTML and instantly get clean, beautifully indented code. Supports custom indent size, attribute formatting, and live syntax highlighting.</p>
+  </div>
+
+  <!-- Options bar -->
+  <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;" class="fade">
+    <div class="opt-row">
+      <span class="opt-label">Indent:</span>
+      <select class="opt-select" id="opt-indent" onchange="formatHTML()">
+        <option value="2">2 spaces</option>
+        <option value="4" selected>4 spaces</option>
+        <option value="tab">Tab</option>
+      </select>
+      <label class="toggle-opt"><input type="checkbox" id="opt-attrs" onchange="formatHTML()" checked/> Wrap long attrs</label>
+      <label class="toggle-opt"><input type="checkbox" id="opt-comments" onchange="formatHTML()" checked/> Preserve comments</label>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span id="status-badge" class="status-badge status-idle">Ready</span>
+    </div>
+  </div>
+
+  <!-- Editors -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;">
+
+    <!-- Input -->
+    <div class="editor fade" style="animation-delay:.05s;">
+      <div class="editor-header">
+        <div class="editor-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.06em;">INPUT · HTML</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" onclick="loadSample()" style="padding:4px 10px;font-size:11px;">Sample</button>
+          <button class="btn btn-ghost" onclick="clearInput()" style="padding:4px 10px;font-size:11px;">Clear</button>
+        </div>
+      </div>
+      <textarea id="input" class="mono" placeholder="Paste your HTML here…" oninput="formatHTML()" spellcheck="false"></textarea>
+      <div class="stats-bar">
+        <span>Lines <span class="stat-val" id="in-lines">0</span></span>
+        <span>Chars <span class="stat-val" id="in-chars">0</span></span>
+        <span>Size <span class="stat-val" id="in-size">0 B</span></span>
+      </div>
+    </div>
+
+    <!-- Arrow + Format btn -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 14px;">
+      <button class="btn btn-primary" onclick="formatHTML()" id="fmt-btn" style="writing-mode:horizontal-tb;white-space:nowrap;">
+        Format →
+      </button>
+      <button class="btn btn-ghost" onclick="copyOutput()" id="copy-btn" style="padding:6px 12px;font-size:11px;white-space:nowrap;">
+        ⎘ Copy
+      </button>
+      <button class="btn" onclick="downloadOutput()" style="background:#1e293b;color:var(--muted);padding:6px 12px;font-size:11px;border:1px solid var(--border);border-radius:10px;white-space:nowrap;">
+        ⬇ .html
+      </button>
+    </div>
+
+    <!-- Output -->
+    <div class="editor fade" style="animation-delay:.1s;">
+      <div class="editor-header">
+        <div class="editor-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.06em;">OUTPUT · FORMATTED</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" onclick="swapIO()" style="padding:4px 10px;font-size:11px;">⇄ Swap</button>
+          <button class="btn btn-ghost" onclick="minifyHTML()" style="padding:4px 10px;font-size:11px;">Minify</button>
+        </div>
+      </div>
+      <div id="output" class="code-out mono" style="user-select:all;"></div>
+      <div class="stats-bar">
+        <span>Lines <span class="stat-val" id="out-lines">0</span></span>
+        <span>Chars <span class="stat-val" id="out-chars">0</span></span>
+        <span>Saved <span class="stat-val" id="out-saved" style="color:var(--green);">—</span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Info cards -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px;" class="fade">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">🧹</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:14px;">Smart Indentation</div>
+      <div style="color:var(--muted);font-size:12px;line-height:1.7;">Properly nests block and inline elements with your choice of 2 spaces, 4 spaces, or tabs.</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">🎨</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:14px;">Syntax Highlighting</div>
+      <div style="color:var(--muted);font-size:12px;line-height:1.7;">Tags, attributes, values, and comments are colour-coded for instant readability.</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">⚡</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:14px;">Instant + Private</div>
+      <div style="color:var(--muted);font-size:12px;line-height:1.7;">All processing happens in your browser — nothing is sent to any server.</div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;">
+      <div style="font-size:20px;margin-bottom:8px;">↔️</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:14px;">Minify Mode</div>
+      <div style="color:var(--muted);font-size:12px;line-height:1.7;">Switch to minify mode to strip whitespace and produce the smallest possible HTML for production.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer style="background:#080d1a;border-top:1px solid var(--border);padding:28px 20px;margin-top:40px;text-align:center;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;">
+    <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#38bdf8,#818cf8);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;">W</div>
+    <span style="font-weight:800;"><span class="gradient-text">WebDesign</span><span style="color:#475569;">001.net</span></span>
+  </a>
+  <p style="color:var(--muted);font-size:13px;">Free online web design and coding tools.</p>
+</footer>
+
+<script>
+var lastFormatted = '';
+
+var SAMPLE = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Sample Page</title><link rel="stylesheet" href="styles.css"/></head><body><header class="site-header"><nav><ul><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></nav></header><main><section class="hero"><h1>Welcome to My Site</h1><p>This is a sample paragraph with some <strong>bold</strong> and <em>italic</em> text.</p><button onclick="alert('Hello!')">Click Me</button></section></main><footer><p>&copy; 2025 My Site</p></footer></body></html>`;
+
+function getIndent(){
+  var v = document.getElementById('opt-indent').value;
+  return v === 'tab' ? '\t' : ' '.repeat(parseInt(v));
+}
+
+function formatHTML(){
+  var raw = document.getElementById('input').value;
+  updateInStats(raw);
+  if(!raw.trim()){ setOut('','',''); setStatus('idle','Ready'); return; }
+
+  try {
+    var formatted = beautifyHTML(raw, getIndent());
+    lastFormatted = formatted;
+    var highlighted = highlight(formatted);
+    document.getElementById('output').innerHTML = highlighted;
+    updateOutStats(formatted, raw);
+    setStatus('ok','✓ Formatted');
+  } catch(e){
+    setStatus('err','Error: '+e.message);
+  }
+}
+
+function beautifyHTML(html, indent){
+  // Normalize line endings, collapse whitespace between tags
+  html = html.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+
+  var INLINE = new Set(['a','abbr','acronym','b','bdo','big','br','button','cite','code','dfn','em','i','img','input','kbd','label','map','object','output','q','s','samp','select','small','span','strong','sub','sup','textarea','time','tt','u','var']);
+  var VOID = new Set(['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr']);
+  var PRESERVE = new Set(['script','style','pre','textarea','code']);
+
+  var result = [];
+  var depth = 0;
+  var pos = 0;
+  var len = html.length;
+  var preserveDepth = -1;
+
+  function pushLine(s){
+    if(!s.trim()) return;
+    if(preserveDepth >= 0){
+      result.push(s);
+    } else {
+      result.push(indent.repeat(depth) + s.trim());
+    }
+  }
+
+  while(pos < len){
+    // Comment
+    if(html.startsWith('<!--', pos)){
+      var end = html.indexOf('-->', pos);
+      if(end === -1) end = len - 3;
+      var comment = html.slice(pos, end+3);
+      if(document.getElementById('opt-comments').checked){
+        pushLine(comment);
+      }
+      pos = end+3;
+      continue;
+    }
+    // Doctype
+    if(html.startsWith('<!', pos)){
+      var end = html.indexOf('>', pos);
+      pushLine(html.slice(pos, end+1));
+      pos = end+1;
+      continue;
+    }
+    // Tag
+    if(html[pos] === '<'){
+      var end = html.indexOf('>', pos);
+      if(end === -1){ pos++; continue; }
+
+      // Check for self-closing or void
+      var tag = html.slice(pos, end+1);
+      var selfClose = tag.endsWith('/>');
+      var tagName = (tag.match(/<\/?([a-zA-Z][a-zA-Z0-9-]*)/)||[])[1];
+      var tn = (tagName||'').toLowerCase();
+      var isClose = tag.startsWith('</');
+      var isVoid = VOID.has(tn);
+
+      if(preserveDepth >= 0){
+        result.push(tag);
+        if(isClose && tn === preserveTag){
+          preserveDepth = -1;
+          depth--;
+        }
+        pos = end+1;
+        continue;
+      }
+
+      if(isClose){
+        depth = Math.max(0, depth-1);
+        if(!INLINE.has(tn)) pushLine(tag);
+        else result[result.length-1] = (result[result.length-1]||'') + tag;
+      } else if(isVoid || selfClose){
+        pushLine(tag);
+      } else {
+        pushLine(tag);
+        if(!INLINE.has(tn)){
+          if(PRESERVE.has(tn)){
+            preserveDepth = depth;
+            preserveTag = tn;
+          }
+          depth++;
+        }
+      }
+      pos = end+1;
+      continue;
+    }
+
+    // Text content
+    var nextTag = html.indexOf('<', pos);
+    if(nextTag === -1) nextTag = len;
+    var text = html.slice(pos, nextTag);
+    var trimmed = text.trim();
+    if(trimmed) pushLine(trimmed);
+    pos = nextTag;
+  }
+
+  return result.join('\n');
+}
+
+function highlight(code){
+  return code
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    // restore for replacement
+    .replace(/&lt;!--[\s\S]*?--&gt;/g, function(m){ return '<span class="hc">'+m+'</span>'; })
+    .replace(/&lt;!(DOCTYPE[^&]*)&gt;/gi, function(m){ return '<span class="hd">'+m+'</span>'; })
+    .replace(/(&lt;\/?)([\w-]+)((?:\s+[\w-:]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s&>]+))?)*\s*\/?)(&gt;)/g, function(m, open, tag, attrs, close){
+      var attrH = attrs.replace(/([\w-:]+)(\s*=\s*)("([^"]*)")/g, '<span class="ha">$1</span><span class="hs">$2</span><span class="hv">"$4"</span>');
+      return '<span class="ht">'+open+'<b>'+tag+'</b>'+attrH+close+'</span>';
+    });
+}
+
+function minifyHTML(){
+  var raw = document.getElementById('input').value || lastFormatted;
+  if(!raw.trim()) return;
+  var min = raw
+    .replace(/<!--[\s\S]*?-->/g,'')
+    .replace(/\s+/g,' ')
+    .replace(/>\s+</g,'><')
+    .trim();
+  document.getElementById('output').innerHTML = highlight(escHtml(min));
+  lastFormatted = min;
+  updateOutStats(min, raw);
+  setStatus('ok','✓ Minified');
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function updateInStats(raw){
+  document.getElementById('in-lines').textContent = raw ? raw.split('\n').length : 0;
+  document.getElementById('in-chars').textContent = raw.length.toLocaleString();
+  document.getElementById('in-size').textContent = formatBytes(new Blob([raw]).size);
+}
+
+function updateOutStats(formatted, original){
+  document.getElementById('out-lines').textContent = formatted ? formatted.split('\n').length : 0;
+  document.getElementById('out-chars').textContent = formatted.length.toLocaleString();
+  var saved = original.length - formatted.length;
+  var el = document.getElementById('out-saved');
+  if(saved > 0){ el.textContent = '−'+formatBytes(saved); el.style.color='var(--red)'; }
+  else if(saved < 0){ el.textContent = '+'+formatBytes(Math.abs(saved)); el.style.color='var(--green)'; }
+  else { el.textContent = '—'; el.style.color='var(--muted)'; }
+}
+
+function setOut(html,a,b){ document.getElementById('output').innerHTML=html; }
+
+function setStatus(type, msg){
+  var el = document.getElementById('status-badge');
+  el.className = 'status-badge status-'+type;
+  el.textContent = msg;
+}
+
+function formatBytes(b){
+  if(b<1024) return b+' B';
+  return (b/1024).toFixed(1)+' KB';
+}
+
+function copyOutput(){
+  if(!lastFormatted) return;
+  navigator.clipboard.writeText(lastFormatted);
+  var btn = document.getElementById('copy-btn');
+  btn.textContent='✅ Copied!';
+  setTimeout(function(){ btn.textContent='⎘ Copy'; },2000);
+}
+
+function downloadOutput(){
+  if(!lastFormatted) return;
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([lastFormatted],{type:'text/html'}));
+  a.download='formatted.html'; a.click();
+}
+
+function clearInput(){
+  document.getElementById('input').value='';
+  document.getElementById('output').innerHTML='';
+  lastFormatted='';
+  updateInStats('');
+  updateOutStats('','');
+  setStatus('idle','Ready');
+}
+
+function swapIO(){
+  if(!lastFormatted) return;
+  document.getElementById('input').value = lastFormatted;
+  formatHTML();
+}
+
+function loadSample(){
+  document.getElementById('input').value = SAMPLE;
+  formatHTML();
+}
+
+// Responsive layout
+function fixLayout(){
+  var grid = document.querySelector('div[style*="grid-template-columns:1fr auto 1fr"]');
+  if(window.innerWidth < 900){
+    grid.style.gridTemplateColumns = '1fr';
+    grid.style.gap = '12px';
+    var arrow = grid.children[1];
+    arrow.style.flexDirection = 'row';
+    arrow.style.padding = '0';
+  }
+}
+window.addEventListener('resize', fixLayout);
+fixLayout();
+</script>
+</body>
+</html>

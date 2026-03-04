@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>.htaccess Generator – Apache Config Tool | WebDesign001</title>
+<meta name="description" content="Generate a custom .htaccess file for Apache — HTTPS redirects, www/non-www, custom 404, caching, gzip, hotlink protection, password protect and more."/>
+<link rel="canonical" href="https://webdesign001.net/htaccess-generator.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;}
+body{font-family:'Barlow',sans-serif;}
+.mono{font-family:'Inconsolata',monospace;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+a{text-decoration:none;}
+.toggle-card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:16px 20px;cursor:pointer;transition:all .2s;user-select:none;}
+.toggle-card:hover{border-color:#374151;}
+.toggle-card.enabled{border-color:#4f46e5;background:#1e1b4b10;}
+.toggle{width:44px;height:24px;background:#374151;border-radius:999px;position:relative;transition:background .2s;flex-shrink:0;}
+.toggle.on{background:#4f46e5;}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .2s;}
+.toggle.on::after{transform:translateX(20px);}
+.sub-options{display:none;margin-top:12px;padding-top:12px;border-top:1px solid #1f2937;}
+.sub-options.visible{display:block;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.slide-down{animation:slideDown .2s ease forwards;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
+      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+    </a>
+    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
+      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
+      <a href="meta-tag-generator.html" class="hover:text-indigo-400 transition">Meta Tags</a>
+      <a href="og-preview.html" class="hover:text-indigo-400 transition">OG Preview</a>
+      <a href="schema-generator.html" class="hover:text-indigo-400 transition">Schema</a>
+      <a href="htaccess-generator.html" class="text-indigo-400 font-semibold">HTAccess</a>
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
+    </div>
+    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 py-12">
+
+  <div class="mb-10">
+    <div class="inline-flex items-center gap-2 bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1 rounded-full mb-4">⚙️ Apache Config</div>
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-3">.htaccess <span class="gradient-text">Generator</span></h1>
+    <p class="text-gray-400 max-w-2xl">Toggle the rules you need, fill in any required values, and download your custom <code class="text-indigo-300 bg-gray-800 px-1.5 py-0.5 rounded">.htaccess</code> file ready to upload to your Apache server root.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- LEFT: Options -->
+    <div class="space-y-3">
+
+      <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Redirects & URL</h2>
+
+      <!-- HTTPS redirect -->
+      <div class="toggle-card" id="card-https" onclick="toggle('https')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Force HTTPS</div>
+            <div class="text-xs text-gray-500 mt-0.5">Redirect all HTTP traffic to HTTPS</div>
+          </div>
+          <div class="toggle" id="tog-https"></div>
+        </div>
+      </div>
+
+      <!-- www / non-www -->
+      <div class="toggle-card" id="card-www" onclick="toggle('www')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">www ↔ non-www Redirect</div>
+            <div class="text-xs text-gray-500 mt-0.5">Canonicalise your domain</div>
+          </div>
+          <div class="toggle" id="tog-www"></div>
+        </div>
+        <div class="sub-options" id="sub-www">
+          <div class="flex gap-4 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="www-dir" value="to-www" class="accent-indigo-500" onchange="gen()"/> Force www</label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="www-dir" value="to-nowww" class="accent-indigo-500" checked onchange="gen()"/> Remove www</label>
+          </div>
+          <div class="mt-2">
+            <label class="text-xs text-gray-400 block mb-1">Your domain (without www)</label>
+            <input type="text" id="www-domain" placeholder="example.com" oninput="gen()"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500" onclick="event.stopPropagation()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trailing slash -->
+      <div class="toggle-card" id="card-slash" onclick="toggle('slash')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Remove Trailing Slash</div>
+            <div class="text-xs text-gray-500 mt-0.5">Redirect /page/ → /page (301)</div>
+          </div>
+          <div class="toggle" id="tog-slash"></div>
+        </div>
+      </div>
+
+      <!-- Custom 404 -->
+      <div class="toggle-card" id="card-404" onclick="toggle('404')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Custom Error Pages</div>
+            <div class="text-xs text-gray-500 mt-0.5">404, 403, 500 error documents</div>
+          </div>
+          <div class="toggle" id="tog-404"></div>
+        </div>
+        <div class="sub-options" id="sub-404">
+          <div class="space-y-2" onclick="event.stopPropagation()">
+            <div class="flex items-center gap-2"><span class="text-xs text-gray-400 w-8">404</span><input type="text" id="err-404" value="/404.html" oninput="gen()" class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500"/></div>
+            <div class="flex items-center gap-2"><span class="text-xs text-gray-400 w-8">403</span><input type="text" id="err-403" value="/403.html" oninput="gen()" class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500"/></div>
+            <div class="flex items-center gap-2"><span class="text-xs text-gray-400 w-8">500</span><input type="text" id="err-500" value="/500.html" oninput="gen()" class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500"/></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom redirect -->
+      <div class="toggle-card" id="card-redirect" onclick="toggle('redirect')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Custom Redirects</div>
+            <div class="text-xs text-gray-500 mt-0.5">Add 301/302 redirect rules</div>
+          </div>
+          <div class="toggle" id="tog-redirect"></div>
+        </div>
+        <div class="sub-options" id="sub-redirect">
+          <div id="redirect-list" class="space-y-2 mb-2"></div>
+          <button onclick="addRedirect();event.stopPropagation()" class="text-xs text-indigo-400 hover:underline">+ Add Redirect</button>
+        </div>
+      </div>
+
+      <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-4 mb-1">Performance</h2>
+
+      <!-- Gzip -->
+      <div class="toggle-card" id="card-gzip" onclick="toggle('gzip')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Enable GZIP Compression</div>
+            <div class="text-xs text-gray-500 mt-0.5">Compress HTML, CSS, JS, fonts for faster loads</div>
+          </div>
+          <div class="toggle" id="tog-gzip"></div>
+        </div>
+      </div>
+
+      <!-- Browser caching -->
+      <div class="toggle-card" id="card-cache" onclick="toggle('cache')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Browser Caching</div>
+            <div class="text-xs text-gray-500 mt-0.5">Set Expires headers for static assets</div>
+          </div>
+          <div class="toggle" id="tog-cache"></div>
+        </div>
+      </div>
+
+      <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-4 mb-1">Security</h2>
+
+      <!-- Hotlink protection -->
+      <div class="toggle-card" id="card-hotlink" onclick="toggle('hotlink')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Hotlink Protection</div>
+            <div class="text-xs text-gray-500 mt-0.5">Block other sites from embedding your images</div>
+          </div>
+          <div class="toggle" id="tog-hotlink"></div>
+        </div>
+        <div class="sub-options" id="sub-hotlink">
+          <div onclick="event.stopPropagation()">
+            <label class="text-xs text-gray-400 block mb-1">Your domain</label>
+            <input type="text" id="hl-domain" placeholder="example.com" oninput="gen()"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Directory listing -->
+      <div class="toggle-card" id="card-dirlist" onclick="toggle('dirlist')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Disable Directory Listing</div>
+            <div class="text-xs text-gray-500 mt-0.5">Prevent listing of folder contents</div>
+          </div>
+          <div class="toggle" id="tog-dirlist"></div>
+        </div>
+      </div>
+
+      <!-- Block bad bots -->
+      <div class="toggle-card" id="card-bots" onclick="toggle('bots')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Block Bad Bots</div>
+            <div class="text-xs text-gray-500 mt-0.5">Block common scrapers and bad user-agents</div>
+          </div>
+          <div class="toggle" id="tog-bots"></div>
+        </div>
+      </div>
+
+      <!-- Block IPs -->
+      <div class="toggle-card" id="card-blockip" onclick="toggle('blockip')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Block IP Addresses</div>
+            <div class="text-xs text-gray-500 mt-0.5">Deny access from specific IPs</div>
+          </div>
+          <div class="toggle" id="tog-blockip"></div>
+        </div>
+        <div class="sub-options" id="sub-blockip">
+          <div onclick="event.stopPropagation()">
+            <label class="text-xs text-gray-400 block mb-1">IPs to block (one per line)</label>
+            <textarea id="blockip-list" rows="3" placeholder="192.168.1.1&#10;10.0.0.5" oninput="gen()"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-indigo-500 resize-none mono"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password protect -->
+      <div class="toggle-card" id="card-passwd" onclick="toggle('passwd')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Password Protect Directory</div>
+            <div class="text-xs text-gray-500 mt-0.5">Basic HTTP auth for a folder</div>
+          </div>
+          <div class="toggle" id="tog-passwd"></div>
+        </div>
+        <div class="sub-options" id="sub-passwd">
+          <div class="space-y-2" onclick="event.stopPropagation()">
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Auth Name (shown in prompt)</label>
+              <input type="text" id="pa-name" placeholder="Restricted Area" oninput="gen()"
+                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"/>
+            </div>
+            <div>
+              <label class="text-xs text-gray-400 block mb-1">Path to .htpasswd file</label>
+              <input type="text" id="pa-path" placeholder="/home/user/.htpasswd" oninput="gen()"
+                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security headers -->
+      <div class="toggle-card" id="card-headers" onclick="toggle('headers')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Security Headers</div>
+            <div class="text-xs text-gray-500 mt-0.5">X-Frame-Options, XSS, Content-Type, HSTS</div>
+          </div>
+          <div class="toggle" id="tog-headers"></div>
+        </div>
+      </div>
+
+      <!-- PHP errors off -->
+      <div class="toggle-card" id="card-phperr" onclick="toggle('phperr')">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-white text-sm">Hide PHP Errors (Production)</div>
+            <div class="text-xs text-gray-500 mt-0.5">Disable PHP error display for security</div>
+          </div>
+          <div class="toggle" id="tog-phperr"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Output -->
+    <div class="lg:sticky lg:top-20 lg:self-start space-y-4">
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5" style="box-shadow:0 0 30px rgba(99,102,241,.2)">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <span class="text-sm font-bold text-white">.htaccess Output</span>
+            <span id="line-count" class="ml-2 text-xs text-gray-500">0 lines</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="copyOut()" id="copy-btn" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition">Copy</button>
+            <button onclick="dlOut()" class="bg-teal-600 hover:bg-teal-500 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition">⬇ Download</button>
+          </div>
+        </div>
+        <pre id="htout" class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-green-400 text-xs overflow-auto max-h-[600px] whitespace-pre leading-5 mono"></pre>
+      </div>
+
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Upload Instructions</h3>
+        <ol class="text-xs text-gray-500 space-y-1.5 list-decimal pl-4 leading-relaxed">
+          <li>Download the generated <code class="text-indigo-300">.htaccess</code> file</li>
+          <li>Upload it to your website's <strong class="text-gray-300">root directory</strong> (same folder as index.html)</li>
+          <li>Make sure it overwrites any existing .htaccess</li>
+          <li>Test your redirects and rules in a browser</li>
+        </ol>
+        <div class="mt-3 p-3 bg-yellow-950 border border-yellow-800 rounded-xl">
+          <p class="text-xs text-yellow-300">⚠️ Always backup your existing .htaccess before replacing it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-12">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
+      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
+    </a>
+    <p class="text-gray-500 text-sm">Free online web design and SEO tools.</p>
+  </div>
+</footer>
+
+<script>
+var state = {};
+var redirectCount = 0;
+
+function toggle(key){
+  state[key] = !state[key];
+  var tog = document.getElementById('tog-'+key);
+  var card = document.getElementById('card-'+key);
+  var sub = document.getElementById('sub-'+key);
+  if(tog) tog.classList.toggle('on', state[key]);
+  if(card) card.classList.toggle('enabled', state[key]);
+  if(sub) sub.classList.toggle('visible', state[key]);
+  gen();
+}
+
+function on(key){ return !!state[key]; }
+function v(id){ var el=document.getElementById(id); return el?(el.value||'').trim():''; }
+function radio(name){ var el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:''; }
+
+function addRedirect(){
+  redirectCount++;
+  var id='redir-'+redirectCount;
+  var div=document.createElement('div');
+  div.className='flex gap-1 items-center'; div.id=id;
+  div.innerHTML='<select class="redir-code bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-white text-xs focus:outline-none" onchange="gen()" onclick="event.stopPropagation()"><option value="301">301</option><option value="302">302</option></select>'
+    +'<input class="redir-from flex-1 bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500" placeholder="/old-page" oninput="gen()" onclick="event.stopPropagation()"/>'
+    +'<span class="text-gray-600 text-xs">→</span>'
+    +'<input class="redir-to flex-1 bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500" placeholder="/new-page" oninput="gen()" onclick="event.stopPropagation()"/>'
+    +'<button onclick="document.getElementById(\''+id+'\').remove();gen();event.stopPropagation()" class="text-red-400 text-lg leading-none px-1">×</button>';
+  document.getElementById('redirect-list').appendChild(div);
+  gen();
+}
+
+function gen(){
+  var lines = [];
+  lines.push('# Generated by WebDesign001.net .htaccess Generator');
+  lines.push('# ' + new Date().toDateString());
+  lines.push('');
+  lines.push('Options -Indexes');
+
+  if(on('https')){
+    lines.push('');
+    lines.push('# ── Force HTTPS ──────────────────────────────');
+    lines.push('<IfModule mod_rewrite.c>');
+    lines.push('  RewriteEngine On');
+    lines.push('  RewriteCond %{HTTPS} off');
+    lines.push('  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]');
+    lines.push('</IfModule>');
+  }
+
+  if(on('www')){
+    var domain = v('www-domain') || 'example.com';
+    var dir = radio('www-dir');
+    lines.push('');
+    lines.push('# ── www / non-www ───────────────────────────');
+    lines.push('<IfModule mod_rewrite.c>');
+    lines.push('  RewriteEngine On');
+    if(dir==='to-www'){
+      lines.push('  RewriteCond %{HTTP_HOST} !^www\\. [NC]');
+      lines.push('  RewriteRule ^(.*)$ https://www.'+domain+'/$1 [R=301,L]');
+    } else {
+      lines.push('  RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]');
+      lines.push('  RewriteRule ^(.*)$ https://'+domain+'/$1 [R=301,L]');
+    }
+    lines.push('</IfModule>');
+  }
+
+  if(on('slash')){
+    lines.push('');
+    lines.push('# ── Remove Trailing Slash ───────────────────');
+    lines.push('<IfModule mod_rewrite.c>');
+    lines.push('  RewriteEngine On');
+    lines.push('  RewriteCond %{REQUEST_FILENAME} !-d');
+    lines.push('  RewriteRule ^(.*)/$ /$1 [R=301,L]');
+    lines.push('</IfModule>');
+  }
+
+  if(on('404')){
+    lines.push('');
+    lines.push('# ── Custom Error Pages ──────────────────────');
+    lines.push('ErrorDocument 404 '+v('err-404'));
+    lines.push('ErrorDocument 403 '+v('err-403'));
+    lines.push('ErrorDocument 500 '+v('err-500'));
+  }
+
+  if(on('redirect')){
+    var redirs = document.querySelectorAll('#redirect-list > div');
+    if(redirs.length){
+      lines.push('');
+      lines.push('# ── Custom Redirects ────────────────────────');
+      redirs.forEach(function(r){
+        var code = r.querySelector('.redir-code').value;
+        var from = r.querySelector('.redir-from').value.trim();
+        var to = r.querySelector('.redir-to').value.trim();
+        if(from && to) lines.push('Redirect '+code+' '+from+' '+to);
+      });
+    }
+  }
+
+  if(on('gzip')){
+    lines.push('');
+    lines.push('# ── GZIP Compression ────────────────────────');
+    lines.push('<IfModule mod_deflate.c>');
+    lines.push('  AddOutputFilterByType DEFLATE text/plain text/html text/xml');
+    lines.push('  AddOutputFilterByType DEFLATE text/css text/javascript');
+    lines.push('  AddOutputFilterByType DEFLATE application/xml application/xhtml+xml');
+    lines.push('  AddOutputFilterByType DEFLATE application/rss+xml application/javascript');
+    lines.push('  AddOutputFilterByType DEFLATE application/x-javascript application/json');
+    lines.push('  AddOutputFilterByType DEFLATE font/truetype font/opentype');
+    lines.push('  AddOutputFilterByType DEFLATE image/svg+xml');
+    lines.push('</IfModule>');
+  }
+
+  if(on('cache')){
+    lines.push('');
+    lines.push('# ── Browser Caching ─────────────────────────');
+    lines.push('<IfModule mod_expires.c>');
+    lines.push('  ExpiresActive On');
+    lines.push('  ExpiresByType image/jpg "access plus 1 year"');
+    lines.push('  ExpiresByType image/jpeg "access plus 1 year"');
+    lines.push('  ExpiresByType image/gif "access plus 1 year"');
+    lines.push('  ExpiresByType image/png "access plus 1 year"');
+    lines.push('  ExpiresByType image/webp "access plus 1 year"');
+    lines.push('  ExpiresByType image/svg+xml "access plus 1 year"');
+    lines.push('  ExpiresByType image/x-icon "access plus 1 year"');
+    lines.push('  ExpiresByType video/mp4 "access plus 1 year"');
+    lines.push('  ExpiresByType font/ttf "access plus 1 year"');
+    lines.push('  ExpiresByType font/woff "access plus 1 year"');
+    lines.push('  ExpiresByType font/woff2 "access plus 1 year"');
+    lines.push('  ExpiresByType text/css "access plus 1 month"');
+    lines.push('  ExpiresByType application/javascript "access plus 1 month"');
+    lines.push('  ExpiresByType text/html "access plus 1 day"');
+    lines.push('</IfModule>');
+  }
+
+  if(on('hotlink')){
+    var hld = v('hl-domain') || 'example.com';
+    lines.push('');
+    lines.push('# ── Hotlink Protection ──────────────────────');
+    lines.push('<IfModule mod_rewrite.c>');
+    lines.push('  RewriteEngine On');
+    lines.push('  RewriteCond %{HTTP_REFERER} !^$');
+    lines.push('  RewriteCond %{HTTP_REFERER} !^https?://(www\\.)?'+hld.replace('.','\\.')+'/ [NC]');
+    lines.push('  RewriteRule \\.(jpg|jpeg|png|gif|webp|svg|mp4)$ - [F]');
+    lines.push('</IfModule>');
+  }
+
+  if(on('dirlist')){
+    lines.push('');
+    lines.push('# ── Disable Directory Browsing ──────────────');
+    lines.push('Options All -Indexes');
+  }
+
+  if(on('bots')){
+    lines.push('');
+    lines.push('# ── Block Bad Bots ──────────────────────────');
+    lines.push('<IfModule mod_rewrite.c>');
+    lines.push('  RewriteEngine On');
+    lines.push('  RewriteCond %{HTTP_USER_AGENT} (ahrefsbot|semrushbot|dotbot|mj12bot|blexbot|scrapy|nikto|sqlmap) [NC]');
+    lines.push('  RewriteRule .* - [F,L]');
+    lines.push('</IfModule>');
+  }
+
+  if(on('blockip')){
+    var ips = v('blockip-list').split('\n').map(function(ip){return ip.trim();}).filter(Boolean);
+    if(ips.length){
+      lines.push('');
+      lines.push('# ── Block IP Addresses ──────────────────────');
+      lines.push('<RequireAll>');
+      lines.push('  Require all granted');
+      ips.forEach(function(ip){ lines.push('  Require not ip '+ip); });
+      lines.push('</RequireAll>');
+    }
+  }
+
+  if(on('passwd')){
+    lines.push('');
+    lines.push('# ── Password Protection ─────────────────────');
+    lines.push('AuthType Basic');
+    lines.push('AuthName "'+( v('pa-name')||'Restricted Area' )+'"');
+    lines.push('AuthUserFile "'+( v('pa-path')||'/home/user/.htpasswd' )+'"');
+    lines.push('Require valid-user');
+  }
+
+  if(on('headers')){
+    lines.push('');
+    lines.push('# ── Security Headers ────────────────────────');
+    lines.push('<IfModule mod_headers.c>');
+    lines.push('  Header always set X-Frame-Options "SAMEORIGIN"');
+    lines.push('  Header always set X-XSS-Protection "1; mode=block"');
+    lines.push('  Header always set X-Content-Type-Options "nosniff"');
+    lines.push('  Header always set Referrer-Policy "strict-origin-when-cross-origin"');
+    lines.push('  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"');
+    lines.push('  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"');
+    lines.push('</IfModule>');
+  }
+
+  if(on('phperr')){
+    lines.push('');
+    lines.push('# ── Hide PHP Errors ─────────────────────────');
+    lines.push('php_flag display_errors off');
+    lines.push('php_flag log_errors on');
+    lines.push('php_value error_log /var/log/php_errors.log');
+  }
+
+  var text = lines.join('\n');
+  document.getElementById('htout').textContent = text;
+  document.getElementById('line-count').textContent = lines.length + ' lines';
+}
+
+function copyOut(){
+  navigator.clipboard.writeText(document.getElementById('htout').textContent);
+  var btn=document.getElementById('copy-btn');
+  btn.textContent='✅ Copied!';btn.style.background='#16a34a';
+  setTimeout(function(){btn.textContent='Copy';btn.style.background='';},2000);
+}
+
+function dlOut(){
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([document.getElementById('htout').textContent],{type:'text/plain'}));
+  a.download='.htaccess';a.click();
+}
+
+// init
+gen();
+</script>
+</body>
+</html>

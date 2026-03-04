@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Sitemap XML Generator – Free Online SEO Tool | WebDesign001</title>
-<meta name="description" content="Generate a valid XML sitemap for your website instantly. Paste your URLs, set priority and change frequency, then download the sitemap.xml file free."/>
+<meta name="description" content="Generate a valid XML sitemap automatically from any website URL. Enter your domain, set your pages and download sitemap.xml instantly. Free SEO tool."/>
 <link rel="canonical" href="https://webdesign001.net/sitemap-generator.html"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
@@ -31,9 +31,12 @@ a{text-decoration:none;}
       <a href="color-palette-generator.html" class="hover:text-indigo-400 transition">Colors</a>
       <a href="sitemap-generator.html" class="text-indigo-400 font-semibold">Sitemap</a>
       <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
+      <a href="meta-tag-generator.html" class="hover:text-indigo-400 transition">Meta Tags</a>
+      <a href="og-preview.html" class="hover:text-indigo-400 transition">OG Preview</a>
+      <a href="schema-generator.html" class="hover:text-indigo-400 transition">Schema</a>
+      <a href="htaccess-generator.html" class="hover:text-indigo-400 transition">HTAccess</a>
       <a href="privacy-policy-generator.html" class="hover:text-indigo-400 transition">Privacy</a>
       <a href="terms-conditions-generator.html" class="hover:text-indigo-400 transition">Terms</a>
-      <a href="refund-policy-generator.html" class="hover:text-indigo-400 transition">Refund</a>
     </div>
     <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
   </div>
@@ -42,48 +45,143 @@ a{text-decoration:none;}
 <main class="max-w-5xl mx-auto px-4 py-12">
   <div class="mb-8">
     <h1 class="text-4xl font-extrabold mb-2">Sitemap <span class="gradient-text">XML Generator</span></h1>
-    <p class="text-gray-400">Generate a valid XML sitemap for any website. Paste your URLs, configure settings, and download your sitemap.xml instantly — free.</p>
+    <p class="text-gray-400">Enter your website URL. The tool will fetch the page, extract all internal links from the HTML, and generate a ready-to-submit sitemap.xml — no existing sitemap needed.</p>
   </div>
 
-  <div class="bg-gray-900 rounded-2xl border border-gray-800 p-6 glow">
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="space-y-4">
-        <div>
-          <label class="text-sm text-gray-400 mb-2 block">Website URLs (one per line)</label>
-          <textarea id="surls" rows="12" placeholder="https://example.com/&#10;https://example.com/about&#10;https://example.com/contact&#10;https://example.com/blog" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 resize-none font-mono text-sm"></textarea>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="text-sm text-gray-400 mb-2 block">Change Frequency</label>
-            <select id="sfreq" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none">
-              <option>always</option><option>daily</option><option>weekly</option><option selected>monthly</option><option>yearly</option><option>never</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm text-gray-400 mb-2 block">Priority</label>
-            <select id="spri" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none">
-              <option>1.0</option><option>0.9</option><option>0.8</option><option selected>0.7</option><option>0.5</option><option>0.3</option><option>0.1</option>
-            </select>
-          </div>
-        </div>
-        <button onclick="genSM()" class="w-full py-3 rounded-xl bg-gradient-to-r from-teal-600 to-green-600 font-semibold text-sm text-white hover:opacity-90 transition">⚡ Generate Sitemap</button>
+  <!-- STEP 1: URL Input -->
+  <div class="bg-gray-900 rounded-2xl border border-gray-800 p-6 glow mb-5">
+    <label class="text-sm text-gray-400 mb-2 block font-medium">Step 1 — Enter your website URL</label>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <input type="text" id="site-url" placeholder="https://example.com"
+        class="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 text-sm"
+        onkeydown="if(event.key==='Enter')startGenerate()"/>
+      <button onclick="startGenerate()" id="gen-btn"
+        class="bg-gradient-to-r from-teal-600 to-green-600 hover:opacity-90 px-6 py-3 rounded-xl font-semibold text-sm text-white transition whitespace-nowrap">
+        🔗 Extract Links & Generate
+      </button>
+    </div>
+    <!-- status -->
+    <div id="status-wrap" class="hidden mt-4 flex items-center gap-3 text-sm">
+      <span id="status-icon" class="text-xl"></span>
+      <div>
+        <div id="status-msg" class="font-medium text-white"></div>
+        <div id="status-sub" class="text-xs text-gray-400 mt-0.5"></div>
       </div>
-      <div class="space-y-3">
-        <div class="flex justify-between items-center">
-          <span class="text-sm text-gray-400 font-medium">sitemap.xml Preview</span>
-          <div class="flex gap-2">
-            <button onclick="copySM()" id="smcp" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">Copy</button>
-            <button onclick="dlSM()" class="bg-teal-600 hover:bg-teal-500 px-3 py-1 rounded-lg text-xs font-medium text-white transition">⬇ Download</button>
-          </div>
-        </div>
-        <pre id="smout" class="bg-gray-800 rounded-xl p-4 text-green-400 text-xs overflow-auto h-80 whitespace-pre-wrap">&lt;!-- Paste your URLs and click Generate --&gt;</pre>
+    </div>
+
+    <!-- CORS fallback -->
+    <div id="cors-fallback" class="hidden mt-4 border border-orange-800 bg-orange-950 rounded-xl p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm font-semibold text-orange-300">📋 Paste HTML Fallback</span>
+        <button onclick="togglePaste()" class="text-xs text-orange-400 hover:underline">Show / Hide</button>
+      </div>
+      <p class="text-xs text-orange-200 mb-3">Some servers block bots. As a workaround: open your website, press <kbd class="bg-gray-800 px-1 rounded">Ctrl+U</kbd> (View Source), select all, copy, then paste below.</p>
+      <div id="paste-section" class="hidden">
+        <textarea id="paste-html" rows="6" placeholder="Paste your page's HTML source here…"
+          class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs font-mono focus:outline-none focus:border-orange-500 mb-2 resize-y"></textarea>
+        <button onclick="parseFromPaste()" class="bg-orange-600 hover:bg-orange-500 px-4 py-2 rounded-lg text-xs font-semibold text-white transition">Extract Links from Pasted HTML</button>
       </div>
     </div>
   </div>
 
+  <!-- STEP 2: Settings + URL editor -->
+  <div id="editor-section" class="hidden bg-gray-900 rounded-2xl border border-gray-800 p-6 glow mb-5">
+    <label class="text-sm text-gray-400 mb-3 block font-medium">Step 2 — Review and edit your URLs</label>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+      <div>
+        <label class="text-xs text-gray-500 mb-1 block">Change Freq</label>
+        <select id="sfreq" onchange="buildXml()" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs focus:outline-none">
+          <option>always</option><option>daily</option><option selected>weekly</option><option>monthly</option><option>yearly</option><option>never</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 mb-1 block">Priority</label>
+        <select id="spri" onchange="buildXml()" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs focus:outline-none">
+          <option>1.0</option><option selected>0.8</option><option>0.7</option><option>0.5</option><option>0.3</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 mb-1 block">Last Modified</label>
+        <input type="date" id="slastmod" onchange="buildXml()" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs focus:outline-none"/>
+      </div>
+      <div class="flex items-end">
+        <button onclick="addUrl()" class="w-full bg-indigo-700 hover:bg-indigo-600 px-3 py-2 rounded-lg text-xs font-medium text-white transition">+ Add URL</button>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-xs text-gray-400"><span id="url-count">0</span> URLs found</span>
+      <button onclick="clearAll()" class="text-xs text-red-400 hover:underline">Clear all</button>
+    </div>
+    <div id="url-list" class="space-y-1.5 max-h-64 overflow-y-auto pr-1"></div>
+  </div>
+
+  <!-- STEP 3: Output -->
+  <div id="output-section" class="hidden bg-gray-900 rounded-2xl border border-gray-800 p-6 glow">
+    <div class="flex justify-between items-center mb-3">
+      <span class="text-sm text-gray-300 font-semibold">Step 3 — Copy or Download sitemap.xml</span>
+      <div class="flex gap-2">
+        <button onclick="copySM()" id="sm-cp" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-lg text-xs font-medium text-white transition">Copy</button>
+        <button onclick="dlSM()" class="bg-teal-600 hover:bg-teal-500 px-3 py-1.5 rounded-lg text-xs font-medium text-white transition">⬇ Download sitemap.xml</button>
+      </div>
+    </div>
+    <pre id="smout" class="bg-gray-800 rounded-xl p-4 text-green-400 text-xs overflow-auto max-h-80 whitespace-pre-wrap leading-5"></pre>
+  </div>
+
   <div class="mt-10 bg-gray-900 border border-gray-800 rounded-2xl p-6">
-    <h2 class="text-xl font-bold mb-3">What is an XML Sitemap?</h2>
-    <p class="text-gray-400 text-sm leading-7">An XML sitemap is a file that lists all pages on your website to help search engines like Google and Bing discover and index your content faster. Upload the generated sitemap.xml to your website root directory and submit it via Google Search Console under Sitemaps. It is especially important for new websites or pages with few internal links.</p>
+    <h2 class="text-xl font-bold mb-3">How It Works</h2>
+    <p class="text-gray-400 text-sm leading-7 mb-3">This tool fetches your page and extracts real links from it — no guessing, no existing sitemap required:</p>
+    <div class="space-y-2 text-sm text-gray-400">
+      <div class="flex gap-3"><span class="text-teal-400 font-bold shrink-0">1.</span><span><strong class="text-white">Fetch Page HTML</strong> — Downloads your website's HTML via a CORS proxy.</span></div>
+      <div class="flex gap-3"><span class="text-teal-400 font-bold shrink-0">2.</span><span><strong class="text-white">Extract All Links</strong> — Parses every <code class="text-indigo-300">&lt;a href&gt;</code> on the page and filters to same-domain URLs only.</span></div>
+      <div class="flex gap-3"><span class="text-teal-400 font-bold shrink-0">3.</span><span><strong class="text-white">Build Sitemap</strong> — Deduplicates, normalises, and generates a valid sitemap.xml you can copy or download.</span></div>
+    </div>
+    <p class="text-gray-500 text-xs mt-4">Note: Browser security (CORS) may prevent fetching some websites. In that case the tool will let you know and you can manually add your URLs below.</p>
+  </div>
+  <!-- New Tools Section -->
+  <div class="mt-10">
+    <h2 class="text-xl font-bold mb-1">More Free SEO & Dev Tools</h2>
+    <p class="text-gray-500 text-sm mb-5">High-traffic tools to help you build, optimise, and launch faster.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <a href="meta-tag-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🏷️</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Meta Tag Generator</div>
+        <div class="text-xs text-gray-400">Generate complete HTML meta tags for SEO, Open Graph, Twitter Cards, and more. One of the most-searched SEO tools.</div>
+      </a>
+
+      <a href="og-preview.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">👁️</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Open Graph Preview</div>
+        <div class="text-xs text-gray-400">See exactly how your page looks when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp before you publish.</div>
+      </a>
+
+      <a href="schema-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🧩</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">JSON-LD Schema Generator</div>
+        <div class="text-xs text-gray-400">Build structured data markup for Articles, Products, FAQs, LocalBusiness and more. Boost rich results in Google.</div>
+      </a>
+
+      <a href="htaccess-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">⚙️</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">.htaccess Generator</div>
+        <div class="text-xs text-gray-400">Configure redirects, HTTPS enforcement, caching headers, hotlink protection and more with a click-based UI.</div>
+      </a>
+
+      <a href="robots-txt-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🤖</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Robots.txt Generator</div>
+        <div class="text-xs text-gray-400">Build a proper robots.txt file to control which pages search engines crawl and index on your site.</div>
+      </a>
+
+      <a href="privacy-policy-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🔒</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Privacy Policy Generator</div>
+        <div class="text-xs text-gray-400">Generate a GDPR & CCPA compliant privacy policy for your website or app in under 60 seconds.</div>
+      </a>
+
+    </div>
   </div>
 </main>
 
@@ -106,37 +204,386 @@ a{text-decoration:none;}
       <a href="terms-conditions-generator.html" class="hover:text-indigo-400">Terms</a> |
       <a href="refund-policy-generator.html" class="hover:text-indigo-400">Refund Policy</a>
     </div>
-    <p class="text-gray-700 text-xs mt-4">© 2025 WebDesign001.net — All tools free forever</p>
+    <p class="text-gray-700 text-xs mt-4">2025 WebDesign001.net — All tools free forever</p>
   </div>
 </footer>
 
 <script>
+var foundUrls = [];
 var smXml = '';
-function genSM() {
-  var urls = document.getElementById('surls').value.split('\n').map(function(u){return u.trim();}).filter(function(u){return u.indexOf('http')===0;});
-  if (!urls.length) { alert('Please enter at least one URL starting with http'); return; }
+
+// Set default date to today
+document.getElementById('slastmod').value = new Date().toISOString().split('T')[0];
+
+function setStatus(icon, msg, sub) {
+  var w = document.getElementById('status-wrap');
+  w.classList.remove('hidden');
+  document.getElementById('status-icon').textContent = icon;
+  document.getElementById('status-msg').textContent = msg;
+  document.getElementById('status-sub').textContent = sub || '';
+}
+
+// CORS proxies to try in order
+var PROXIES = [
+  function(u){ return 'https://api.allorigins.win/get?url=' + encodeURIComponent(u); },
+  function(u){ return 'https://corsproxy.io/?' + encodeURIComponent(u); },
+  function(u){ return 'https://cors-anywhere.herokuapp.com/' + u; }
+];
+
+async function fetchViaProxy(url) {
+  for (var i = 0; i < PROXIES.length; i++) {
+    try {
+      var proxyUrl = PROXIES[i](url);
+      var res = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+      if (!res.ok) continue;
+      var text = await res.text();
+      if (proxyUrl.includes('allorigins')) {
+        try { var j = JSON.parse(text); text = j.contents || text; } catch(e) {}
+      }
+      if (text && text.length > 100) return text;
+    } catch(e) { /* try next proxy */ }
+  }
+  return null;
+}
+
+/**
+ * Extract all unique same-domain <a href> links from raw HTML.
+ * Always includes the homepage (origin + '/').
+ */
+function extractLinksFromHtml(html, origin) {
+  var found = new Set();
+  // Always include homepage
+  found.add(origin + '/');
+
+  // Match all href attributes
+  var re = /href\s*=\s*["']([^"'#?][^"']*?)["']/gi;
+  var m;
+  while ((m = re.exec(html)) !== null) {
+    var href = m[1].trim();
+    // Skip empty, anchors, js, mailto, tel
+    if (!href || href.startsWith('#') || href.startsWith('javascript:') ||
+        href.startsWith('mailto:') || href.startsWith('tel:')) continue;
+
+    var resolved;
+    try {
+      resolved = new URL(href, origin).href;
+    } catch(e) { continue; }
+
+    // Keep only same-origin, non-file URLs
+    if (!resolved.startsWith(origin)) continue;
+
+    // Strip query strings, hash fragments
+    try {
+      var u = new URL(resolved);
+      u.search = '';
+      u.hash = '';
+      resolved = u.href;
+    } catch(e) { continue; }
+
+    // Skip common non-page extensions
+    if (/\.(jpg|jpeg|png|gif|svg|webp|ico|pdf|zip|mp4|mp3|css|js|xml|json|woff|woff2|ttf|eot)$/i.test(resolved)) continue;
+
+    // Normalise trailing slash: keep root as '/', strip others
+    resolved = resolved.replace(/\/$/, '') || origin + '/';
+
+    found.add(resolved);
+  }
+
+  return Array.from(found).sort();
+}
+
+async function startGenerate() {
+  var raw = document.getElementById('site-url').value.trim();
+  if (!raw) { alert('Please enter a website URL'); return; }
+  if (!raw.startsWith('http')) raw = 'https://' + raw;
+
+  var origin;
+  try { origin = new URL(raw).origin; } catch(e) { alert('Invalid URL'); return; }
+
+  document.getElementById('gen-btn').disabled = true;
+  document.getElementById('editor-section').classList.add('hidden');
+  document.getElementById('output-section').classList.add('hidden');
+  foundUrls = [];
+
+  setStatus('🔗', 'Fetching page HTML...', raw);
+
+  var html = await fetchViaProxy(raw);
+
+  if (!html) {
+    setStatus('⚠️', 'Could not fetch the page (CORS blocked).', 'Add your URLs manually below and download your sitemap.');
+    foundUrls = [origin + '/'];
+  } else {
+    foundUrls = extractLinksFromHtml(html, origin);
+    if (foundUrls.length <= 1) {
+      setStatus('💡', 'Page fetched but no internal links found.', 'Add your URLs manually below.');
+    } else {
+      setStatus('✅', 'Extracted ' + foundUrls.length + ' internal links from ' + origin, 'Review and edit below, then download your sitemap.');
+    }
+  }
+
+  renderUrlList();
+  buildXml();
+  document.getElementById('gen-btn').disabled = false;
+}
+
+function renderUrlList() {
+  document.getElementById('editor-section').classList.remove('hidden');
+  document.getElementById('url-count').textContent = foundUrls.length;
+  var list = document.getElementById('url-list');
+  list.innerHTML = foundUrls.map(function(u, i) {
+    return '<div class="flex gap-2 items-center">'
+      + '<input type="text" value="' + u + '" oninput="foundUrls[' + i + ']=this.value;buildXml()" '
+      + 'class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-xs font-mono focus:outline-none focus:border-indigo-500"/>'
+      + '<button onclick="removeUrl(' + i + ')" style="color:#f87171;font-size:18px;background:none;border:none;cursor:pointer;line-height:1;padding:0 4px">×</button>'
+      + '</div>';
+  }).join('');
+}
+
+function removeUrl(i) {
+  foundUrls.splice(i, 1);
+  renderUrlList();
+  buildXml();
+}
+
+function addUrl() {
+  var origin = '';
+  try { origin = new URL(document.getElementById('site-url').value.trim()).origin; } catch(e) {}
+  foundUrls.push(origin + '/new-page');
+  renderUrlList();
+  buildXml();
+  var inputs = document.getElementById('url-list').querySelectorAll('input');
+  if (inputs.length) { inputs[inputs.length-1].focus(); inputs[inputs.length-1].select(); }
+}
+
+function clearAll() {
+  foundUrls = [];
+  renderUrlList();
+  buildXml();
+}
+
+function buildXml() {
   var freq = document.getElementById('sfreq').value;
   var pri = document.getElementById('spri').value;
-  var today = new Date().toISOString().split('T')[0];
-  smXml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+  var lastmod = document.getElementById('slastmod').value || new Date().toISOString().split('T')[0];
+  var urls = foundUrls.filter(function(u){ return u && u.startsWith('http'); });
+  document.getElementById('url-count').textContent = foundUrls.length;
+  if (!urls.length) { document.getElementById('output-section').classList.add('hidden'); return; }
+  smXml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + urls.map(function(u){
-        return '  <url>\n    <loc>' + u + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + freq + '</changefreq>\n    <priority>' + pri + '</priority>\n  </url>';
+        return '  <url>\n'
+          + '    <loc>' + u + '</loc>\n'
+          + '    <lastmod>' + lastmod + '</lastmod>\n'
+          + '    <changefreq>' + freq + '</changefreq>\n'
+          + '    <priority>' + pri + '</priority>\n'
+          + '  </url>';
       }).join('\n')
     + '\n</urlset>';
   document.getElementById('smout').textContent = smXml;
+  document.getElementById('output-section').classList.remove('hidden');
 }
+
 function copySM() {
-  if (!smXml) { alert('Generate a sitemap first'); return; }
+  if (!smXml) return;
   navigator.clipboard.writeText(smXml);
-  var btn = document.getElementById('smcp');
+  var btn = document.getElementById('sm-cp');
   btn.textContent = '✅ Copied!'; btn.style.background = '#16a34a';
   setTimeout(function(){ btn.textContent = 'Copy'; btn.style.background = ''; }, 2000);
 }
-function dlSM() {
-  if (!smXml) { alert('Generate a sitemap first'); return; }
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([smXml], {type: 'application/xml'}));
-  a.download = 'sitemap.xml'; a.click();
+
+<script>
+var foundUrls = [];
+var smXml = '';
+
+document.getElementById('slastmod').value = new Date().toISOString().split('T')[0];
+
+function setStatus(icon, msg, sub, color) {
+  var w = document.getElementById('status-wrap');
+  w.classList.remove('hidden');
+  document.getElementById('status-icon').textContent = icon;
+  var msgEl = document.getElementById('status-msg');
+  msgEl.textContent = msg;
+  msgEl.style.color = color || '#fff';
+  document.getElementById('status-sub').textContent = sub || '';
+}
+
+var PROXIES = [
+  {
+    name: 'allorigins',
+    url: function(u){ return 'https://api.allorigins.win/get?url=' + encodeURIComponent(u); },
+    parse: function(t){ try{ return JSON.parse(t).contents; }catch(e){ return t; } }
+  },
+  {
+    name: 'corsproxy.io',
+    url: function(u){ return 'https://corsproxy.io/?' + encodeURIComponent(u); },
+    parse: function(t){ return t; }
+  },
+  {
+    name: 'cors.eu.org',
+    url: function(u){ return 'https://cors.eu.org/' + u; },
+    parse: function(t){ return t; }
+  },
+  {
+    name: 'thingproxy',
+    url: function(u){ return 'https://thingproxy.freeboard.io/fetch/' + u; },
+    parse: function(t){ return t; }
+  }
+];
+
+async function fetchViaProxy(targetUrl) {
+  for (var i = 0; i < PROXIES.length; i++) {
+    var p = PROXIES[i];
+    try {
+      setStatus('⏳', 'Trying proxy ' + (i+1) + '/' + PROXIES.length + ' (' + p.name + ')…', targetUrl);
+      var res = await fetch(p.url(targetUrl), { signal: AbortSignal.timeout(9000) });
+      if (!res.ok) continue;
+      var raw = await res.text();
+      var content = p.parse(raw);
+      if (content && content.length > 300) return content;
+    } catch(e) {}
+  }
+  return null;
+}
+
+function processHref(href, origin, set) {
+  if (!href) return;
+  href = href.trim();
+  if (!href || href[0]==='#' || /^(javascript|mailto|tel|data):/i.test(href)) return;
+  try {
+    var u = new URL(href, origin);
+    if (u.origin !== origin) return;
+    if (/\.(jpg|jpeg|png|gif|svg|webp|ico|pdf|zip|mp4|mp3|css|js|xml|json|woff2?|ttf|eot)(\?|$)/i.test(u.pathname)) return;
+    u.search = ''; u.hash = '';
+    var clean = u.href.replace(/\/$/, '') || origin + '/';
+    set.add(clean);
+  } catch(e) {}
+}
+
+function extractLinks(html, origin) {
+  var found = new Set();
+  found.add(origin + '/');
+  try {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('a[href]').forEach(function(a){ processHref(a.getAttribute('href'), origin, found); });
+  } catch(e) {
+    var re = /href\s*=\s*["']([^"']+)["']/gi, m;
+    while((m = re.exec(html)) !== null) processHref(m[1], origin, found);
+  }
+  return Array.from(found).sort();
+}
+
+function togglePaste() {
+  document.getElementById('paste-section').classList.toggle('hidden');
+}
+
+function parseFromPaste() {
+  var html = document.getElementById('paste-html').value.trim();
+  var rawUrl = document.getElementById('site-url').value.trim();
+  if (!rawUrl) { alert('Enter your website URL first'); return; }
+  if (!rawUrl.startsWith('http')) rawUrl = 'https://' + rawUrl;
+  var origin; try { origin = new URL(rawUrl).origin; } catch(e) { alert('Invalid URL'); return; }
+  if (!html) { alert('Paste your page HTML first'); return; }
+  foundUrls = extractLinks(html, origin);
+  setStatus('✅', 'Extracted ' + foundUrls.length + ' links from pasted HTML.', origin, '#4ade80');
+  document.getElementById('paste-section').classList.add('hidden');
+  document.getElementById('cors-fallback').classList.add('hidden');
+  renderUrlList(); buildXml();
+}
+
+async function startGenerate() {
+  var raw = document.getElementById('site-url').value.trim();
+  if (!raw) { alert('Please enter a website URL'); return; }
+  if (!raw.startsWith('http')) raw = 'https://' + raw;
+  var origin; try { origin = new URL(raw).origin; } catch(e) { alert('Invalid URL'); return; }
+
+  document.getElementById('gen-btn').disabled = true;
+  document.getElementById('editor-section').classList.add('hidden');
+  document.getElementById('output-section').classList.add('hidden');
+  document.getElementById('cors-fallback').classList.add('hidden');
+  document.getElementById('paste-section').classList.add('hidden');
+  foundUrls = [];
+
+  var html = await fetchViaProxy(raw);
+
+  if (!html) {
+    setStatus('⚠️', 'All proxies blocked by server.', 'Use the Paste HTML fallback below ↓', '#fb923c');
+    document.getElementById('cors-fallback').classList.remove('hidden');
+    foundUrls = [origin + '/'];
+    document.getElementById('gen-btn').disabled = false;
+    renderUrlList(); buildXml();
+    return;
+  }
+
+  document.getElementById('cors-fallback').classList.add('hidden');
+  foundUrls = extractLinks(html, origin);
+
+  if (foundUrls.length <= 1) {
+    setStatus('💡', 'Page fetched but only homepage found.', 'Site may use JS rendering. Try Paste HTML fallback ↓', '#facc15');
+    document.getElementById('cors-fallback').classList.remove('hidden');
+  } else {
+    setStatus('✅', 'Extracted ' + foundUrls.length + ' internal links from ' + origin, 'Review below, then download sitemap.xml', '#4ade80');
+  }
+
+  renderUrlList(); buildXml();
+  document.getElementById('gen-btn').disabled = false;
+}
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function renderUrlList() {
+  document.getElementById('editor-section').classList.remove('hidden');
+  document.getElementById('url-count').textContent = foundUrls.length;
+  var list = document.getElementById('url-list');
+  list.innerHTML = foundUrls.map(function(u, i){
+    return '<div class="flex gap-2 items-center">'
+      +'<input type="text" value="'+escHtml(u)+'" oninput="foundUrls['+i+']=this.value;buildXml()" '
+      +'class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-xs font-mono focus:outline-none focus:border-indigo-500"/>'
+      +'<button onclick="removeUrl('+i+')" style="color:#f87171;font-size:18px;background:none;border:none;cursor:pointer;line-height:1;padding:0 4px">×</button>'
+      +'</div>';
+  }).join('');
+}
+
+function removeUrl(i){ foundUrls.splice(i,1); renderUrlList(); buildXml(); }
+
+function addUrl(){
+  var origin=''; try{origin=new URL(document.getElementById('site-url').value.trim()).origin;}catch(e){}
+  foundUrls.push(origin+'/new-page'); renderUrlList(); buildXml();
+  var inputs=document.getElementById('url-list').querySelectorAll('input');
+  if(inputs.length){inputs[inputs.length-1].focus();inputs[inputs.length-1].select();}
+}
+
+function clearAll(){ foundUrls=[]; renderUrlList(); buildXml(); }
+
+function buildXml(){
+  var freq=document.getElementById('sfreq').value;
+  var pri=document.getElementById('spri').value;
+  var lastmod=document.getElementById('slastmod').value||new Date().toISOString().split('T')[0];
+  var urls=foundUrls.filter(function(u){return u&&u.startsWith('http');});
+  document.getElementById('url-count').textContent=foundUrls.length;
+  if(!urls.length){document.getElementById('output-section').classList.add('hidden');return;}
+  smXml='<?xml version="1.0" encoding="UTF-8"?>\n'
+    +'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    +urls.map(function(u){
+      return '  <url>\n    <loc>'+u+'</loc>\n    <lastmod>'+lastmod+'</lastmod>\n    <changefreq>'+freq+'</changefreq>\n    <priority>'+pri+'</priority>\n  </url>';
+    }).join('\n')
+    +'\n</urlset>';
+  document.getElementById('smout').textContent=smXml;
+  document.getElementById('output-section').classList.remove('hidden');
+}
+
+function copySM(){
+  if(!smXml)return;
+  navigator.clipboard.writeText(smXml);
+  var btn=document.getElementById('sm-cp');
+  btn.textContent='✅ Copied!';btn.style.background='#16a34a';
+  setTimeout(function(){btn.textContent='Copy';btn.style.background='';},2000);
+}
+
+function dlSM(){
+  if(!smXml)return;
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([smXml],{type:'application/xml'}));
+  a.download='sitemap.xml';a.click();
 }
 </script>
 </body>

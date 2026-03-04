@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Open Graph Preview – See How Your Site Looks on Social Media | WebDesign001</title>
+<meta name="description" content="Preview exactly how your website appears when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp. Check your Open Graph tags instantly."/>
+<link rel="canonical" href="https://webdesign001.net/og-preview.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glow{box-shadow:0 0 30px rgba(99,102,241,.2);}
+a{text-decoration:none;}
+.platform-tab{transition:all .2s;cursor:pointer;}
+.platform-tab.active{background:#1e1b4b;border-color:#6366f1;}
+/* Facebook card */
+.fb-card{background:#fff;border-radius:0 0 4px 4px;border:1px solid #dadde1;overflow:hidden;max-width:500px;}
+.fb-card-img{width:100%;aspect-ratio:1.91/1;object-fit:cover;background:#e4e6eb;display:flex;align-items:center;justify-content:center;}
+.fb-meta{padding:10px 12px;background:#f2f3f5;}
+/* Twitter card large image */
+.tw-card{background:#000;border:1px solid #2f3336;border-radius:16px;overflow:hidden;max-width:500px;}
+.tw-card-img{width:100%;aspect-ratio:1.91/1;object-fit:cover;background:#1e2732;display:flex;align-items:center;justify-content:center;}
+.tw-meta{padding:12px 16px;}
+/* LinkedIn */
+.li-card{background:#fff;border:1px solid #dce6f1;border-radius:2px;overflow:hidden;max-width:500px;}
+.li-card-img{width:100%;aspect-ratio:1.91/1;object-fit:cover;background:#e9e5df;display:flex;align-items:center;justify-content:center;}
+.li-meta{padding:8px 12px;background:#f3f6f8;}
+/* WhatsApp */
+.wa-card{background:#d9fdd3;border-radius:8px;overflow:hidden;max-width:380px;box-shadow:0 1px 2px rgba(0,0,0,.15);}
+.wa-card-img{width:100%;aspect-ratio:1.91/1;object-fit:cover;background:#b2dfdb;display:flex;align-items:center;justify-content:center;}
+.wa-meta{padding:8px 10px;background:#d9fdd3;}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.slide-in{animation:slideIn .25s ease forwards;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+
+<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
+      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+    </a>
+    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
+      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
+      <a href="meta-tag-generator.html" class="hover:text-indigo-400 transition">Meta Tags</a>
+      <a href="og-preview.html" class="text-indigo-400 font-semibold">OG Preview</a>
+      <a href="schema-generator.html" class="hover:text-indigo-400 transition">Schema</a>
+      <a href="htaccess-generator.html" class="hover:text-indigo-400 transition">HTAccess</a>
+      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
+    </div>
+    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 py-12">
+  <div class="mb-10 slide-in">
+    <div class="inline-flex items-center gap-2 bg-pink-950 border border-pink-800 text-pink-300 text-xs px-3 py-1 rounded-full mb-4">👁️ Social Preview</div>
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-3">Open Graph <span class="gradient-text">Preview</span></h1>
+    <p class="text-gray-400 max-w-2xl">Enter your page details below and see exactly how it looks when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp — before you publish.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- LEFT: Inputs -->
+    <div class="space-y-4">
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 glow slide-in">
+        <h2 class="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-4">Page Details</h2>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Page / OG Title</label>
+            <input id="i-title" type="text" placeholder="My Amazing Article Title"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="update()"/>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Description</label>
+            <textarea id="i-desc" rows="3" placeholder="A concise description of your content that entices clicks…"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500 resize-none" oninput="update()"></textarea>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Image URL <span class="text-gray-600">(1200×630px)</span></label>
+            <input id="i-img" type="url" placeholder="https://example.com/image.jpg"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="update()"/>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Site URL / Domain</label>
+            <input id="i-url" type="url" placeholder="https://example.com"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="update()"/>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Site Name</label>
+            <input id="i-site" type="text" placeholder="My Brand"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="update()"/>
+          </div>
+          <div>
+            <label class="text-xs text-gray-400 block mb-1">Twitter @handle</label>
+            <input id="i-tw" type="text" placeholder="@yourbrand"
+              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-indigo-500" oninput="update()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated tags -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 slide-in">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-bold text-indigo-300 uppercase tracking-widest">Generated Tags</h2>
+          <button onclick="copyTags()" id="copy-tags-btn" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-lg text-xs font-semibold text-white transition">Copy</button>
+        </div>
+        <pre id="tag-output" class="bg-gray-800 rounded-xl p-3 text-green-400 text-xs overflow-auto max-h-48 whitespace-pre-wrap leading-5 mono"></pre>
+      </div>
+    </div>
+
+    <!-- RIGHT: Previews -->
+    <div class="space-y-4">
+      <!-- Platform selector -->
+      <div class="grid grid-cols-4 gap-2 slide-in">
+        <button onclick="setPlat('facebook',this)" class="platform-tab active border border-gray-700 rounded-xl p-3 text-center transition">
+          <div class="text-xl mb-1">📘</div><div class="text-xs text-gray-300">Facebook</div>
+        </button>
+        <button onclick="setPlat('twitter',this)" class="platform-tab border border-gray-700 rounded-xl p-3 text-center transition">
+          <div class="text-xl mb-1">🐦</div><div class="text-xs text-gray-300">Twitter/X</div>
+        </button>
+        <button onclick="setPlat('linkedin',this)" class="platform-tab border border-gray-700 rounded-xl p-3 text-center transition">
+          <div class="text-xl mb-1">💼</div><div class="text-xs text-gray-300">LinkedIn</div>
+        </button>
+        <button onclick="setPlat('whatsapp',this)" class="platform-tab border border-gray-700 rounded-xl p-3 text-center transition">
+          <div class="text-xl mb-1">💬</div><div class="text-xs text-gray-300">WhatsApp</div>
+        </button>
+      </div>
+
+      <!-- Preview containers -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-5 glow slide-in">
+        <div id="preview-label" class="text-xs text-gray-500 mb-3 font-semibold uppercase tracking-widest">Facebook Preview</div>
+
+        <!-- Facebook -->
+        <div id="prev-facebook" class="slide-in">
+          <div class="fb-card mx-auto">
+            <div class="fb-card-img" id="fb-img-wrap">
+              <span class="text-gray-400 text-xs">No image set</span>
+            </div>
+            <div class="fb-meta">
+              <div id="fb-domain" class="text-xs uppercase text-gray-500 mb-1 truncate">example.com</div>
+              <div id="fb-title" class="text-sm font-bold text-gray-900 leading-snug mb-1 line-clamp-2">Your Title</div>
+              <div id="fb-desc" class="text-xs text-gray-500 line-clamp-3">Your description will appear here.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Twitter -->
+        <div id="prev-twitter" class="hidden slide-in">
+          <div class="tw-card mx-auto">
+            <div class="tw-card-img" id="tw-img-wrap">
+              <span class="text-gray-400 text-xs">No image set</span>
+            </div>
+            <div class="tw-meta">
+              <div id="tw-title" class="text-white text-sm font-bold mb-1 line-clamp-1">Your Title</div>
+              <div id="tw-desc" class="text-gray-400 text-xs line-clamp-2 mb-1">Your description will appear here.</div>
+              <div id="tw-domain" class="text-gray-500 text-xs truncate">example.com</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LinkedIn -->
+        <div id="prev-linkedin" class="hidden slide-in">
+          <div class="li-card mx-auto">
+            <div class="li-card-img" id="li-img-wrap">
+              <span class="text-gray-500 text-xs">No image set</span>
+            </div>
+            <div class="li-meta">
+              <div id="li-title" class="text-sm font-bold text-gray-900 leading-snug mb-1 line-clamp-2">Your Title</div>
+              <div id="li-domain" class="text-xs text-gray-500 truncate">example.com</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp -->
+        <div id="prev-whatsapp" class="hidden slide-in">
+          <div class="wa-card mx-auto">
+            <div class="wa-card-img" id="wa-img-wrap">
+              <span class="text-gray-500 text-xs">No image set</span>
+            </div>
+            <div class="wa-meta">
+              <div id="wa-title" class="text-sm font-bold text-gray-800 leading-snug mb-1 line-clamp-2">Your Title</div>
+              <div id="wa-desc" class="text-xs text-gray-600 line-clamp-2 mb-1">Your description.</div>
+              <div id="wa-domain" class="text-xs text-gray-500 truncate">example.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checklist -->
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 p-4 slide-in">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">OG Tag Checklist</h3>
+        <div id="og-checklist" class="space-y-1.5 text-xs"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-12">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
+      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
+    </a>
+    <p class="text-gray-500 text-sm">Free online web design and SEO tools.</p>
+  </div>
+</footer>
+
+<script>
+var currentPlat = 'facebook';
+var labels = {facebook:'Facebook Preview',twitter:'Twitter / X Preview',linkedin:'LinkedIn Preview',whatsapp:'WhatsApp Preview'};
+
+function v(id){ return (document.getElementById(id).value||'').trim(); }
+
+function getDomain(url){
+  try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return url||'example.com'; }
+}
+
+function setImg(wrapId, src){
+  var wrap = document.getElementById(wrapId);
+  if(src){
+    wrap.innerHTML = '<img src="'+src+'" onerror="this.parentNode.innerHTML=\'<span class=\\\'text-xs text-gray-400\\\'>Image failed to load</span>\'" style="width:100%;height:100%;object-fit:cover;" alt="OG Image"/>';
+  } else {
+    wrap.innerHTML = '<span class="text-xs text-gray-400">No image set</span>';
+  }
+}
+
+function update(){
+  var title = v('i-title') || 'Your Title';
+  var desc = v('i-desc') || 'Your description will appear here.';
+  var img = v('i-img');
+  var url = v('i-url');
+  var site = v('i-site');
+  var tw = v('i-tw');
+  var domain = getDomain(url) || 'example.com';
+
+  // Facebook
+  document.getElementById('fb-title').textContent = title;
+  document.getElementById('fb-desc').textContent = desc;
+  document.getElementById('fb-domain').textContent = domain.toUpperCase();
+  setImg('fb-img-wrap', img);
+
+  // Twitter
+  document.getElementById('tw-title').textContent = title;
+  document.getElementById('tw-desc').textContent = desc;
+  document.getElementById('tw-domain').textContent = domain;
+  setImg('tw-img-wrap', img);
+
+  // LinkedIn
+  document.getElementById('li-title').textContent = title;
+  document.getElementById('li-domain').textContent = domain;
+  setImg('li-img-wrap', img);
+
+  // WhatsApp
+  document.getElementById('wa-title').textContent = title;
+  document.getElementById('wa-desc').textContent = desc;
+  document.getElementById('wa-domain').textContent = domain;
+  setImg('wa-img-wrap', img);
+
+  // Tags
+  var tags = [];
+  tags.push('<!-- Open Graph / Facebook -->');
+  tags.push('<meta property="og:type" content="website"/>');
+  if(url) tags.push('<meta property="og:url" content="'+url+'"/>');
+  if(title!=='Your Title') tags.push('<meta property="og:title" content="'+esc(title)+'"/>');
+  if(desc!=='Your description will appear here.') tags.push('<meta property="og:description" content="'+esc(desc)+'"/>');
+  if(img) tags.push('<meta property="og:image" content="'+esc(img)+'"/>');
+  if(site) tags.push('<meta property="og:site_name" content="'+esc(site)+'"/>');
+  tags.push('');
+  tags.push('<!-- Twitter / X -->');
+  tags.push('<meta name="twitter:card" content="summary_large_image"/>');
+  if(title!=='Your Title') tags.push('<meta name="twitter:title" content="'+esc(title)+'"/>');
+  if(desc!=='Your description will appear here.') tags.push('<meta name="twitter:description" content="'+esc(desc)+'"/>');
+  if(img) tags.push('<meta name="twitter:image" content="'+esc(img)+'"/>');
+  if(tw) tags.push('<meta name="twitter:site" content="'+esc(tw)+'"/>');
+
+  document.getElementById('tag-output').textContent = tags.join('\n');
+
+  // Checklist
+  var checks = [
+    {label:'og:title', ok:!!v('i-title')},
+    {label:'og:description', ok:!!v('i-desc')},
+    {label:'og:image (1200×630)', ok:!!img},
+    {label:'og:url', ok:!!url},
+    {label:'og:site_name', ok:!!site},
+    {label:'twitter:card', ok:true},
+    {label:'twitter:site @handle', ok:!!tw},
+  ];
+  document.getElementById('og-checklist').innerHTML = checks.map(function(c){
+    return '<div class="flex justify-between gap-2"><span class="text-gray-400">'+c.label+'</span><span class="'+(c.ok?'text-green-400':'text-gray-600')+'">'+(c.ok?'✓ Set':'✗ Missing')+'</span></div>';
+  }).join('');
+}
+
+function setPlat(plat, btn){
+  currentPlat = plat;
+  ['facebook','twitter','linkedin','whatsapp'].forEach(function(p){
+    document.getElementById('prev-'+p).classList.toggle('hidden', p!==plat);
+  });
+  document.getElementById('preview-label').textContent = labels[plat];
+  document.querySelectorAll('.platform-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+function copyTags(){
+  var text = document.getElementById('tag-output').textContent;
+  navigator.clipboard.writeText(text);
+  var btn = document.getElementById('copy-tags-btn');
+  btn.textContent='✅ Copied!'; btn.style.background='#16a34a';
+  setTimeout(function(){btn.textContent='Copy';btn.style.background='';},2000);
+}
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+
+update();
+</script>
+</body>
+</html>
