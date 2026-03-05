@@ -3,183 +3,1838 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Free Web Design Tools – CSS Gradient, Shadow, Color Palette & More | WebDesign001</title>
-<meta name="description" content="Free online web design tools: CSS gradient generator, box shadow builder, border radius, px to rem, color palette, sitemap, robots.txt, privacy policy, terms and refund policy generators."/>
+<title>WebDesign001 — Free Online Tools for Web Designers & Developers</title>
+<meta name="description" content="19 free online tools for web designers and developers. CSS generators, SEO tools, JSON formatter, Regex tester, sitemap generator, meta tags, and more."/>
 <link rel="canonical" href="https://webdesign001.net/"/>
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-*{font-family:'Inter',sans-serif;box-sizing:border-box;}
-.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-a{text-decoration:none;}
-.tool-card{transition:transform .2s,box-shadow .2s;}
-.tool-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(99,102,241,.2);}
+:root {
+  --bg: #060b14;
+  --surface: #0b1220;
+  --card: #0e1628;
+  --border: #162035;
+  --border-hover: #2a3f60;
+  --text: #dde8f8;
+  --muted: #4a6080;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --accent3: #ec4899;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* Gradient text */
+.gt { background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── Hero background ── */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 80px 20px 72px;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 60%, rgba(236,72,153,.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,92,246,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* Subtle grid */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(99,102,241,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* ── Search bar ── */
+.search-wrap {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.search-wrap input {
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 14px 20px 14px 48px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+.search-wrap input::placeholder { color: var(--muted); }
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* ── Stats row ── */
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99,102,241,.1);
+  border: 1px solid rgba(99,102,241,.2);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+/* ── Category section ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.section-label-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-label h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.section-label p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.section-count {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Tool card ── */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99,102,241,.05), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s;
+  border-radius: inherit;
+}
+.tool-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+}
+.tool-card:hover::before { opacity: 1; }
+
+.tool-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.tool-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+.tool-arrow {
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color .15s, gap .15s;
+}
+.tool-card:hover .tool-arrow {
+  color: #a5b4fc;
+  gap: 8px;
+}
+
+/* Category colour themes */
+.ic-design { background: rgba(99,102,241,.12); }
+.ic-seo    { background: rgba(20,184,166,.12); }
+.ic-content{ background: rgba(249,115,22,.12); }
+.ic-dev    { background: rgba(168,85,247,.12); }
+
+.border-design { border-left: 3px solid #6366f1; }
+.border-seo    { border-left: 3px solid #14b8a6; }
+.border-content{ border-left: 3px solid #f97316; }
+.border-dev    { border-left: 3px solid #a855f7; }
+
+/* ── No results ── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ── Footer ── */
+footer {
+  background: #04080f;
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-links a:hover { color: #a5b4fc; }
+
+/* ── Animations ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fu { animation: fadeUp .4s ease forwards; opacity: 0; }
+.fu-1 { animation-delay: .05s; }
+.fu-2 { animation-delay: .12s; }
+.fu-3 { animation-delay: .19s; }
+.fu-4 { animation-delay: .26s; }
+.fu-5 { animation-delay: .33s; }
+
+/* ── Responsive ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .tools-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tool-card { padding: 14px; }
+  .tool-icon { width: 36px; height: 36px; font-size: 17px; margin-bottom: 10px; }
+  .tool-name { font-size: 13px; }
+  .tool-desc { display: none; }
+  .tool-arrow { display: none; }
+  .hero-bg { padding: 48px 20px 52px; }
+}
+@media (max-width: 380px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
-<body class="bg-gray-950 text-white min-h-screen">
+<body>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-<!-- NAV -->
-<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
-    <a href="index.html" class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
-      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+<style>
+/* ── Base reset scoped to nav ── */
+.wd-nav, .wd-nav * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.wd-nav a { text-decoration: none; color: inherit; }
+.wd-nav button { font-family: 'Inter', sans-serif; cursor: pointer; }
+
+/* ════════════════════════════════
+   NAV SHELL
+════════════════════════════════ */
+.wd-nav {
+  font-family: 'Inter', sans-serif;
+  background: #080d18;
+  border-bottom: 1px solid #141f33;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wd-nav__bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ════════════════════════════════
+   LOGO
+════════════════════════════════ */
+.wd-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.wd-logo__icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; color: #fff;
+  flex-shrink: 0;
+}
+.wd-logo__text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wd-logo__text em {
+  font-style: normal;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.wd-logo__text span { color: #475569; }
+
+/* ════════════════════════════════
+   DESKTOP MENU
+════════════════════════════════ */
+.wd-desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+/* Dropdown wrapper */
+.wd-dd {
+  position: relative;
+}
+
+/* Trigger button */
+.wd-dd__btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  border: none;
+  background: transparent;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.wd-dd__btn:hover,
+.wd-dd.open .wd-dd__btn {
+  background: #111827;
+  color: #f1f5f9;
+}
+.wd-dd__btn svg {
+  width: 12px; height: 12px;
+  flex-shrink: 0;
+  opacity: .55;
+  transition: transform .2s;
+  margin-top: 1px;
+}
+.wd-dd.open .wd-dd__btn svg { transform: rotate(180deg); }
+.wd-dd__btn.cat-active { color: #a5b4fc; }
+
+/* Dropdown panel */
+.wd-dd__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #0c1322;
+  border: 1px solid #1a2540;
+  border-radius: 14px;
+  padding: 6px;
+  min-width: 240px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(99,102,241,.07);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .18s, transform .18s, visibility 0s .18s;
+  pointer-events: none;
+}
+.wd-dd.open .wd-dd__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .18s, transform .18s;
+  pointer-events: all;
+}
+
+/* Category label inside dropdown */
+.wd-dd__cat {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #2d4060;
+  padding: 8px 10px 3px;
+}
+
+/* Link inside dropdown */
+.wd-dd__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #8ba0b8;
+  transition: background .12s, color .12s;
+  white-space: nowrap;
+}
+.wd-dd__link:hover { background: #131f38; color: #e2e8f0; }
+.wd-dd__link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
+.wd-dd__link-ico { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; line-height: 1; }
+
+/* Separator */
+.wd-dd__sep { height: 1px; background: #141f33; margin: 4px 8px; }
+
+/* ════════════════════════════════
+   ALL TOOLS BUTTON (desktop)
+════════════════════════════════ */
+.wd-nav__right {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.wd-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.wd-all-btn:hover { opacity: .85; }
+
+/* ════════════════════════════════
+   HAMBURGER BUTTON
+════════════════════════════════ */
+.wd-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #1e2d45;
+  border-radius: 9px;
+  background: transparent;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.wd-hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #94a3b8;
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+  transform-origin: center;
+}
+.wd-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.wd-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.wd-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ════════════════════════════════
+   MOBILE DRAWER
+════════════════════════════════ */
+.wd-drawer {
+  display: none;           /* hidden on desktop, shown via @media below */
+  overflow: hidden;        /* clips children when max-height is 0 */
+  max-height: 0;           /* CLOSED — takes no space */
+  transition: max-height .35s ease;
+  background: #090f1d;
+  border-top: 0px solid #141f33;  /* no border when closed */
+}
+.wd-drawer.is-open {
+  max-height: calc(100svh - 58px); /* OPEN — grows to fill viewport */
+  border-top-width: 1px;
+}
+
+.wd-drawer__scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(100svh - 58px);
+  overscroll-behavior: contain;
+}
+
+/* Accordion section */
+.wd-acc {
+  border-bottom: 1px solid #141f33;
+}
+
+.wd-acc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c8d4e8;
+  transition: background .15s, color .15s;
+  line-height: 1;
+  gap: 10px;
+  min-height: 52px;
+}
+.wd-acc__head:active { background: #0f1828; }
+.wd-acc__head-left { display: flex; align-items: center; gap: 10px; }
+.wd-acc__head-emoji { font-size: 16px; line-height: 1; }
+
+.wd-acc__chevron {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  color: #3d5570;
+  transition: transform .25s ease, color .2s;
+  margin-left: auto;
+}
+.wd-acc.open .wd-acc__chevron { transform: rotate(180deg); color: #6366f1; }
+.wd-acc.open .wd-acc__head { color: #a5b4fc; }
+
+/* Accordion body — grid trick for smooth animation without JS height measuring */
+.wd-acc__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease;
+}
+.wd-acc.open .wd-acc__body {
+  grid-template-rows: 1fr;
+}
+.wd-acc__body-inner {
+  overflow: hidden;
+  padding: 0 12px;
+  transition: padding .28s ease;
+}
+.wd-acc.open .wd-acc__body-inner {
+  padding: 2px 12px 10px;
+}
+
+/* Mobile link */
+.wd-mob-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8ba0b8;
+  transition: background .12s, color .12s;
+  min-height: 44px;
+}
+.wd-mob-link:hover,
+.wd-mob-link:active { background: #111827; color: #e2e8f0; }
+.wd-mob-link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
+.wd-mob-link-ico { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+
+/* Mobile CTA */
+.wd-drawer__cta {
+  padding: 14px 20px 24px;
+}
+.wd-drawer__cta a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  min-height: 48px;
+  transition: opacity .15s;
+}
+.wd-drawer__cta a:active { opacity: .85; }
+
+/* ════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════ */
+@media (max-width: 900px) {
+  .wd-desktop-menu { display: none; }
+  .wd-nav__right { display: none; }
+  .wd-hamburger { display: flex; }
+  .wd-drawer { display: block; }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .wd-dd__btn { padding: 7px 9px; font-size: 12.5px; }
+  .wd-all-btn { padding: 7px 12px; font-size: 11.5px; }
+}
+</style>
+
+<!-- ════════════════════ HTML ════════════════════ -->
+<nav class="wd-nav" role="navigation" aria-label="Site navigation">
+
+  <div class="wd-nav__bar">
+
+    <!-- Logo -->
+    <a href="index.html" class="wd-logo" aria-label="WebDesign001 – Home">
+      <div class="wd-logo__icon" aria-hidden="true">W</div>
+      <div class="wd-logo__text"><em>WebDesign</em><span>001</span></div>
     </a>
-    <div class="hidden md:flex flex-wrap gap-4 text-xs text-gray-400">
-      <a href="css-gradient-generator.html" class="hover:text-indigo-400 transition">Gradient</a>
-      <a href="box-shadow-generator.html" class="hover:text-indigo-400 transition">Shadow</a>
-      <a href="border-radius-generator.html" class="hover:text-indigo-400 transition">Radius</a>
-      <a href="px-to-rem-converter.html" class="hover:text-indigo-400 transition">PX to REM</a>
-      <a href="color-palette-generator.html" class="hover:text-indigo-400 transition">Colors</a>
-      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
-      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
-      <a href="privacy-policy-generator.html" class="hover:text-indigo-400 transition">Privacy</a>
-      <a href="terms-conditions-generator.html" class="hover:text-indigo-400 transition">Terms</a>
-      <a href="refund-policy-generator.html" class="hover:text-indigo-400 transition">Refund</a>
+
+    <!-- ── DESKTOP DROPDOWNS ── -->
+    <div class="wd-desktop-menu" role="menubar">
+
+      <!-- 🎨 Design Tools -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          🎨 Design Tools
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="Design Tools">
+          <div class="wd-dd__cat">Visual &amp; CSS</div>
+          <a class="wd-dd__link" href="css-gradient-generator.html" role="menuitem"><span class="wd-dd__link-ico">🌈</span>CSS Gradient Generator</a>
+          <a class="wd-dd__link" href="box-shadow-generator.html" role="menuitem"><span class="wd-dd__link-ico">🟦</span>Box Shadow Generator</a>
+          <a class="wd-dd__link" href="border-radius-generator.html" role="menuitem"><span class="wd-dd__link-ico">⬜</span>Border Radius Generator</a>
+          <a class="wd-dd__link" href="color-palette-generator.html" role="menuitem"><span class="wd-dd__link-ico">🎨</span>Color Palette Generator</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Units</div>
+          <a class="wd-dd__link" href="px-to-rem-converter.html" role="menuitem"><span class="wd-dd__link-ico">📐</span>PX → REM Converter</a>
+        </div>
+      </div>
+
+      <!-- 🔍 SEO Tools -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          🔍 SEO Tools
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="SEO Tools">
+          <div class="wd-dd__cat">Indexing &amp; Crawling</div>
+          <a class="wd-dd__link" href="sitemap-generator.html" role="menuitem"><span class="wd-dd__link-ico">🗺️</span>Sitemap XML Generator</a>
+          <a class="wd-dd__link" href="robots-txt-generator.html" role="menuitem"><span class="wd-dd__link-ico">🤖</span>Robots.txt Generator</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Social &amp; Meta</div>
+          <a class="wd-dd__link" href="meta-tag-generator.html" role="menuitem"><span class="wd-dd__link-ico">🏷️</span>Meta Tag Generator</a>
+          <a class="wd-dd__link" href="og-preview.html" role="menuitem"><span class="wd-dd__link-ico">👁️</span>Open Graph Preview</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Structured Data</div>
+          <a class="wd-dd__link" href="schema-generator.html" role="menuitem"><span class="wd-dd__link-ico">🧩</span>JSON-LD Schema Generator</a>
+        </div>
+      </div>
+
+      <!-- 📄 Content Generators -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          📄 Content Generators
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="Content Generators">
+          <div class="wd-dd__cat">Legal Pages</div>
+          <a class="wd-dd__link" href="privacy-policy-generator.html" role="menuitem"><span class="wd-dd__link-ico">🔒</span>Privacy Policy Generator</a>
+          <a class="wd-dd__link" href="terms-conditions-generator.html" role="menuitem"><span class="wd-dd__link-ico">📋</span>Terms &amp; Conditions</a>
+          <a class="wd-dd__link" href="refund-policy-generator.html" role="menuitem"><span class="wd-dd__link-ico">↩️</span>Refund Policy Generator</a>
+        </div>
+      </div>
+
+      <!-- ⚙️ Developer Tools -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          ⚙️ Developer Tools
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="Developer Tools">
+          <div class="wd-dd__cat">Formatters &amp; Minifiers</div>
+          <a class="wd-dd__link" href="html-formatter.html" role="menuitem"><span class="wd-dd__link-ico">⟨/⟩</span>HTML Formatter</a>
+          <a class="wd-dd__link" href="css-minifier.html" role="menuitem"><span class="wd-dd__link-ico">{ }</span>CSS Minifier &amp; Beautifier</a>
+          <a class="wd-dd__link" href="json-formatter.html" role="menuitem"><span class="wd-dd__link-ico">{ }</span>JSON Formatter &amp; Validator</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Testing &amp; Config</div>
+          <a class="wd-dd__link" href="regex-tester.html" role="menuitem"><span class="wd-dd__link-ico">.*</span>Regex Tester</a>
+          <a class="wd-dd__link" href="htaccess-generator.html" role="menuitem"><span class="wd-dd__link-ico">⚙️</span>.htaccess Generator</a>
+        </div>
+      </div>
+
+    </div><!-- /desktop menu -->
+
+    <!-- All Tools CTA (desktop) -->
+    <div class="wd-nav__right">
+      <a href="index.html" class="wd-all-btn">✦ All Tools</a>
     </div>
-    <span class="bg-indigo-600 px-3 py-1.5 rounded-full text-xs font-medium text-white">All Tools</span>
-  </div>
+
+    <!-- Hamburger (mobile) -->
+    <button class="wd-hamburger" id="wd-ham" aria-label="Open menu" aria-expanded="false" aria-controls="wd-drawer">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div><!-- /bar -->
+
+  <!-- ── MOBILE DRAWER ── -->
+  <div class="wd-drawer" id="wd-drawer" aria-hidden="true">
+    <div class="wd-drawer__scroll">
+
+      <!-- Accordion: Design Tools -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">🎨</span>Design Tools</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="css-gradient-generator.html"><span class="wd-mob-link-ico">🌈</span>CSS Gradient Generator</a>
+            <a class="wd-mob-link" href="box-shadow-generator.html"><span class="wd-mob-link-ico">🟦</span>Box Shadow Generator</a>
+            <a class="wd-mob-link" href="border-radius-generator.html"><span class="wd-mob-link-ico">⬜</span>Border Radius Generator</a>
+            <a class="wd-mob-link" href="color-palette-generator.html"><span class="wd-mob-link-ico">🎨</span>Color Palette Generator</a>
+            <a class="wd-mob-link" href="px-to-rem-converter.html"><span class="wd-mob-link-ico">📐</span>PX → REM Converter</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: SEO Tools -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">🔍</span>SEO Tools</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="sitemap-generator.html"><span class="wd-mob-link-ico">🗺️</span>Sitemap XML Generator</a>
+            <a class="wd-mob-link" href="robots-txt-generator.html"><span class="wd-mob-link-ico">🤖</span>Robots.txt Generator</a>
+            <a class="wd-mob-link" href="meta-tag-generator.html"><span class="wd-mob-link-ico">🏷️</span>Meta Tag Generator</a>
+            <a class="wd-mob-link" href="og-preview.html"><span class="wd-mob-link-ico">👁️</span>Open Graph Preview</a>
+            <a class="wd-mob-link" href="schema-generator.html"><span class="wd-mob-link-ico">🧩</span>JSON-LD Schema Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: Content Generators -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">📄</span>Content Generators</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="privacy-policy-generator.html"><span class="wd-mob-link-ico">🔒</span>Privacy Policy Generator</a>
+            <a class="wd-mob-link" href="terms-conditions-generator.html"><span class="wd-mob-link-ico">📋</span>Terms &amp; Conditions</a>
+            <a class="wd-mob-link" href="refund-policy-generator.html"><span class="wd-mob-link-ico">↩️</span>Refund Policy Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: Developer Tools -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">⚙️</span>Developer Tools</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="html-formatter.html"><span class="wd-mob-link-ico">⟨/⟩</span>HTML Formatter</a>
+            <a class="wd-mob-link" href="css-minifier.html"><span class="wd-mob-link-ico">{ }</span>CSS Minifier &amp; Beautifier</a>
+            <a class="wd-mob-link" href="json-formatter.html"><span class="wd-mob-link-ico">{ }</span>JSON Formatter &amp; Validator</a>
+            <a class="wd-mob-link" href="regex-tester.html"><span class="wd-mob-link-ico">.*</span>Regex Tester</a>
+            <a class="wd-mob-link" href="htaccess-generator.html"><span class="wd-mob-link-ico">⚙️</span>.htaccess Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="wd-drawer__cta">
+        <a href="index.html">✦ View All Tools</a>
+      </div>
+
+    </div><!-- /scroll -->
+  </div><!-- /drawer -->
+
 </nav>
 
-<!-- HERO -->
-<section class="max-w-7xl mx-auto px-4 pt-16 pb-10 text-center">
-  <div class="inline-flex items-center gap-2 bg-indigo-950 border border-indigo-800 rounded-full px-4 py-1.5 text-sm text-indigo-300 mb-6">
-    10 Free Web Design and SEO Tools — No Signup Required
-  </div>
-  <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-    Free <span class="gradient-text">Web Design Tools</span><br/>for Developers and Designers
-  </h1>
-  <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
-    CSS generators, unit converters, sitemap builders, robots.txt and legal document generators — all free, all instant, no login required.
-  </p>
-  <div class="flex flex-wrap justify-center gap-3 text-sm">
-    <span class="bg-gray-800 px-3 py-1 rounded-full text-gray-300">No Login</span>
-    <span class="bg-gray-800 px-3 py-1 rounded-full text-gray-300">Instant Download</span>
-    <span class="bg-gray-800 px-3 py-1 rounded-full text-gray-300">Mobile Friendly</span>
-    <span class="bg-gray-800 px-3 py-1 rounded-full text-gray-300">100% Free Forever</span>
-  </div>
-</section>
+<script>
+(function () {
+  'use strict';
 
-<!-- TOOLS GRID -->
-<section class="max-w-7xl mx-auto px-4 pb-20">
-  <h2 class="text-2xl font-bold text-center mb-2">All Free Tools</h2>
-  <p class="text-gray-400 text-center text-sm mb-10">Click any tool to open it instantly</p>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+  /* ══════════════════════════════
+     DESKTOP DROPDOWNS
+  ══════════════════════════════ */
+  var dds = document.querySelectorAll('.wd-dd');
 
-    <a href="css-gradient-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-2xl mb-4">🎨</div>
-      <h3 class="font-bold text-lg mb-1 text-white">CSS Gradient Generator</h3>
-      <p class="text-gray-400 text-sm">Create linear and radial CSS gradients with live preview and instant copy.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/css-gradient-generator</span>
-    </a>
+  function closeAllDd() {
+    dds.forEach(function (dd) {
+      dd.classList.remove('open');
+      dd.querySelector('.wd-dd__btn').setAttribute('aria-expanded', 'false');
+    });
+  }
 
-    <a href="box-shadow-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500 to-gray-900 border border-gray-700 flex items-center justify-center text-2xl mb-4">🌑</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Box Shadow Generator</h3>
-      <p class="text-gray-400 text-sm">Design CSS box shadows with full control over blur, spread, color and opacity.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/box-shadow-generator</span>
-    </a>
+  dds.forEach(function (dd) {
+    var btn = dd.querySelector('.wd-dd__btn');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = dd.classList.contains('open');
+      closeAllDd();
+      if (!isOpen) {
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 
-    <a href="border-radius-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-2xl mb-4">⬜</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Border Radius Generator</h3>
-      <p class="text-gray-400 text-sm">Set per-corner border radii for smooth, custom UI shapes and organic designs.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/border-radius-generator</span>
-    </a>
+  document.addEventListener('click', closeAllDd);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllDd();
+  });
 
-    <a href="px-to-rem-converter.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-2xl mb-4">🔢</div>
-      <h3 class="font-bold text-lg mb-1 text-white">PX to REM Converter</h3>
-      <p class="text-gray-400 text-sm">Convert pixel values to scalable REM units for responsive, accessible CSS.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/px-to-rem-converter</span>
-    </a>
+  /* ══════════════════════════════
+     HAMBURGER / DRAWER
+  ══════════════════════════════ */
+  var ham = document.getElementById('wd-ham');
+  var drawer = document.getElementById('wd-drawer');
 
-    <a href="color-palette-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-2xl mb-4">🎭</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Color Palette Generator</h3>
-      <p class="text-gray-400 text-sm">Generate complementary, triadic and analogous color palettes for your UI.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/color-palette-generator</span>
-    </a>
+  ham.addEventListener('click', function () {
+    var isOpen = ham.classList.toggle('is-open');
+    ham.setAttribute('aria-expanded', String(isOpen));
+    drawer.classList.toggle('is-open', isOpen);   /* ← controls visibility */
+    drawer.setAttribute('aria-hidden', String(!isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
 
-    <a href="sitemap-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-green-500 flex items-center justify-center text-2xl mb-4">🗺️</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Sitemap XML Generator</h3>
-      <p class="text-gray-400 text-sm">Build a valid XML sitemap for any website. Paste URLs and download instantly.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/sitemap-generator</span>
-    </a>
+  /* ══════════════════════════════
+     ACCORDION (mobile)
+  ══════════════════════════════ */
+  var accs = document.querySelectorAll('.wd-acc');
 
-    <a href="robots-txt-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center text-2xl mb-4">🤖</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Robots.txt Generator</h3>
-      <p class="text-gray-400 text-sm">Generate a robots.txt file to control how search engine crawlers access your site.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/robots-txt-generator</span>
-    </a>
+  accs.forEach(function (acc) {
+    var head = acc.querySelector('.wd-acc__head');
+    head.addEventListener('click', function () {
+      var isOpen = acc.classList.contains('open');
+      // Close all others first
+      accs.forEach(function (a) {
+        a.classList.remove('open');
+        a.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        acc.classList.add('open');
+        head.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 
-    <a href="privacy-policy-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 flex items-center justify-center text-2xl mb-4">🔒</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Privacy Policy Generator</h3>
-      <p class="text-gray-400 text-sm">Generate a GDPR-ready privacy policy for your website or mobile app.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/privacy-policy-generator</span>
-    </a>
+  /* ══════════════════════════════
+     AUTO-HIGHLIGHT CURRENT PAGE
+  ══════════════════════════════ */
+  var page = window.location.pathname.split('/').pop() || 'index.html';
 
-    <a href="terms-conditions-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center text-2xl mb-4">📄</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Terms and Conditions Generator</h3>
-      <p class="text-gray-400 text-sm">Create professional terms and conditions for your website or SaaS product.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/terms-conditions-generator</span>
-    </a>
+  // Desktop
+  document.querySelectorAll('.wd-dd__link').forEach(function (a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      var parentDd = a.closest('.wd-dd');
+      if (parentDd) parentDd.querySelector('.wd-dd__btn').classList.add('cat-active');
+    }
+  });
 
-    <a href="refund-policy-generator.html" class="tool-card bg-gray-900 border border-gray-800 rounded-2xl p-6 block">
-      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center text-2xl mb-4">💸</div>
-      <h3 class="font-bold text-lg mb-1 text-white">Refund Policy Generator</h3>
-      <p class="text-gray-400 text-sm">Generate a clear refund and return policy for your online store or service.</p>
-      <span class="inline-block mt-3 text-xs text-indigo-400 font-medium">/refund-policy-generator</span>
-    </a>
+  // Mobile — also auto-open that accordion section
+  document.querySelectorAll('.wd-mob-link').forEach(function (a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      var parentAcc = a.closest('.wd-acc');
+      if (parentAcc) {
+        parentAcc.classList.add('open');
+        parentAcc.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'true');
+      }
+    }
+  });
 
-  </div>
-</section>
+  /* ══════════════════════════════
+     RESET ON RESIZE TO DESKTOP
+  ══════════════════════════════ */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) {
+      ham.classList.remove('is-open');
+      ham.setAttribute('aria-expanded', 'false');
+      drawer.classList.remove('is-open');           /* ← hide drawer on resize */
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
 
-<!-- SEO CONTENT -->
-<section class="max-w-4xl mx-auto px-4 pb-16">
-  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-    <h2 class="text-2xl font-bold mb-4">Why Use WebDesign001 Free Tools?</h2>
-    <p class="text-gray-400 text-sm leading-7 mb-4">
-      WebDesign001 provides the most essential free web design and development tools in one place. From CSS visual generators to SEO utilities and legal document generators — every tool works instantly in your browser with zero setup, zero login, and zero cost.
+}());
+</script>
+
+
+<!-- ═══════════════════ NAV (paste nav snippet here) ═══════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+/* ── Base reset scoped to nav ── */
+.wd-nav, .wd-nav * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.wd-nav a { text-decoration: none; color: inherit; }
+.wd-nav button { font-family: 'Inter', sans-serif; cursor: pointer; }
+
+/* ════════════════════════════════
+   NAV SHELL
+════════════════════════════════ */
+.wd-nav {
+  font-family: 'Inter', sans-serif;
+  background: #080d18;
+  border-bottom: 1px solid #141f33;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wd-nav__bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ════════════════════════════════
+   LOGO
+════════════════════════════════ */
+.wd-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.wd-logo__icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; color: #fff;
+  flex-shrink: 0;
+}
+.wd-logo__text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wd-logo__text em {
+  font-style: normal;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.wd-logo__text span { color: #475569; }
+
+/* ════════════════════════════════
+   DESKTOP MENU
+════════════════════════════════ */
+.wd-desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+/* Dropdown wrapper */
+.wd-dd {
+  position: relative;
+}
+
+/* Trigger button */
+.wd-dd__btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  border: none;
+  background: transparent;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.wd-dd__btn:hover,
+.wd-dd.open .wd-dd__btn {
+  background: #111827;
+  color: #f1f5f9;
+}
+.wd-dd__btn svg {
+  width: 12px; height: 12px;
+  flex-shrink: 0;
+  opacity: .55;
+  transition: transform .2s;
+  margin-top: 1px;
+}
+.wd-dd.open .wd-dd__btn svg { transform: rotate(180deg); }
+.wd-dd__btn.cat-active { color: #a5b4fc; }
+
+/* Dropdown panel */
+.wd-dd__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #0c1322;
+  border: 1px solid #1a2540;
+  border-radius: 14px;
+  padding: 6px;
+  min-width: 240px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(99,102,241,.07);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .18s, transform .18s, visibility 0s .18s;
+  pointer-events: none;
+}
+.wd-dd.open .wd-dd__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .18s, transform .18s;
+  pointer-events: all;
+}
+
+/* Category label inside dropdown */
+.wd-dd__cat {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #2d4060;
+  padding: 8px 10px 3px;
+}
+
+/* Link inside dropdown */
+.wd-dd__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #8ba0b8;
+  transition: background .12s, color .12s;
+  white-space: nowrap;
+}
+.wd-dd__link:hover { background: #131f38; color: #e2e8f0; }
+.wd-dd__link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
+.wd-dd__link-ico { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; line-height: 1; }
+
+/* Separator */
+.wd-dd__sep { height: 1px; background: #141f33; margin: 4px 8px; }
+
+/* ════════════════════════════════
+   ALL TOOLS BUTTON (desktop)
+════════════════════════════════ */
+.wd-nav__right {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.wd-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.wd-all-btn:hover { opacity: .85; }
+
+/* ════════════════════════════════
+   HAMBURGER BUTTON
+════════════════════════════════ */
+.wd-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #1e2d45;
+  border-radius: 9px;
+  background: transparent;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.wd-hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #94a3b8;
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+  transform-origin: center;
+}
+.wd-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.wd-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.wd-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ════════════════════════════════
+   MOBILE DRAWER
+════════════════════════════════ */
+.wd-drawer {
+  display: none;           /* hidden on desktop, shown via @media below */
+  overflow: hidden;        /* clips children when max-height is 0 */
+  max-height: 0;           /* CLOSED — takes no space */
+  transition: max-height .35s ease;
+  background: #090f1d;
+  border-top: 0px solid #141f33;  /* no border when closed */
+}
+.wd-drawer.is-open {
+  max-height: calc(100svh - 58px); /* OPEN — grows to fill viewport */
+  border-top-width: 1px;
+}
+
+.wd-drawer__scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(100svh - 58px);
+  overscroll-behavior: contain;
+}
+
+/* Accordion section */
+.wd-acc {
+  border-bottom: 1px solid #141f33;
+}
+
+.wd-acc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c8d4e8;
+  transition: background .15s, color .15s;
+  line-height: 1;
+  gap: 10px;
+  min-height: 52px;
+}
+.wd-acc__head:active { background: #0f1828; }
+.wd-acc__head-left { display: flex; align-items: center; gap: 10px; }
+.wd-acc__head-emoji { font-size: 16px; line-height: 1; }
+
+.wd-acc__chevron {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  color: #3d5570;
+  transition: transform .25s ease, color .2s;
+  margin-left: auto;
+}
+.wd-acc.open .wd-acc__chevron { transform: rotate(180deg); color: #6366f1; }
+.wd-acc.open .wd-acc__head { color: #a5b4fc; }
+
+/* Accordion body — grid trick for smooth animation without JS height measuring */
+.wd-acc__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease;
+}
+.wd-acc.open .wd-acc__body {
+  grid-template-rows: 1fr;
+}
+.wd-acc__body-inner {
+  overflow: hidden;
+  padding: 0 12px;
+  transition: padding .28s ease;
+}
+.wd-acc.open .wd-acc__body-inner {
+  padding: 2px 12px 10px;
+}
+
+/* Mobile link */
+.wd-mob-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8ba0b8;
+  transition: background .12s, color .12s;
+  min-height: 44px;
+}
+.wd-mob-link:hover,
+.wd-mob-link:active { background: #111827; color: #e2e8f0; }
+.wd-mob-link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
+.wd-mob-link-ico { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+
+/* Mobile CTA */
+.wd-drawer__cta {
+  padding: 14px 20px 24px;
+}
+.wd-drawer__cta a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  min-height: 48px;
+  transition: opacity .15s;
+}
+.wd-drawer__cta a:active { opacity: .85; }
+
+/* ════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════ */
+@media (max-width: 900px) {
+  .wd-desktop-menu { display: none; }
+  .wd-nav__right { display: none; }
+  .wd-hamburger { display: flex; }
+  .wd-drawer { display: block; }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .wd-dd__btn { padding: 7px 9px; font-size: 12.5px; }
+  .wd-all-btn { padding: 7px 12px; font-size: 11.5px; }
+}
+</style>
+
+<!-- ════════════════════ HTML ════════════════════ -->
+
+
+<script>
+(function () {
+  'use strict';
+
+  /* ══════════════════════════════
+     DESKTOP DROPDOWNS
+  ══════════════════════════════ */
+  var dds = document.querySelectorAll('.wd-dd');
+
+  function closeAllDd() {
+    dds.forEach(function (dd) {
+      dd.classList.remove('open');
+      dd.querySelector('.wd-dd__btn').setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  dds.forEach(function (dd) {
+    var btn = dd.querySelector('.wd-dd__btn');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = dd.classList.contains('open');
+      closeAllDd();
+      if (!isOpen) {
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', closeAllDd);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllDd();
+  });
+
+  /* ══════════════════════════════
+     HAMBURGER / DRAWER
+  ══════════════════════════════ */
+  var ham = document.getElementById('wd-ham');
+  var drawer = document.getElementById('wd-drawer');
+
+  ham.addEventListener('click', function () {
+    var isOpen = ham.classList.toggle('is-open');
+    ham.setAttribute('aria-expanded', String(isOpen));
+    drawer.classList.toggle('is-open', isOpen);   /* ← controls visibility */
+    drawer.setAttribute('aria-hidden', String(!isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  /* ══════════════════════════════
+     ACCORDION (mobile)
+  ══════════════════════════════ */
+  var accs = document.querySelectorAll('.wd-acc');
+
+  accs.forEach(function (acc) {
+    var head = acc.querySelector('.wd-acc__head');
+    head.addEventListener('click', function () {
+      var isOpen = acc.classList.contains('open');
+      // Close all others first
+      accs.forEach(function (a) {
+        a.classList.remove('open');
+        a.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        acc.classList.add('open');
+        head.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ══════════════════════════════
+     AUTO-HIGHLIGHT CURRENT PAGE
+  ══════════════════════════════ */
+  var page = window.location.pathname.split('/').pop() || 'index.html';
+
+  // Desktop
+  document.querySelectorAll('.wd-dd__link').forEach(function (a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      var parentDd = a.closest('.wd-dd');
+      if (parentDd) parentDd.querySelector('.wd-dd__btn').classList.add('cat-active');
+    }
+  });
+
+  // Mobile — also auto-open that accordion section
+  document.querySelectorAll('.wd-mob-link').forEach(function (a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      var parentAcc = a.closest('.wd-acc');
+      if (parentAcc) {
+        parentAcc.classList.add('open');
+        parentAcc.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'true');
+      }
+    }
+  });
+
+  /* ══════════════════════════════
+     RESET ON RESIZE TO DESKTOP
+  ══════════════════════════════ */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) {
+      ham.classList.remove('is-open');
+      ham.setAttribute('aria-expanded', 'false');
+      drawer.classList.remove('is-open');           /* ← hide drawer on resize */
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
+
+}());
+</script>
+
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="hero-bg">
+  <div style="max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+
+    <div class="stat-pill fu fu-1" style="margin-bottom:20px;">
+      ✦ 19 Free Tools · No Sign-up · 100% Browser-based
+    </div>
+
+    <h1 class="fu fu-2" style="font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.08;margin-bottom:16px;letter-spacing:-.02em;">
+      Free Tools for<br/><span class="gt">Web Designers & Developers</span>
+    </h1>
+
+    <p class="fu fu-3" style="font-size:clamp(14px,2.5vw,17px);color:var(--muted);max-width:560px;margin:0 auto 32px;line-height:1.7;">
+      CSS generators, SEO tools, code formatters, legal page generators — everything you need to build and launch faster.
     </p>
-    <p class="text-gray-400 text-sm leading-7">
-      Whether you are a freelance designer, indie developer, or startup founder — save hours of work with our free tools. Generate a sitemap in seconds, create a GDPR-compliant privacy policy, or build the perfect CSS gradient for your next project.
-    </p>
-    <div class="grid sm:grid-cols-3 gap-6 mt-8 text-center">
-      <div><div class="text-3xl font-extrabold gradient-text">10+</div><div class="text-gray-400 text-sm mt-1">Free Tools</div></div>
-      <div><div class="text-3xl font-extrabold gradient-text">0</div><div class="text-gray-400 text-sm mt-1">Signup Required</div></div>
-      <div><div class="text-3xl font-extrabold gradient-text">100%</div><div class="text-gray-400 text-sm mt-1">Free Forever</div></div>
+
+    <!-- Search -->
+    <div class="search-wrap fu fu-4">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="Search tools… e.g. sitemap, JSON, gradient" oninput="filterTools(this.value)" autocomplete="off"/>
+    </div>
+
+    <!-- Quick category pills -->
+    <div class="fu fu-5" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;">
+      <button onclick="filterByCategory('all')" class="cat-pill active" data-cat="all">All 19</button>
+      <button onclick="filterByCategory('design')" class="cat-pill" data-cat="design">🎨 Design</button>
+      <button onclick="filterByCategory('seo')" class="cat-pill" data-cat="seo">🔍 SEO</button>
+      <button onclick="filterByCategory('content')" class="cat-pill" data-cat="content">📄 Content</button>
+      <button onclick="filterByCategory('dev')" class="cat-pill" data-cat="dev">⚙️ Developer</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.cat-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.cat-pill:hover, .cat-pill.active {
+  background: rgba(99,102,241,.15);
+  border-color: rgba(99,102,241,.4);
+  color: #a5b4fc;
+}
+</style>
+
+<!-- ═══════════════════ TOOLS ═══════════════════ -->
+<main style="max-width:1280px;margin:0 auto;padding:52px 20px 60px;" id="main-content">
+
+  <div id="no-results">
+    <div style="font-size:40px;margin-bottom:12px;">🔎</div>
+    No tools found for that search. Try a different keyword.
+  </div>
+
+  <!-- ── DESIGN TOOLS ── -->
+  <section class="tool-section" data-category="design" style="margin-bottom:52px;">
+    <div class="section-label">
+      <div class="section-label-icon ic-design">🎨</div>
+      <div>
+        <h2>Design Tools</h2>
+        <p>Visual CSS generators and unit converters</p>
+      </div>
+      <span class="section-count">5 tools</span>
+    </div>
+    <div class="tools-grid">
+
+      <a href="css-gradient-generator.html" class="tool-card border-design" data-name="css gradient generator" data-cat="design">
+        <div class="tool-icon ic-design">🌈</div>
+        <div class="tool-name">CSS Gradient Generator</div>
+        <div class="tool-desc">Create linear, radial, and conic CSS gradients visually with live preview and instant code output.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="box-shadow-generator.html" class="tool-card border-design" data-name="box shadow generator css" data-cat="design">
+        <div class="tool-icon ic-design">🟦</div>
+        <div class="tool-name">Box Shadow Generator</div>
+        <div class="tool-desc">Design layered CSS box shadows with real-time controls for offset, blur, spread, colour and opacity.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="border-radius-generator.html" class="tool-card border-design" data-name="border radius generator css rounded corners" data-cat="design">
+        <div class="tool-icon ic-design">⬜</div>
+        <div class="tool-name">Border Radius Generator</div>
+        <div class="tool-desc">Generate any border-radius shape — from simple rounded corners to complex asymmetric blobs.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="color-palette-generator.html" class="tool-card border-design" data-name="color palette generator scheme" data-cat="design">
+        <div class="tool-icon ic-design">🎨</div>
+        <div class="tool-name">Color Palette Generator</div>
+        <div class="tool-desc">Generate harmonious colour palettes — complementary, triadic, analogous — with hex and CSS variables.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="px-to-rem-converter.html" class="tool-card border-design" data-name="px to rem converter unit" data-cat="design">
+        <div class="tool-icon ic-design">📐</div>
+        <div class="tool-name">PX → REM Converter</div>
+        <div class="tool-desc">Quickly convert pixel values to rem units. Set your base font size and convert entire lists at once.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── SEO TOOLS ── -->
+  <section class="tool-section" data-category="seo" style="margin-bottom:52px;">
+    <div class="section-label">
+      <div class="section-label-icon ic-seo">🔍</div>
+      <div>
+        <h2>SEO Tools</h2>
+        <p>Indexing, meta tags, social sharing & structured data</p>
+      </div>
+      <span class="section-count">6 tools</span>
+    </div>
+    <div class="tools-grid">
+
+      <a href="sitemap-generator.html" class="tool-card border-seo" data-name="sitemap xml generator seo" data-cat="seo">
+        <div class="tool-icon ic-seo">🗺️</div>
+        <div class="tool-name">Sitemap XML Generator</div>
+        <div class="tool-desc">Fetch your website, extract all internal links, and generate a valid sitemap.xml ready for Google Search Console.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="robots-txt-generator.html" class="tool-card border-seo" data-name="robots txt generator seo crawl" data-cat="seo">
+        <div class="tool-icon ic-seo">🤖</div>
+        <div class="tool-name">Robots.txt Generator</div>
+        <div class="tool-desc">Control which pages search engines crawl and index. Generate a proper robots.txt with custom rules.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="meta-tag-generator.html" class="tool-card border-seo" data-name="meta tag generator seo html head" data-cat="seo">
+        <div class="tool-icon ic-seo">🏷️</div>
+        <div class="tool-name">Meta Tag Generator</div>
+        <div class="tool-desc">Generate complete meta tags — SEO, Open Graph, Twitter Cards, canonical, robots — with live Google preview.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="og-preview.html" class="tool-card border-seo" data-name="open graph preview social media og tag" data-cat="seo">
+        <div class="tool-icon ic-seo">👁️</div>
+        <div class="tool-name">Open Graph Preview</div>
+        <div class="tool-desc">See exactly how your page looks when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="schema-generator.html" class="tool-card border-seo" data-name="json ld schema generator structured data rich results" data-cat="seo">
+        <div class="tool-icon ic-seo">🧩</div>
+        <div class="tool-name">JSON-LD Schema Generator</div>
+        <div class="tool-desc">Build structured data for Articles, Products, FAQs, LocalBusiness, Events and more. Boost Google rich results.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="htaccess-generator.html" class="tool-card border-seo" data-name="htaccess generator apache redirect https www" data-cat="seo">
+        <div class="tool-icon ic-seo">⚙️</div>
+        <div class="tool-name">.htaccess Generator</div>
+        <div class="tool-desc">Force HTTPS, www redirects, enable GZIP, set caching headers, block bad bots — with a simple toggle UI.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── CONTENT GENERATORS ── -->
+  <section class="tool-section" data-category="content" style="margin-bottom:52px;">
+    <div class="section-label">
+      <div class="section-label-icon ic-content">📄</div>
+      <div>
+        <h2>Content Generators</h2>
+        <p>Legal pages ready in seconds</p>
+      </div>
+      <span class="section-count">3 tools</span>
+    </div>
+    <div class="tools-grid">
+
+      <a href="privacy-policy-generator.html" class="tool-card border-content" data-name="privacy policy generator gdpr ccpa" data-cat="content">
+        <div class="tool-icon ic-content">🔒</div>
+        <div class="tool-name">Privacy Policy Generator</div>
+        <div class="tool-desc">Generate a GDPR & CCPA compliant privacy policy for your website or app in under 60 seconds.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="terms-conditions-generator.html" class="tool-card border-content" data-name="terms conditions generator legal" data-cat="content">
+        <div class="tool-icon ic-content">📋</div>
+        <div class="tool-name">Terms & Conditions Generator</div>
+        <div class="tool-desc">Create a comprehensive terms and conditions page tailored to your website's type and jurisdiction.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="refund-policy-generator.html" class="tool-card border-content" data-name="refund policy generator return policy ecommerce" data-cat="content">
+        <div class="tool-icon ic-content">↩️</div>
+        <div class="tool-name">Refund Policy Generator</div>
+        <div class="tool-desc">Generate a clear refund and return policy for your e-commerce store or SaaS product instantly.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── DEVELOPER TOOLS ── -->
+  <section class="tool-section" data-category="dev" style="margin-bottom:12px;">
+    <div class="section-label">
+      <div class="section-label-icon ic-dev">⚙️</div>
+      <div>
+        <h2>Developer Tools</h2>
+        <p>Formatters, validators, testers & config generators</p>
+      </div>
+      <span class="section-count">5 tools</span>
+    </div>
+    <div class="tools-grid">
+
+      <a href="html-formatter.html" class="tool-card border-dev" data-name="html formatter beautifier minifier" data-cat="dev">
+        <div class="tool-icon ic-dev">⟨/⟩</div>
+        <div class="tool-name">HTML Formatter & Beautifier</div>
+        <div class="tool-desc">Paste minified HTML and get clean, indented, syntax-highlighted output. Supports custom indent and minify mode.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="css-minifier.html" class="tool-card border-dev" data-name="css minifier beautifier formatter compress" data-cat="dev">
+        <div class="tool-icon ic-dev">{ }</div>
+        <div class="tool-name">CSS Minifier & Beautifier</div>
+        <div class="tool-desc">Compress CSS for production or beautify minified CSS for editing. Shows live compression ratio and savings.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="json-formatter.html" class="tool-card border-dev" data-name="json formatter validator beautifier minifier" data-cat="dev">
+        <div class="tool-icon ic-dev">{ }</div>
+        <div class="tool-name">JSON Formatter & Validator</div>
+        <div class="tool-desc">Format, validate, and explore JSON with syntax highlighting, tree view, error location, and minification.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="regex-tester.html" class="tool-card border-dev" data-name="regex tester regular expression live" data-cat="dev">
+        <div class="tool-icon ic-dev">.*</div>
+        <div class="tool-name">Regex Tester</div>
+        <div class="tool-desc">Test regular expressions live with real-time match highlighting, capture group breakdown, and a cheat sheet.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+      <a href="htaccess-generator.html" class="tool-card border-dev" data-name="htaccess apache config security headers gzip" data-cat="dev">
+        <div class="tool-icon ic-dev">⚙️</div>
+        <div class="tool-name">.htaccess Generator</div>
+        <div class="tool-desc">Generate Apache config with HTTPS redirects, security headers, GZIP, caching, hotlink protection and more.</div>
+        <div class="tool-arrow">Open tool <span>→</span></div>
+      </a>
+
+    </div>
+  </section>
+
+
+<!-- ═══════════════ SEO CONTENT ═══════════════ -->
+<section class="wd-seo-content">
+  <div class="wd-seo-inner">
+    <h2 class="wd-seo-h2">Your Complete Toolkit for Web Design and Development</h2>
+    <div class="wd-seo-body">
+      
+<p>WebDesign001 is a growing collection of free, browser-based tools built for web designers, frontend developers, SEO professionals, and anyone who builds things for the web. Every tool on this site works entirely in your browser — no account required, no data sent to any server, no subscription, no watermarks. Just open, use, and get results.</p>
+
+<h3>Design Tools — Build Beautiful Interfaces Faster</h3>
+<p>Our CSS design tools eliminate the trial-and-error of writing visual CSS by hand. The <strong>CSS Gradient Generator</strong> lets you create linear, radial, and conic gradients with a visual editor and copies the exact CSS rule you need. The <strong>Box Shadow Generator</strong> provides layered shadow controls so you can achieve precisely the depth and glow effect you're after. The <strong>Border Radius Generator</strong> goes beyond simple rounded corners — you can create asymmetric shapes, blobs, and custom curves with a drag-to-adjust interface and live preview. The <strong>Color Palette Generator</strong> builds harmonious palettes using colour theory principles — complementary, triadic, analogous, and split-complementary schemes — and exports them as CSS custom properties ready to paste into your stylesheet.</p>
+
+<h3>SEO Tools — Get Found on Google</h3>
+<p>Search engine optimisation begins with the basics, and our SEO toolkit covers every foundational element. The <strong>Sitemap XML Generator</strong> crawls your website and produces a standards-compliant sitemap.xml you can submit to Google Search Console in minutes. The <strong>Meta Tag Generator</strong> produces the full set of SEO, Open Graph, and Twitter Card tags with a live Google search preview that updates as you type. The <strong>Open Graph Preview</strong> tool shows you exactly how your page looks when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp — before you publish.</p>
+<p>The <strong>JSON-LD Schema Generator</strong> helps you implement structured data for Articles, Products, FAQs, LocalBusiness listings, Events, and more — the markup that unlocks Google's rich results including star ratings, FAQ dropdowns, and product cards. The <strong>Robots.txt Generator</strong> gives you a clear interface for configuring which parts of your site search engines should and shouldn't crawl.</p>
+
+<h3>Content Generators — Launch Compliant Websites Faster</h3>
+<p>Every website needs legal pages — privacy policy, terms and conditions, refund policy — and writing them from scratch is time-consuming and error-prone. Our content generators produce professional, comprehensive legal documents tailored to your website type, jurisdiction, and specific requirements in under a minute. The <strong>Privacy Policy Generator</strong> covers GDPR (EU), CCPA (California), and general international requirements. The <strong>Terms & Conditions Generator</strong> and <strong>Refund Policy Generator</strong> follow legal best practices and are regularly updated to reflect changes in regulations.</p>
+
+<h3>Developer Tools — Code Smarter, Debug Faster</h3>
+<p>Our developer tools are built for the workflows that come up every day. The <strong>HTML Formatter</strong> transforms minified or machine-generated HTML into clean, indented code with syntax highlighting. The <strong>CSS Minifier & Beautifier</strong> compresses your stylesheets for production (with a live compression ratio display) or beautifies minified CSS for editing. The <strong>JSON Formatter & Validator</strong> validates and formats JSON with error location, a collapsible tree view, and minification. The <strong>Regex Tester</strong> provides live match highlighting, capture group breakdown, and a comprehensive cheat sheet with clickable patterns. The <strong>.htaccess Generator</strong> builds Apache configuration files through a toggle-card UI — HTTPS forcing, www redirects, GZIP, caching, security headers, bot blocking, and more.</p>
+
+<h3>Why Use WebDesign001?</h3>
+<p>All tools are 100% free, run entirely in your browser, require no sign-up, and store no data. We believe professional-grade tools should be accessible to every developer, regardless of budget or experience level. Whether you are an independent freelancer, a startup founder building your first product, a student learning web development, or an experienced engineer looking for a quick utility — these tools are built for you.</p>
+<p>New tools are added regularly. Use the search bar to find any tool by keyword, or browse by category. Press <kbd>/</kbd> anywhere on the page to jump straight to the search field.</p>
+
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 border-t border-gray-800 py-8">
-  <div class="max-w-7xl mx-auto px-4 text-center">
-    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
-      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
-      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
-    </a>
-    <p class="text-gray-500 text-sm mb-4">Free online web design tools for developers and designers.</p>
-    <div class="flex flex-wrap justify-center gap-2 text-xs text-gray-600">
-      <a href="css-gradient-generator.html" class="hover:text-indigo-400">CSS Gradient</a> |
-      <a href="box-shadow-generator.html" class="hover:text-indigo-400">Box Shadow</a> |
-      <a href="border-radius-generator.html" class="hover:text-indigo-400">Border Radius</a> |
-      <a href="px-to-rem-converter.html" class="hover:text-indigo-400">PX to REM</a> |
-      <a href="color-palette-generator.html" class="hover:text-indigo-400">Color Palette</a> |
-      <a href="sitemap-generator.html" class="hover:text-indigo-400">Sitemap</a> |
-      <a href="robots-txt-generator.html" class="hover:text-indigo-400">Robots.txt</a> |
-      <a href="privacy-policy-generator.html" class="hover:text-indigo-400">Privacy Policy</a> |
-      <a href="terms-conditions-generator.html" class="hover:text-indigo-400">Terms</a> |
-      <a href="refund-policy-generator.html" class="hover:text-indigo-400">Refund Policy</a>
+<style>
+.wd-seo-content{background:#060b14;border-top:1px solid #162035;padding:60px 20px;}
+.wd-seo-inner{max-width:860px;margin:0 auto;}
+.wd-seo-h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#dde8f8;margin-bottom:28px;line-height:1.2;}
+.wd-seo-body p{color:#7a9ab8;font-size:15px;line-height:1.85;margin-bottom:18px;}
+.wd-seo-body h3{font-size:1.05rem;font-weight:700;color:#c8d8f0;margin:32px 0 12px;}
+.wd-seo-body code{background:#0e1628;border:1px solid #162035;padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.85em;color:#7dd3fc;}
+.wd-seo-body a{color:#818cf8;text-decoration:underline;}
+.wd-seo-body a:hover{color:#a5b4fc;}
+</style>
+
+
+<!-- ═══════════════ SOCIAL SHARING ═══════════════ -->
+<div class="wd-share-bar" id="wd-share">
+  <div class="wd-share-inner">
+    <span class="wd-share-label">Share this tool</span>
+    <div class="wd-share-btns">
+      <a class="wd-share-btn wd-share-tw" href="#" onclick="shareTwitter();return false;" title="Share on Twitter/X">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Tweet
+      </a>
+      <a class="wd-share-btn wd-share-fb" href="#" onclick="shareFacebook();return false;" title="Share on Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="wd-share-btn wd-share-li" href="#" onclick="shareLinkedIn();return false;" title="Share on LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="wd-share-btn wd-share-wa" href="#" onclick="shareWhatsApp();return false;" title="Share on WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <button class="wd-share-btn wd-share-copy" onclick="copyLink()" title="Copy link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span id="copy-link-label">Copy Link</span>
+      </button>
     </div>
-    <p class="text-gray-700 text-xs mt-4">2025 WebDesign001.net — All tools free forever</p>
   </div>
+</div>
+
+<style>
+.wd-share-bar{background:#0b1220;border-top:1px solid #162035;border-bottom:1px solid #162035;padding:18px 20px;margin-top:40px;}
+.wd-share-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.wd-share-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#4a6080;white-space:nowrap;}
+.wd-share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.wd-share-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;font-size:12px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;border:none;text-decoration:none;transition:opacity .15s,transform .1s;}
+.wd-share-btn:hover{opacity:.85;transform:translateY(-1px);}
+.wd-share-tw{background:#000;color:#fff;}
+.wd-share-fb{background:#1877f2;color:#fff;}
+.wd-share-li{background:#0a66c2;color:#fff;}
+.wd-share-wa{background:#25d366;color:#fff;}
+.wd-share-copy{background:#1e2d45;color:#94a3b8;border:1px solid #162035;}
+.wd-share-copy:hover{background:#243450;color:#e2e8f0;}
+@media(max-width:600px){.wd-share-label{width:100%;}.wd-share-btn{padding:8px 12px;font-size:11px;}}
+</style>
+
+<script>
+(function(){
+  function u(){return encodeURIComponent(window.location.href);}
+  function t(){return encodeURIComponent(document.title);}
+  window.shareTwitter  = function(){window.open('https://twitter.com/intent/tweet?url='+u()+'&text='+t(),'_blank','width=600,height=400');}
+  window.shareFacebook = function(){window.open('https://www.facebook.com/sharer/sharer.php?u='+u(),'_blank','width=600,height=400');}
+  window.shareLinkedIn = function(){window.open('https://www.linkedin.com/sharing/share-offsite/?url='+u(),'_blank','width=600,height=500');}
+  window.shareWhatsApp = function(){window.open('https://api.whatsapp.com/send?text='+t()+'%20'+u(),'_blank');}
+  window.copyLink = function(){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      var el=document.getElementById('copy-link-label');
+      el.textContent='Copied!';
+      setTimeout(function(){el.textContent='Copy Link';},2000);
+    });
+  }
+})();
+</script>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:6px;">
+    <div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;">W</div>
+    <span style="font-weight:800;font-size:15px;"><span class="gt">WebDesign</span><span style="color:#334155;">001.net</span></span>
+  </a>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">19 free online tools for web designers and developers. No sign-up required.</p>
+  <div class="footer-links">
+    <a href="css-gradient-generator.html">CSS Gradient</a>
+    <a href="box-shadow-generator.html">Box Shadow</a>
+    <a href="border-radius-generator.html">Border Radius</a>
+    <a href="color-palette-generator.html">Color Palette</a>
+    <a href="px-to-rem-converter.html">PX to REM</a>
+    <a href="sitemap-generator.html">Sitemap</a>
+    <a href="robots-txt-generator.html">Robots.txt</a>
+    <a href="meta-tag-generator.html">Meta Tags</a>
+    <a href="og-preview.html">OG Preview</a>
+    <a href="schema-generator.html">Schema</a>
+    <a href="htaccess-generator.html">.htaccess</a>
+    <a href="privacy-policy-generator.html">Privacy Policy</a>
+    <a href="terms-conditions-generator.html">Terms</a>
+    <a href="refund-policy-generator.html">Refund Policy</a>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+  </div>
+  <p style="color:#1e3050;font-size:12px;margin-top:24px;">© 2025 WebDesign001.net — All tools free forever</p>
 </footer>
+
+<script>
+/* ══════════════════════════════════
+   SEARCH + CATEGORY FILTER
+══════════════════════════════════ */
+var activeCat = 'all';
+
+function filterTools(query) {
+  query = query.toLowerCase().trim();
+  var cards = document.querySelectorAll('.tool-card');
+  var sections = document.querySelectorAll('.tool-section');
+  var anyVisible = false;
+
+  cards.forEach(function(card) {
+    var name = (card.getAttribute('data-name') || '').toLowerCase();
+    var cat  = (card.getAttribute('data-cat') || '');
+    var matchesSearch = !query || name.includes(query);
+    var matchesCat = activeCat === 'all' || cat === activeCat;
+    var show = matchesSearch && matchesCat;
+    card.style.display = show ? '' : 'none';
+    if (show) anyVisible = true;
+  });
+
+  // Hide section headers when all cards in them are hidden
+  sections.forEach(function(sec) {
+    var visible = Array.from(sec.querySelectorAll('.tool-card')).some(function(c) {
+      return c.style.display !== 'none';
+    });
+    sec.style.display = visible ? '' : 'none';
+  });
+
+  document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+}
+
+function filterByCategory(cat) {
+  activeCat = cat;
+  // Update pill styles
+  document.querySelectorAll('.cat-pill').forEach(function(p) {
+    p.classList.toggle('active', p.getAttribute('data-cat') === cat);
+  });
+  // Re-run with current search value
+  filterTools(document.getElementById('search').value);
+}
+
+/* ══════════════════════════════════
+   KEYBOARD SHORTCUT: / to focus search
+══════════════════════════════════ */
+document.addEventListener('keydown', function(e) {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    document.getElementById('search').focus();
+  }
+});
+</script>
 
 </body>
 </html>

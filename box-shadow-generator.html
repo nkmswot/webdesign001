@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>CSS Box Shadow Generator – Free Online Tool | WebDesign001</title>
+<title>CSS Box Shadow Generator — Free Online Tool | WebDesign001</title>
 <meta name="description" content="Generate CSS box shadows with live preview. Control offset, blur, spread, color and opacity. Copy code instantly. Free tool, no login."/>
 <link rel="canonical" href="https://webdesign001.net/box-shadow-generator.html"/>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -18,28 +18,651 @@ a{text-decoration:none;}
 </style>
 </head>
 <body class="bg-gray-950 text-white min-h-screen">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-<nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
-    <a href="index.html" class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">W</div>
-      <span class="font-bold text-lg text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001</span></span>
+<style>
+/* ── Base reset scoped to nav ── */
+.wd-nav, .wd-nav * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.wd-nav a { text-decoration: none; color: inherit; }
+.wd-nav button { font-family: 'Inter', sans-serif; cursor: pointer; }
+
+/* ════════════════════════════════
+   NAV SHELL
+════════════════════════════════ */
+.wd-nav {
+  font-family: 'Inter', sans-serif;
+  background: #080d18;
+  border-bottom: 1px solid #141f33;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wd-nav__bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ════════════════════════════════
+   LOGO
+════════════════════════════════ */
+.wd-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.wd-logo__icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; color: #fff;
+  flex-shrink: 0;
+}
+.wd-logo__text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wd-logo__text em {
+  font-style: normal;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.wd-logo__text span { color: #475569; }
+
+/* ════════════════════════════════
+   DESKTOP MENU
+════════════════════════════════ */
+.wd-desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+/* Dropdown wrapper */
+.wd-dd {
+  position: relative;
+}
+
+/* Trigger button */
+.wd-dd__btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  border: none;
+  background: transparent;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.wd-dd__btn:hover,
+.wd-dd.open .wd-dd__btn {
+  background: #111827;
+  color: #f1f5f9;
+}
+.wd-dd__btn svg {
+  width: 12px; height: 12px;
+  flex-shrink: 0;
+  opacity: .55;
+  transition: transform .2s;
+  margin-top: 1px;
+}
+.wd-dd.open .wd-dd__btn svg { transform: rotate(180deg); }
+.wd-dd__btn.cat-active { color: #a5b4fc; }
+
+/* Dropdown panel */
+.wd-dd__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #0c1322;
+  border: 1px solid #1a2540;
+  border-radius: 14px;
+  padding: 6px;
+  min-width: 240px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(99,102,241,.07);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .18s, transform .18s, visibility 0s .18s;
+  pointer-events: none;
+}
+.wd-dd.open .wd-dd__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity .18s, transform .18s;
+  pointer-events: all;
+}
+
+/* Category label inside dropdown */
+.wd-dd__cat {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #2d4060;
+  padding: 8px 10px 3px;
+}
+
+/* Link inside dropdown */
+.wd-dd__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #8ba0b8;
+  transition: background .12s, color .12s;
+  white-space: nowrap;
+}
+.wd-dd__link:hover { background: #131f38; color: #e2e8f0; }
+.wd-dd__link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
+.wd-dd__link-ico { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; line-height: 1; }
+
+/* Separator */
+.wd-dd__sep { height: 1px; background: #141f33; margin: 4px 8px; }
+
+/* ════════════════════════════════
+   ALL TOOLS BUTTON (desktop)
+════════════════════════════════ */
+.wd-nav__right {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.wd-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.wd-all-btn:hover { opacity: .85; }
+
+/* ════════════════════════════════
+   HAMBURGER BUTTON
+════════════════════════════════ */
+.wd-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #1e2d45;
+  border-radius: 9px;
+  background: transparent;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.wd-hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #94a3b8;
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+  transform-origin: center;
+}
+.wd-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.wd-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.wd-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ════════════════════════════════
+   MOBILE DRAWER
+════════════════════════════════ */
+.wd-drawer {
+  display: none;           /* hidden on desktop, shown via @media below */
+  overflow: hidden;        /* clips children when max-height is 0 */
+  max-height: 0;           /* CLOSED — takes no space */
+  transition: max-height .35s ease;
+  background: #090f1d;
+  border-top: 0px solid #141f33;  /* no border when closed */
+}
+.wd-drawer.is-open {
+  max-height: calc(100svh - 58px); /* OPEN — grows to fill viewport */
+  border-top-width: 1px;
+}
+
+.wd-drawer__scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(100svh - 58px);
+  overscroll-behavior: contain;
+}
+
+/* Accordion section */
+.wd-acc {
+  border-bottom: 1px solid #141f33;
+}
+
+.wd-acc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c8d4e8;
+  transition: background .15s, color .15s;
+  line-height: 1;
+  gap: 10px;
+  min-height: 52px;
+}
+.wd-acc__head:active { background: #0f1828; }
+.wd-acc__head-left { display: flex; align-items: center; gap: 10px; }
+.wd-acc__head-emoji { font-size: 16px; line-height: 1; }
+
+.wd-acc__chevron {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  color: #3d5570;
+  transition: transform .25s ease, color .2s;
+  margin-left: auto;
+}
+.wd-acc.open .wd-acc__chevron { transform: rotate(180deg); color: #6366f1; }
+.wd-acc.open .wd-acc__head { color: #a5b4fc; }
+
+/* Accordion body — grid trick for smooth animation without JS height measuring */
+.wd-acc__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease;
+}
+.wd-acc.open .wd-acc__body {
+  grid-template-rows: 1fr;
+}
+.wd-acc__body-inner {
+  overflow: hidden;
+  padding: 0 12px;
+  transition: padding .28s ease;
+}
+.wd-acc.open .wd-acc__body-inner {
+  padding: 2px 12px 10px;
+}
+
+/* Mobile link */
+.wd-mob-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8ba0b8;
+  transition: background .12s, color .12s;
+  min-height: 44px;
+}
+.wd-mob-link:hover,
+.wd-mob-link:active { background: #111827; color: #e2e8f0; }
+.wd-mob-link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
+.wd-mob-link-ico { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+
+/* Mobile CTA */
+.wd-drawer__cta {
+  padding: 14px 20px 24px;
+}
+.wd-drawer__cta a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  min-height: 48px;
+  transition: opacity .15s;
+}
+.wd-drawer__cta a:active { opacity: .85; }
+
+/* ════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════ */
+@media (max-width: 900px) {
+  .wd-desktop-menu { display: none; }
+  .wd-nav__right { display: none; }
+  .wd-hamburger { display: flex; }
+  .wd-drawer { display: block; }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .wd-dd__btn { padding: 7px 9px; font-size: 12.5px; }
+  .wd-all-btn { padding: 7px 12px; font-size: 11.5px; }
+}
+</style>
+
+<!-- ════════════════════ HTML ════════════════════ -->
+<nav class="wd-nav" role="navigation" aria-label="Site navigation">
+
+  <div class="wd-nav__bar">
+
+    <!-- Logo -->
+    <a href="index.html" class="wd-logo" aria-label="WebDesign001 – Home">
+      <div class="wd-logo__icon" aria-hidden="true">W</div>
+      <div class="wd-logo__text"><em>WebDesign</em><span>001</span></div>
     </a>
-    <div class="flex flex-wrap gap-3 text-xs text-gray-400">
-      <a href="css-gradient-generator.html" class="hover:text-indigo-400 transition">Gradient</a>
-      <a href="box-shadow-generator.html" class="text-indigo-400 font-semibold">Shadow</a>
-      <a href="border-radius-generator.html" class="hover:text-indigo-400 transition">Radius</a>
-      <a href="px-to-rem-converter.html" class="hover:text-indigo-400 transition">PX→REM</a>
-      <a href="color-palette-generator.html" class="hover:text-indigo-400 transition">Colors</a>
-      <a href="sitemap-generator.html" class="hover:text-indigo-400 transition">Sitemap</a>
-      <a href="robots-txt-generator.html" class="hover:text-indigo-400 transition">Robots</a>
-      <a href="privacy-policy-generator.html" class="hover:text-indigo-400 transition">Privacy</a>
-      <a href="terms-conditions-generator.html" class="hover:text-indigo-400 transition">Terms</a>
-      <a href="refund-policy-generator.html" class="hover:text-indigo-400 transition">Refund</a>
+
+    <!-- ── DESKTOP DROPDOWNS ── -->
+    <div class="wd-desktop-menu" role="menubar">
+
+      <!-- 🎨 Design Tools -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          🎨 Design Tools
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="Design Tools">
+          <div class="wd-dd__cat">Visual &amp; CSS</div>
+          <a class="wd-dd__link" href="css-gradient-generator.html" role="menuitem"><span class="wd-dd__link-ico">🌈</span>CSS Gradient Generator</a>
+          <a class="wd-dd__link" href="box-shadow-generator.html" role="menuitem"><span class="wd-dd__link-ico">🟦</span>Box Shadow Generator</a>
+          <a class="wd-dd__link" href="border-radius-generator.html" role="menuitem"><span class="wd-dd__link-ico">⬜</span>Border Radius Generator</a>
+          <a class="wd-dd__link" href="color-palette-generator.html" role="menuitem"><span class="wd-dd__link-ico">🎨</span>Color Palette Generator</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Units</div>
+          <a class="wd-dd__link" href="px-to-rem-converter.html" role="menuitem"><span class="wd-dd__link-ico">📐</span>PX → REM Converter</a>
+        </div>
+      </div>
+
+      <!-- 🔍 SEO Tools -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          🔍 SEO Tools
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="SEO Tools">
+          <div class="wd-dd__cat">Indexing &amp; Crawling</div>
+          <a class="wd-dd__link" href="sitemap-generator.html" role="menuitem"><span class="wd-dd__link-ico">🗺️</span>Sitemap XML Generator</a>
+          <a class="wd-dd__link" href="robots-txt-generator.html" role="menuitem"><span class="wd-dd__link-ico">🤖</span>Robots.txt Generator</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Social &amp; Meta</div>
+          <a class="wd-dd__link" href="meta-tag-generator.html" role="menuitem"><span class="wd-dd__link-ico">🏷️</span>Meta Tag Generator</a>
+          <a class="wd-dd__link" href="og-preview.html" role="menuitem"><span class="wd-dd__link-ico">👁️</span>Open Graph Preview</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Structured Data</div>
+          <a class="wd-dd__link" href="schema-generator.html" role="menuitem"><span class="wd-dd__link-ico">🧩</span>JSON-LD Schema Generator</a>
+        </div>
+      </div>
+
+      <!-- 📄 Content Generators -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          📄 Content Generators
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="Content Generators">
+          <div class="wd-dd__cat">Legal Pages</div>
+          <a class="wd-dd__link" href="privacy-policy-generator.html" role="menuitem"><span class="wd-dd__link-ico">🔒</span>Privacy Policy Generator</a>
+          <a class="wd-dd__link" href="terms-conditions-generator.html" role="menuitem"><span class="wd-dd__link-ico">📋</span>Terms &amp; Conditions</a>
+          <a class="wd-dd__link" href="refund-policy-generator.html" role="menuitem"><span class="wd-dd__link-ico">↩️</span>Refund Policy Generator</a>
+        </div>
+      </div>
+
+      <!-- ⚙️ Developer Tools -->
+      <div class="wd-dd" role="none">
+        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
+          ⚙️ Developer Tools
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-dd__panel" role="menu" aria-label="Developer Tools">
+          <div class="wd-dd__cat">Formatters &amp; Minifiers</div>
+          <a class="wd-dd__link" href="html-formatter.html" role="menuitem"><span class="wd-dd__link-ico">⟨/⟩</span>HTML Formatter</a>
+          <a class="wd-dd__link" href="css-minifier.html" role="menuitem"><span class="wd-dd__link-ico">{ }</span>CSS Minifier &amp; Beautifier</a>
+          <a class="wd-dd__link" href="json-formatter.html" role="menuitem"><span class="wd-dd__link-ico">{ }</span>JSON Formatter &amp; Validator</a>
+          <div class="wd-dd__sep"></div>
+          <div class="wd-dd__cat">Testing &amp; Config</div>
+          <a class="wd-dd__link" href="regex-tester.html" role="menuitem"><span class="wd-dd__link-ico">.*</span>Regex Tester</a>
+          <a class="wd-dd__link" href="htaccess-generator.html" role="menuitem"><span class="wd-dd__link-ico">⚙️</span>.htaccess Generator</a>
+        </div>
+      </div>
+
+    </div><!-- /desktop menu -->
+
+    <!-- All Tools CTA (desktop) -->
+    <div class="wd-nav__right">
+      <a href="index.html" class="wd-all-btn">✦ All Tools</a>
     </div>
-    <a href="index.html" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-full text-xs font-medium text-white transition">All Tools</a>
-  </div>
+
+    <!-- Hamburger (mobile) -->
+    <button class="wd-hamburger" id="wd-ham" aria-label="Open menu" aria-expanded="false" aria-controls="wd-drawer">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div><!-- /bar -->
+
+  <!-- ── MOBILE DRAWER ── -->
+  <div class="wd-drawer" id="wd-drawer" aria-hidden="true">
+    <div class="wd-drawer__scroll">
+
+      <!-- Accordion: Design Tools -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">🎨</span>Design Tools</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="css-gradient-generator.html"><span class="wd-mob-link-ico">🌈</span>CSS Gradient Generator</a>
+            <a class="wd-mob-link" href="box-shadow-generator.html"><span class="wd-mob-link-ico">🟦</span>Box Shadow Generator</a>
+            <a class="wd-mob-link" href="border-radius-generator.html"><span class="wd-mob-link-ico">⬜</span>Border Radius Generator</a>
+            <a class="wd-mob-link" href="color-palette-generator.html"><span class="wd-mob-link-ico">🎨</span>Color Palette Generator</a>
+            <a class="wd-mob-link" href="px-to-rem-converter.html"><span class="wd-mob-link-ico">📐</span>PX → REM Converter</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: SEO Tools -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">🔍</span>SEO Tools</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="sitemap-generator.html"><span class="wd-mob-link-ico">🗺️</span>Sitemap XML Generator</a>
+            <a class="wd-mob-link" href="robots-txt-generator.html"><span class="wd-mob-link-ico">🤖</span>Robots.txt Generator</a>
+            <a class="wd-mob-link" href="meta-tag-generator.html"><span class="wd-mob-link-ico">🏷️</span>Meta Tag Generator</a>
+            <a class="wd-mob-link" href="og-preview.html"><span class="wd-mob-link-ico">👁️</span>Open Graph Preview</a>
+            <a class="wd-mob-link" href="schema-generator.html"><span class="wd-mob-link-ico">🧩</span>JSON-LD Schema Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: Content Generators -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">📄</span>Content Generators</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="privacy-policy-generator.html"><span class="wd-mob-link-ico">🔒</span>Privacy Policy Generator</a>
+            <a class="wd-mob-link" href="terms-conditions-generator.html"><span class="wd-mob-link-ico">📋</span>Terms &amp; Conditions</a>
+            <a class="wd-mob-link" href="refund-policy-generator.html"><span class="wd-mob-link-ico">↩️</span>Refund Policy Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: Developer Tools -->
+      <div class="wd-acc">
+        <button class="wd-acc__head" aria-expanded="false">
+          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">⚙️</span>Developer Tools</span>
+          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="wd-acc__body">
+          <div class="wd-acc__body-inner">
+            <a class="wd-mob-link" href="html-formatter.html"><span class="wd-mob-link-ico">⟨/⟩</span>HTML Formatter</a>
+            <a class="wd-mob-link" href="css-minifier.html"><span class="wd-mob-link-ico">{ }</span>CSS Minifier &amp; Beautifier</a>
+            <a class="wd-mob-link" href="json-formatter.html"><span class="wd-mob-link-ico">{ }</span>JSON Formatter &amp; Validator</a>
+            <a class="wd-mob-link" href="regex-tester.html"><span class="wd-mob-link-ico">.*</span>Regex Tester</a>
+            <a class="wd-mob-link" href="htaccess-generator.html"><span class="wd-mob-link-ico">⚙️</span>.htaccess Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="wd-drawer__cta">
+        <a href="index.html">✦ View All Tools</a>
+      </div>
+
+    </div><!-- /scroll -->
+  </div><!-- /drawer -->
+
 </nav>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ══════════════════════════════
+     DESKTOP DROPDOWNS
+  ══════════════════════════════ */
+  var dds = document.querySelectorAll('.wd-dd');
+
+  function closeAllDd() {
+    dds.forEach(function (dd) {
+      dd.classList.remove('open');
+      dd.querySelector('.wd-dd__btn').setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  dds.forEach(function (dd) {
+    var btn = dd.querySelector('.wd-dd__btn');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = dd.classList.contains('open');
+      closeAllDd();
+      if (!isOpen) {
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', closeAllDd);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllDd();
+  });
+
+  /* ══════════════════════════════
+     HAMBURGER / DRAWER
+  ══════════════════════════════ */
+  var ham = document.getElementById('wd-ham');
+  var drawer = document.getElementById('wd-drawer');
+
+  ham.addEventListener('click', function () {
+    var isOpen = ham.classList.toggle('is-open');
+    ham.setAttribute('aria-expanded', String(isOpen));
+    drawer.classList.toggle('is-open', isOpen);   /* ← controls visibility */
+    drawer.setAttribute('aria-hidden', String(!isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  /* ══════════════════════════════
+     ACCORDION (mobile)
+  ══════════════════════════════ */
+  var accs = document.querySelectorAll('.wd-acc');
+
+  accs.forEach(function (acc) {
+    var head = acc.querySelector('.wd-acc__head');
+    head.addEventListener('click', function () {
+      var isOpen = acc.classList.contains('open');
+      // Close all others first
+      accs.forEach(function (a) {
+        a.classList.remove('open');
+        a.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        acc.classList.add('open');
+        head.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ══════════════════════════════
+     AUTO-HIGHLIGHT CURRENT PAGE
+  ══════════════════════════════ */
+  var page = window.location.pathname.split('/').pop() || 'index.html';
+
+  // Desktop
+  document.querySelectorAll('.wd-dd__link').forEach(function (a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      var parentDd = a.closest('.wd-dd');
+      if (parentDd) parentDd.querySelector('.wd-dd__btn').classList.add('cat-active');
+    }
+  });
+
+  // Mobile — also auto-open that accordion section
+  document.querySelectorAll('.wd-mob-link').forEach(function (a) {
+    if (a.getAttribute('href') === page) {
+      a.classList.add('active');
+      var parentAcc = a.closest('.wd-acc');
+      if (parentAcc) {
+        parentAcc.classList.add('open');
+        parentAcc.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'true');
+      }
+    }
+  });
+
+  /* ══════════════════════════════
+     RESET ON RESIZE TO DESKTOP
+  ══════════════════════════════ */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) {
+      ham.classList.remove('is-open');
+      ham.setAttribute('aria-expanded', 'false');
+      drawer.classList.remove('is-open');           /* ← hide drawer on resize */
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
+
+}());
+</script>
+
+
+
 
 <main class="max-w-5xl mx-auto px-4 py-12">
   <div class="mb-8">
@@ -80,6 +703,51 @@ a{text-decoration:none;}
     <h2 class="text-xl font-bold mb-3">How to Use the Box Shadow Generator</h2>
     <p class="text-gray-400 text-sm leading-7">Adjust the sliders to control horizontal and vertical offset, blur radius, spread, and color. Enable inset to create an inner shadow effect. Copy the generated CSS and paste it directly into your stylesheet. Perfect for cards, buttons, modals, and UI components.</p>
   </div>
+
+<!-- SEO CONTENT -->
+<section class="wd-seo-content">
+  <div class="wd-seo-inner">
+    <h2 class="wd-seo-h2">Mastering CSS Box Shadows: The Complete Guide</h2>
+    <div class="wd-seo-body">
+      
+<p>CSS box shadows are one of the most powerful tools for creating depth, elevation, and visual hierarchy in web interfaces. A well-crafted shadow can make a card feel like it floats above the page, give a button a subtle three-dimensional quality, or highlight a modal dialog as a distinct layer above the content. Yet box shadows are often applied haphazardly — too harsh, too opaque, or inconsistently used across a UI. This guide covers everything you need to create beautiful, believable shadows.</p>
+
+<h3>Understanding the Box Shadow Syntax</h3>
+<p>The CSS <code>box-shadow</code> property accepts values in this order: <code>offset-x offset-y blur-radius spread-radius color</code>. Optionally, the keyword <code>inset</code> can be prepended to create an inner shadow. Multiple shadows can be applied to a single element by separating them with commas — shadows are rendered front to back, so the first value in the list appears on top.</p>
+<p><strong>Offset X and Y</strong> control the shadow's position relative to the element. Positive X moves the shadow right, negative moves it left. Positive Y moves it down (as if light comes from above), negative moves it up. <strong>Blur radius</strong> controls how soft the shadow edges are — 0 creates a hard, solid shadow; higher values create progressively softer, more diffuse shadows. <strong>Spread radius</strong> expands or contracts the shadow beyond the element's bounds before blurring is applied.</p>
+
+<h3>The Art of Natural-Looking Shadows</h3>
+<p>The key to convincing shadows is low opacity and appropriate colour. In the real world, shadows are never pure black — they are the base surface colour darkened with a hint of the ambient environment's colour. For dark surfaces, shadows disappear. For white surfaces, shadows appear as a muted, slightly warm grey. Using <code>rgba(0, 0, 0, 0.08)</code> to <code>rgba(0, 0, 0, 0.25)</code> produces natural shadows at different elevation levels. Avoid opacities above 0.4 unless you are deliberately creating a dramatic or stylised effect.</p>
+
+<h3>Elevation System: Multiple Shadows for Depth</h3>
+<p>Material Design and many design systems use a layered shadow approach to convey different levels of elevation. A low elevation (like a card at rest) uses a small, tight shadow. A medium elevation (like a dropdown menu) uses a more diffuse shadow. High elevation (like a modal dialog) uses a large, soft shadow combined with a smaller accent shadow. In CSS this is achieved by separating two or more shadow values with a comma: <code>box-shadow: 0 1px 3px rgba(0,0,0,.1), 0 4px 12px rgba(0,0,0,.08)</code>.</p>
+
+<h3>Inset Shadows</h3>
+<p>Adding the <code>inset</code> keyword reverses the shadow direction — instead of projecting outward from the element, it projects inward. Inset shadows are used to create pressed or recessed button states, give text inputs a subtle sunken appearance, or create the illusion of a concave surface. Combining a subtle inset shadow with a regular outset shadow on the same element produces a rich, textured depth effect.</p>
+
+<h3>Coloured Shadows for Modern UI</h3>
+<p>Using a coloured shadow instead of a black/grey one is a popular modern design technique, particularly for buttons and cards. A purple button with a soft purple shadow creates a glow effect that reinforces the button's colour identity. The key is keeping the shadow colour close to the element's background colour or the button's own colour, with low opacity. This produces a halo-like glow without being garish.</p>
+
+<h3>Box Shadow vs. Filter Drop Shadow</h3>
+<p>CSS also has <code>filter: drop-shadow()</code>, which differs from <code>box-shadow</code> in one important way: it follows the actual shape of the element including transparent areas. For PNG images with transparent backgrounds, filter drop-shadow traces the image contour. For standard rectangular elements, both produce identical visual results. Use <code>box-shadow</code> for UI components and <code>filter: drop-shadow()</code> for non-rectangular image effects.</p>
+
+<h3>How to Use the Box Shadow Generator</h3>
+<p>Adjust the horizontal and vertical offset sliders to position the shadow, then increase blur for softness and spread to expand the shadow area. Select a shadow colour and set the opacity to taste. Enable inset to try an inner shadow effect. The live preview updates instantly, and the generated CSS can be copied with a single click and pasted directly into your stylesheet.</p>
+
+    </div>
+  </div>
+</section>
+<style>
+.wd-seo-content{background:#06090f;border-top:1px solid #1a2332;padding:60px 20px;margin-top:0;}
+.wd-seo-inner{max-width:860px;margin:0 auto;}
+.wd-seo-h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#e2e8f0;margin-bottom:28px;line-height:1.2;}
+.wd-seo-body p{color:#6b8099;font-size:15px;line-height:1.85;margin-bottom:18px;}
+.wd-seo-body h3{font-size:1.05rem;font-weight:700;color:#c8d8f0;margin:32px 0 12px;}
+.wd-seo-body code{background:#0e1628;border:1px solid #1e3050;padding:2px 7px;border-radius:5px;font-family:monospace;font-size:.85em;color:#7dd3fc;}
+.wd-seo-body a{color:#818cf8;text-decoration:underline;}
+.wd-seo-body strong{color:#c8d8f0;}
+</style>
+
 </main>
 
 <footer class="bg-gray-900 border-t border-gray-800 py-8 mt-8">
@@ -103,6 +771,68 @@ a{text-decoration:none;}
     </div>
     <p class="text-gray-700 text-xs mt-4">© 2025 WebDesign001.net — All tools free forever</p>
   </div>
+
+<!-- ═══════════════ SOCIAL SHARING ═══════════════ -->
+<div class="wd-share-bar" id="wd-share">
+  <div class="wd-share-inner">
+    <span class="wd-share-label">Share this tool</span>
+    <div class="wd-share-btns">
+      <a class="wd-share-btn wd-share-tw" href="#" onclick="shareTwitter();return false;" title="Share on Twitter/X">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Tweet
+      </a>
+      <a class="wd-share-btn wd-share-fb" href="#" onclick="shareFacebook();return false;" title="Share on Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="wd-share-btn wd-share-li" href="#" onclick="shareLinkedIn();return false;" title="Share on LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="wd-share-btn wd-share-wa" href="#" onclick="shareWhatsApp();return false;" title="Share on WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <button class="wd-share-btn wd-share-copy" onclick="copyLink()" title="Copy link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span id="copy-link-label">Copy Link</span>
+      </button>
+    </div>
+  </div>
+</div>
+<style>
+.wd-share-bar{background:#0b1220;border-top:1px solid #162035;border-bottom:1px solid #162035;padding:18px 20px;margin-top:40px;}
+.wd-share-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.wd-share-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#4a6080;white-space:nowrap;}
+.wd-share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.wd-share-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;font-size:12px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;border:none;text-decoration:none;transition:opacity .15s,transform .1s;}
+.wd-share-btn:hover{opacity:.85;transform:translateY(-1px);}
+.wd-share-tw{background:#000;color:#fff;}
+.wd-share-fb{background:#1877f2;color:#fff;}
+.wd-share-li{background:#0a66c2;color:#fff;}
+.wd-share-wa{background:#25d366;color:#fff;}
+.wd-share-copy{background:#1e2d45;color:#94a3b8;border:1px solid #162035;}
+.wd-share-copy:hover{background:#243450;color:#e2e8f0;}
+@media(max-width:600px){.wd-share-label{width:100%;}.wd-share-btn{padding:8px 12px;font-size:11px;}}
+</style>
+<script>
+(function(){
+  function u(){return encodeURIComponent(window.location.href);}
+  function t(){return encodeURIComponent(document.title);}
+  window.shareTwitter  = function(){window.open('https://twitter.com/intent/tweet?url='+u()+'&text='+t(),'_blank','width=600,height=400');}
+  window.shareFacebook = function(){window.open('https://www.facebook.com/sharer/sharer.php?u='+u(),'_blank','width=600,height=400');}
+  window.shareLinkedIn = function(){window.open('https://www.linkedin.com/sharing/share-offsite/?url='+u(),'_blank','width=600,height=500');}
+  window.shareWhatsApp = function(){window.open('https://api.whatsapp.com/send?text='+t()+'%20'+u(),'_blank');}
+  window.copyLink = function(){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      var el=document.getElementById('copy-link-label');
+      el.textContent='Copied!';
+      setTimeout(function(){el.textContent='Copy Link';},2000);
+    });
+  }
+})();
+</script>
+
 </footer>
 
 <script>
