@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Complete Guide to CSS Grid Layout in 2025 | WebDesign001 Blog</title>
+<meta name="description" content="Master CSS Grid — template areas, fr units, auto-fill vs auto-fit, subgrid, named areas, and responsive layouts without media queries. Full examples."/>
+<meta name="keywords" content="css grid layout, css grid tutorial, css grid template areas, responsive css grid, fr unit css, subgrid css, css grid 2025"/>
+<link rel="canonical" href="https://webdesign001.net/blog-css-grid-layout-guide.html"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="The Complete CSS Grid Layout Guide — 2025"/>
+<meta property="og:description" content="Master CSS Grid from scratch. Template areas, fr units, auto-fill vs auto-fit, subgrid, and production layout patterns. Full working examples."/>
+<meta property="og:url" content="https://webdesign001.net/blog-css-grid-layout-guide.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-blog-css-grid.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="The Complete CSS Grid Layout Guide — 2025"/>
+<meta property="og:site_name" content="WebDesign001"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="article:published_time" content="2025-01-15T00:00:00Z"/>
+<meta property="article:author" content="WebDesign001"/>
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="The Complete CSS Grid Layout Guide — 2025"/>
+<meta name="twitter:description" content="Master CSS Grid from scratch. Template areas, fr units, auto-fill vs auto-fit, subgrid, and production layout patterns. Full working examples."/>
+<meta name="twitter:image" content="https://webdesign001.net/og-blog-css-grid.png"/>
+<meta name="twitter:image:alt" content="The Complete CSS Grid Layout Guide — 2025"/>
+<meta name="twitter:site" content="@webdesign001"/>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Complete Guide to CSS Grid Layout in 2025",
+  "datePublished": "2025-01-15",
+  "dateModified": "2025-01-15",
+  "author": {
+    "@type": "Organization",
+    "name": "WebDesign001"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "WebDesign001",
+    "url": "https://webdesign001.net"
+  },
+  "url": "https://webdesign001.net/blog-css-grid-layout-guide.html",
+  "description": "Master CSS Grid layout with named areas, fr units, subgrid and responsive patterns."
+}
+</script>
+<link rel="canonical" href="https://webdesign001.net/blog-css-grid-layout-guide.html"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;}
+.art-outer{max-width:860px;margin:0 auto;padding:44px 22px 80px;}
+.art-back{display:inline-flex;align-items:center;gap:6px;color:#3d5570;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:28px;transition:color .15s;border:1px solid #0f1e32;border-radius:8px;padding:7px 14px;background:#0c1525;}
+.art-back:hover{color:#7a9ab8;border-color:#1a2d45;}
+.art-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.art-cat{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:6px;}
+.art-date,.art-mins{font-size:12px;color:#243550;}
+.art-emoji{font-size:60px;display:block;margin-bottom:24px;line-height:1;}
+h1.art-title{font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;line-height:1.15;color:#f1f5f9;margin-bottom:16px;}
+.art-lead{font-size:16px;color:#3d5570;line-height:1.85;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid #0c1624;}
+.art-body h2{font-size:1.15rem;font-weight:800;color:#c8d8f0;margin:40px 0 14px;padding-top:28px;border-top:1px solid #0c1624;}
+.art-body h2:first-child{border-top:none;padding-top:0;margin-top:0;}
+.art-body h3{font-size:1rem;font-weight:700;color:#90aac8;margin:28px 0 10px;}
+.art-body p{font-size:15px;color:#6b8099;line-height:1.95;margin-bottom:18px;}
+.art-body ul,.art-body ol{padding-left:22px;margin-bottom:18px;}
+.art-body li{font-size:15px;color:#6b8099;line-height:1.85;margin-bottom:9px;}
+.art-body strong{color:#c8d8f0;font-weight:700;}
+.art-body a{color:#6366f1;text-decoration:none;}
+.art-body a:hover{text-decoration:underline;}
+.art-body code{background:#080e1c;border:1px solid #162035;padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.84em;color:#7dd3fc;}
+.art-body pre{background:#050c18;border:1px solid #162035;border-radius:12px;padding:22px 20px;margin:22px 0;overflow-x:auto;}
+.art-body pre code{border:none;background:none;padding:0;font-size:13px;line-height:1.75;color:#86efac;}
+.art-body blockquote{border-left:3px solid #6366f1;padding:14px 20px;margin:24px 0;background:#080e1c;border-radius:0 10px 10px 0;}
+.art-body blockquote p{margin:0;color:#90aac8;font-style:italic;}
+.art-nav{display:flex;gap:14px;margin-top:52px;padding-top:32px;border-top:1px solid #0c1624;flex-wrap:wrap;}
+.art-nav a{flex:1;min-width:220px;background:#0c1525;border:1px solid #111e32;border-radius:12px;padding:16px 20px;text-decoration:none;transition:border-color .15s;}
+.art-nav a:hover{border-color:#1a2d45;}
+.art-nav-dir{font-size:11px;color:#243550;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;}
+.art-nav-title{font-size:13px;color:#7a9ab8;font-weight:700;line-height:1.4;}
+.art-nav-next{text-align:right;}
+.art-share{display:flex;align-items:center;gap:10px;margin-top:32px;flex-wrap:wrap;}
+.art-share span{font-size:12px;color:#243550;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.sh-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-decoration:none;transition:opacity .15s;}
+.sh-btn:hover{opacity:.85;}
+.sh-tw{background:#000;color:#fff;}
+.sh-li{background:#0a66c2;color:#fff;}
+.sh-cp{background:#1e2d45;color:#94a3b8;border:1px solid #162035;}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body style="background:#060b14;color:#dde8f8;min-height:100vh;margin:0;font-family:'Plus Jakarta Sans',sans-serif;">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+.wdn,.wdn *{box-sizing:border-box;margin:0;padding:0;}
+.wdn a{text-decoration:none;color:inherit;}
+.wdn button{font-family:"Inter",sans-serif;cursor:pointer;border:none;background:none;}
+.wdn{font-family:"Inter",sans-serif;background:#07111f;border-bottom:1px solid #0f1e32;position:sticky;top:0;z-index:9999;}
+.wdn-bar{max-width:1300px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:6px;}
+.wdn-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px;color:#e2e8f0;margin-right:10px;white-space:nowrap;text-decoration:none;}
+.wdn-gem{width:26px;height:26px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+.wdn-logo em{color:#6366f1;font-style:normal;}
+.wdn-menu{display:flex;align-items:center;gap:1px;flex:1;}
+@media(max-width:960px){.wdn-menu{display:none;}}
+.wdn-dd{position:relative;}
+.wdn-ddbtn{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;color:#7a94ae;font-size:12.5px;font-weight:700;white-space:nowrap;transition:background .15s,color .15s;}
+.wdn-ddbtn svg{width:13px;height:13px;transition:transform .2s;}
+.wdn-ddbtn:hover,.wdn-dd.open .wdn-ddbtn{background:#0d1a2d;color:#dde8f8;}
+.wdn-dd.open .wdn-ddbtn svg{transform:rotate(180deg);}
+.wdn-ddbtn.iscur{color:#a5b4fc;}
+.wdn-panel{display:none;position:absolute;top:calc(100% + 5px);left:0;background:#0b1726;border:1px solid #1a2d45;border-radius:13px;padding:7px;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:1000;}
+.wdn-dd.open .wdn-panel{display:block;animation:wdnFade .15s ease;}
+@keyframes wdnFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.wdn-cat{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#243550;padding:5px 9px 3px;}
+.wdn-sep{height:1px;background:#0f1e32;margin:4px 4px;}
+.wdn-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:#5a7a96;white-space:nowrap;transition:background .12s,color .12s;}
+.wdn-item:hover{background:#111f35;color:#e2e8f0;}
+.wdn-item.iscur{background:#1a1f40;color:#a5b4fc;font-weight:700;}
+.wdn-ico{width:18px;text-align:center;font-size:13px;flex-shrink:0;line-height:1;}
+.wdn-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
+@media(max-width:960px){.wdn-right{display:none;}}
+.wdn-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;border:1px solid #1a2d45;color:#6b8099;font-size:12px;font-weight:700;transition:all .15s;}
+.wdn-pill:hover{background:#0d1a2d;color:#dde8f8;border-color:#2a3f60;}
+.wdn-allbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12.5px;font-weight:800;transition:opacity .15s;}
+.wdn-allbtn:hover{opacity:.87;}
+.wdn-ham{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto;}
+.wdn-ham span{display:block;width:21px;height:2px;background:#6b8099;border-radius:2px;transition:transform .3s,opacity .3s;}
+.wdn-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.wdn-ham.open span:nth-child(2){opacity:0;}
+.wdn-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:960px){.wdn-ham{display:flex;}}
+.wdn-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:#07111f;z-index:9998;overflow-y:auto;}
+.wdn-drawer.open{display:block;}
+.wdn-dscroll{padding:8px 14px 40px;}
+.wdn-acc{border-bottom:1px solid #0d1a2d;}
+.wdn-ahead{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:#7a94ae;font-size:13.5px;font-weight:700;}
+.wdn-ahead svg{width:15px;height:15px;transition:transform .25s;flex-shrink:0;}
+.wdn-acc.open .wdn-ahead svg{transform:rotate(180deg);}
+.wdn-abody{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.wdn-acc.open .wdn-abody{max-height:500px;}
+.wdn-abinner{padding:2px 0 10px 24px;display:flex;flex-direction:column;gap:1px;}
+.wdn-mlink{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#5a7a96;transition:background .12s,color .12s;}
+.wdn-mlink:hover,.wdn-mlink.iscur{background:#0d1a2d;color:#e2e8f0;}
+.wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
+.wdn-dcta{padding:18px 4px 0;}
+.wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
+</style>
+<nav class="wdn">
+<div class="wdn-bar">
+  <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
+  <div class="wdn-menu">
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">CSS Generators</div>
+        <a class="wdn-item" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-item" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-item" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-item" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Units &amp; Convert</div>
+        <a class="wdn-item" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX &#8594; REM Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-item" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image &#8594; WebP Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-item" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-item" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-item" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-item" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-item" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-item" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">Formatters</div>
+        <a class="wdn-item" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-item" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-item" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-item" href="js-formatter.html"><span class="wdn-ico">JS</span>JS / TS Formatter</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Utilities</div>
+        <a class="wdn-item" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-item" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-item" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <div class="wdn-sep"></div>
+        <a class="wdn-item" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-item" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-item" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="wdn-right">
+    <a href="downloads.html" class="wdn-pill">&#11015; Free PDFs</a>
+    <a href="index.html" class="wdn-allbtn">&#10022; All 22 Tools</a>
+  </div>
+  <button class="wdn-ham" id="wdn-ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="wdn-drawer" id="wdn-drawer">
+  <div class="wdn-dscroll">
+    <div class="wdn-acc"><button class="wdn-ahead">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-mlink" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-mlink" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-mlink" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <a class="wdn-mlink" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX to REM Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-mlink" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image to WebP Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-mlink" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-mlink" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-mlink" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-mlink" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-mlink" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-mlink" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-mlink" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-mlink" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-mlink" href="js-formatter.html"><span class="wdn-ico">JS</span>JS/TS Formatter</a>
+        <a class="wdn-mlink" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-mlink" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-mlink" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <a class="wdn-mlink" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-mlink" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-mlink" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+    </div></div></div>
+    <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
+  </div>
+</div>
+</nav>
+<script>
+(function(){
+  var dds=document.querySelectorAll('.wdn-dd');
+  function closeAll(){dds.forEach(function(d){d.classList.remove('open');d.querySelector('.wdn-ddbtn').setAttribute('aria-expanded','false');});}
+  dds.forEach(function(dd){
+    dd.querySelector('.wdn-ddbtn').addEventListener('click',function(e){
+      e.stopPropagation();var o=dd.classList.contains('open');closeAll();
+      if(!o){dd.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  var ham=document.getElementById('wdn-ham'),dr=document.getElementById('wdn-drawer');
+  ham.addEventListener('click',function(){
+    var o=ham.classList.toggle('open');
+    ham.setAttribute('aria-expanded',String(o));
+    dr.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
+  });
+  document.querySelectorAll('.wdn-ahead').forEach(function(h){
+    h.addEventListener('click',function(){
+      var acc=this.closest('.wdn-acc'),o=acc.classList.contains('open');
+      document.querySelectorAll('.wdn-acc').forEach(function(a){a.classList.remove('open');});
+      if(!o)acc.classList.add('open');
+    });
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>960){ham.classList.remove('open');dr.classList.remove('open');document.body.style.overflow='';}});
+  var pg=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.wdn-item,.wdn-mlink').forEach(function(a){
+    if(a.getAttribute('href')===pg){a.classList.add('iscur');var d=a.closest('.wdn-dd');if(d)d.querySelector('.wdn-ddbtn').classList.add('iscur');}
+  });
+}());
+</script>
+<div class="art-outer">
+  <a href="blog.html" class="art-back">&#8592; Back to Blog</a>
+  <div class="art-meta-row">
+    <span class="art-cat" style="color:#6366f1;background:rgba(99,102,241,.15)">CSS</span>
+    <span class="art-date">&#128197; 15 Jan 2025</span>
+    <span class="art-mins">&#9201; 12 min read</span>
+  </div>
+  <span class="art-emoji">🎯</span>
+  <h1 class="art-title">The Complete Guide to CSS Grid Layout in 2025</h1>
+  <p class="art-lead">Master CSS Grid — template areas, auto-placement, responsive grids without media queries, subgrid, and production layout patterns.</p>
+  <div class="art-body"><h2>Why CSS Grid Changed Everything</h2>
+<p>Before CSS Grid, building complex two-dimensional layouts required float hacks, positioning tricks, or JavaScript. Grid gave browsers a native two-dimensional layout engine for the first time — making magazine layouts, dashboard UIs, and responsive card grids achievable in pure CSS. Every modern browser has supported Grid since April 2017.</p>
+<h2>The Grid Container Model</h2>
+<p>Apply <code>display: grid</code> to any element. Its direct children become grid items and flow into defined tracks automatically.</p>
+<pre><code>.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 64px 1fr 48px;
+  min-height: 100vh;
+  gap: 0;
+}</code></pre>
+<p>This creates a two-column, three-row layout. The left column is a fixed 260px sidebar; the right takes all remaining space via the <code>fr</code> unit. The rows define header, content, and footer.</p>
+<h2>The fr Unit</h2>
+<p>The <code>fr</code> unit distributes available space after fixed columns and gaps. <code>1fr 2fr 1fr</code> gives the middle column twice the space of each outer column. Unlike percentages, fr units automatically account for <code>gap</code> — no <code>calc()</code> needed.</p>
+<h2>Responsive Grids Without Media Queries</h2>
+<pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}</code></pre>
+<p>On 1200px this renders four columns. On 360px mobile it renders one — no breakpoints needed. <strong>auto-fill</strong> preserves empty tracks; <strong>auto-fit</strong> collapses them so items expand to fill the container.</p>
+<h2>Named Grid Areas</h2>
+<pre><code>.page {
+  display: grid;
+  grid-template-areas:
+    "header  header  header"
+    "sidebar main    main"
+    "footer  footer  footer";
+  grid-template-columns: 240px 1fr 1fr;
+  grid-template-rows: 64px 1fr 48px;
+  min-height: 100vh;
+}
+header  { grid-area: header; }
+.sidebar{ grid-area: sidebar; }
+main    { grid-area: main; }
+footer  { grid-area: footer; }</code></pre>
+<p>Named areas are self-documenting and easy to restructure at breakpoints by redefining <code>grid-template-areas</code> — the HTML stays unchanged.</p>
+<h2>Grid Line Placement</h2>
+<pre><code>.hero  { grid-column: 1 / -1;  /* full width */
+          grid-row: 1 / 3; }    /* spans 2 rows */
+.wide  { grid-column: span 2; }
+.tall  { grid-row: 2 / 5; }</code></pre>
+<p>Negative line numbers count from the end of the explicit grid. <code>-1</code> is always the last line — making full-width spans robust to column-count changes.</p>
+<h2>Implicit Grid and auto-rows</h2>
+<pre><code>.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  gap: 16px;
+}</code></pre>
+<p>Without <code>grid-auto-rows</code> implicit rows collapse to content height. A minimum height gives consistent visual baseline across all rows.</p>
+<h2>CSS Subgrid</h2>
+<p>Subgrid (now in all modern browsers) lets children of a grid item participate in the parent's tracks. Before subgrid, aligning card titles, bodies, and buttons across a row required JavaScript or fixed heights:</p>
+<pre><code>.card {
+  grid-row: span 3;
+  display: grid;
+  grid-template-rows: subgrid;
+}</code></pre>
+<h2>Dense Auto-Placement</h2>
+<p>Add <code>grid-auto-flow: dense</code> to backfill gaps with smaller items — ideal for image galleries where visual order matters less than filling space.</p>
+<h2>Grid vs Flexbox</h2>
+<p>Use Grid for two-dimensional layouts where rows and columns must align simultaneously. Use Flexbox for one-dimensional component internals. Most production UIs use both — Grid for page structure, Flexbox for nav bars and card internals.</p>
+<blockquote><p>CSS Grid makes complex, responsive, two-dimensional layouts achievable in pure CSS. Once you build your first named-area page layout, you will never return to float hacks or framework grid systems.</p></blockquote></div>
+  <div class="art-share">
+    <span>Share:</span>
+    <a class="sh-btn sh-tw" href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href)+'&text='+encodeURIComponent(document.title),'_blank');return false;">&#120143; Twitter</a>
+    <a class="sh-btn sh-li" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank');return false;">in LinkedIn</a>
+    <button class="sh-btn sh-cp" onclick="navigator.clipboard.writeText(location.href);this.textContent='&#10003; Copied!';setTimeout(()=>this.textContent='&#128279; Copy Link',2000)">&#128279; Copy Link</button>
+  </div>
+  <div class="art-nav"><span></span><a href="blog-core-web-vitals-2025.html" class="art-nav-next"><div class="art-nav-dir">Next &#8594;</div><div class="art-nav-title">Core Web Vitals 2025: How to Score 100 on Google PageSpeed</div></a></div>
+</div>
+<footer class="wdf">
+<div class="wdf-inner">
+  <div class="wdf-brand">
+    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
+    <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
+  </div>
+  <div class="wdf-col">
+    <h4>&#127912; Design Tools</h4>
+    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
+    <a href="box-shadow-generator.html">Box Shadow Generator</a>
+    <a href="border-radius-generator.html">Border Radius Generator</a>
+    <a href="color-palette-generator.html">Color Palette Generator</a>
+    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128247; Image Tools</h4>
+    <a href="favicon-generator.html">Favicon Generator</a>
+    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
+    <a href="sitemap-generator.html">Sitemap Generator</a>
+    <a href="robots-txt-generator.html">Robots.txt Generator</a>
+    <a href="meta-tag-generator.html">Meta Tag Generator</a>
+    <a href="og-preview.html">Open Graph Preview</a>
+    <a href="schema-generator.html">Schema Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128203; Content Generators</h4>
+    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="js-formatter.html">JS / TS Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+    <a href="htaccess-generator.html">.htaccess Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128218; Resources</h4>
+    <a href="blog.html">Blog &amp; Tutorials</a>
+    <a href="downloads.html">Free PDF Downloads</a>
+    <h4 style="margin-top:18px">&#128101; Company</h4>
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <h4 style="margin-top:18px">&#128274; Legal</h4>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</div>
+<div class="wdf-base">
+  <span>&#169; 2025 WebDesign001.net &#8212; All tools are free forever.</span>
+  <span>Built for designers &amp; developers worldwide.</span>
+</div>
+</footer>
+<style>
+.wdf{background:#04080f;border-top:1px solid #0c1624;padding:56px 20px 0;font-family:"Inter","Plus Jakarta Sans",sans-serif;}
+.wdf-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;}
+@media(max-width:1100px){.wdf-inner{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:680px){.wdf-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.wdf-inner{grid-template-columns:1fr;}}
+.wdf-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;color:#e2e8f0;text-decoration:none;margin-bottom:12px;}
+.wdf-logo span{color:#6366f1;}
+.wdf-brand p{font-size:13px;color:#243550;line-height:1.75;margin-bottom:12px;max-width:230px;}
+.wdf-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.wdf-tags span{background:#0c1525;border:1px solid #141f33;border-radius:6px;padding:3px 9px;font-size:11px;color:#3d5570;font-weight:700;}
+.wdf-col h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#243550;margin-bottom:9px;}
+.wdf-col a{display:block;font-size:12.5px;color:#334d66;text-decoration:none;margin-bottom:6px;transition:color .15s;}
+.wdf-col a:hover{color:#7a9ab8;}
+.wdf-base{border-top:1px solid #0c1624;padding:18px 0;max-width:1280px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#172436;}
+</style>
+</body>
+</html>

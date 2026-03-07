@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>XML Sitemap Generator — Free Sitemap Builder for SEO | WebDesign001</title>
+<meta name="description" content="Generate a valid XML sitemap by entering your website URL. Extracts internal links automatically via CORS proxy. Download and submit to Google Search Console. Free."/>
+<meta name="keywords" content="sitemap generator, xml sitemap tool, sitemap builder, sitemap creator free, google sitemap generator, seo sitemap tool"/>
+<link rel="canonical" href="https://webdesign001.net/sitemap-generator.html"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="XML Sitemap Generator — Auto-Extract Links from Any Site"/>
+<meta property="og:description" content="Enter your URL, extract all internal links automatically, download sitemap.xml. No registration. Paste HTML fallback for JS-heavy sites. Free."/>
+<meta property="og:url" content="https://webdesign001.net/sitemap-generator.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-sitemap-generator.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="XML Sitemap Generator — Auto-Extract Links from Any Site"/>
+<meta property="og:site_name" content="WebDesign001"/>
+<meta property="og:locale" content="en_US"/>
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="XML Sitemap Generator — Auto-Extract Links from Any Site"/>
+<meta name="twitter:description" content="Enter your URL, extract all internal links automatically, download sitemap.xml. No registration. Paste HTML fallback for JS-heavy sites. Free."/>
+<meta name="twitter:image" content="https://webdesign001.net/og-sitemap-generator.png"/>
+<meta name="twitter:image:alt" content="XML Sitemap Generator — Auto-Extract Links from Any Site"/>
+<meta name="twitter:site" content="@webdesign001"/>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "XML Sitemap Generator",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://webdesign001.net/sitemap-generator.html"
+}
+</script>
+<link rel="canonical" href="https://webdesign001.net/sitemap-generator.html"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{font-family:'Inter',sans-serif;box-sizing:border-box;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glow{box-shadow:0 0 30px rgba(99,102,241,.25);}
+a{text-decoration:none;}
+</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+.wdn,.wdn *{box-sizing:border-box;margin:0;padding:0;}
+.wdn a{text-decoration:none;color:inherit;}
+.wdn button{font-family:"Inter",sans-serif;cursor:pointer;border:none;background:none;}
+.wdn{font-family:"Inter",sans-serif;background:#07111f;border-bottom:1px solid #0f1e32;position:sticky;top:0;z-index:9999;}
+.wdn-bar{max-width:1300px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:6px;}
+.wdn-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px;color:#e2e8f0;margin-right:10px;white-space:nowrap;text-decoration:none;}
+.wdn-gem{width:26px;height:26px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+.wdn-logo em{color:#6366f1;font-style:normal;}
+.wdn-menu{display:flex;align-items:center;gap:1px;flex:1;}
+@media(max-width:960px){.wdn-menu{display:none;}}
+.wdn-dd{position:relative;}
+.wdn-ddbtn{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;color:#7a94ae;font-size:12.5px;font-weight:700;white-space:nowrap;transition:background .15s,color .15s;}
+.wdn-ddbtn svg{width:13px;height:13px;transition:transform .2s;}
+.wdn-ddbtn:hover,.wdn-dd.open .wdn-ddbtn{background:#0d1a2d;color:#dde8f8;}
+.wdn-dd.open .wdn-ddbtn svg{transform:rotate(180deg);}
+.wdn-ddbtn.iscur{color:#a5b4fc;}
+.wdn-panel{display:none;position:absolute;top:calc(100% + 5px);left:0;background:#0b1726;border:1px solid #1a2d45;border-radius:13px;padding:7px;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:1000;}
+.wdn-dd.open .wdn-panel{display:block;animation:wdnFade .15s ease;}
+@keyframes wdnFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.wdn-cat{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#243550;padding:5px 9px 3px;}
+.wdn-sep{height:1px;background:#0f1e32;margin:4px 4px;}
+.wdn-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:#5a7a96;white-space:nowrap;transition:background .12s,color .12s;}
+.wdn-item:hover{background:#111f35;color:#e2e8f0;}
+.wdn-item.iscur{background:#1a1f40;color:#a5b4fc;font-weight:700;}
+.wdn-ico{width:18px;text-align:center;font-size:13px;flex-shrink:0;line-height:1;}
+.wdn-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
+@media(max-width:960px){.wdn-right{display:none;}}
+.wdn-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;border:1px solid #1a2d45;color:#6b8099;font-size:12px;font-weight:700;transition:all .15s;}
+.wdn-pill:hover{background:#0d1a2d;color:#dde8f8;border-color:#2a3f60;}
+.wdn-allbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12.5px;font-weight:800;transition:opacity .15s;}
+.wdn-allbtn:hover{opacity:.87;}
+.wdn-ham{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto;}
+.wdn-ham span{display:block;width:21px;height:2px;background:#6b8099;border-radius:2px;transition:transform .3s,opacity .3s;}
+.wdn-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.wdn-ham.open span:nth-child(2){opacity:0;}
+.wdn-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:960px){.wdn-ham{display:flex;}}
+.wdn-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:#07111f;z-index:9998;overflow-y:auto;}
+.wdn-drawer.open{display:block;}
+.wdn-dscroll{padding:8px 14px 40px;}
+.wdn-acc{border-bottom:1px solid #0d1a2d;}
+.wdn-ahead{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:#7a94ae;font-size:13.5px;font-weight:700;}
+.wdn-ahead svg{width:15px;height:15px;transition:transform .25s;flex-shrink:0;}
+.wdn-acc.open .wdn-ahead svg{transform:rotate(180deg);}
+.wdn-abody{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.wdn-acc.open .wdn-abody{max-height:500px;}
+.wdn-abinner{padding:2px 0 10px 24px;display:flex;flex-direction:column;gap:1px;}
+.wdn-mlink{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#5a7a96;transition:background .12s,color .12s;}
+.wdn-mlink:hover,.wdn-mlink.iscur{background:#0d1a2d;color:#e2e8f0;}
+.wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
+.wdn-dcta{padding:18px 4px 0;}
+.wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
+</style>
+<nav class="wdn">
+<div class="wdn-bar">
+  <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
+  <div class="wdn-menu">
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">CSS Generators</div>
+        <a class="wdn-item" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-item" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-item" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-item" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Units &amp; Convert</div>
+        <a class="wdn-item" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX &#8594; REM Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-item" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image &#8594; WebP Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-item" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-item" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-item" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-item" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-item" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-item" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">Formatters</div>
+        <a class="wdn-item" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-item" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-item" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-item" href="js-formatter.html"><span class="wdn-ico">JS</span>JS / TS Formatter</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Utilities</div>
+        <a class="wdn-item" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-item" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-item" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <div class="wdn-sep"></div>
+        <a class="wdn-item" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-item" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-item" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="wdn-right">
+    <a href="downloads.html" class="wdn-pill">&#11015; Free PDFs</a>
+    <a href="index.html" class="wdn-allbtn">&#10022; All 22 Tools</a>
+  </div>
+  <button class="wdn-ham" id="wdn-ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="wdn-drawer" id="wdn-drawer">
+  <div class="wdn-dscroll">
+    <div class="wdn-acc"><button class="wdn-ahead">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-mlink" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-mlink" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-mlink" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <a class="wdn-mlink" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX to REM Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-mlink" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image to WebP Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-mlink" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-mlink" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-mlink" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-mlink" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-mlink" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-mlink" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-mlink" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-mlink" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-mlink" href="js-formatter.html"><span class="wdn-ico">JS</span>JS/TS Formatter</a>
+        <a class="wdn-mlink" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-mlink" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-mlink" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <a class="wdn-mlink" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-mlink" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-mlink" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+    </div></div></div>
+    <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
+  </div>
+</div>
+</nav>
+<script>
+(function(){
+  var dds=document.querySelectorAll('.wdn-dd');
+  function closeAll(){dds.forEach(function(d){d.classList.remove('open');d.querySelector('.wdn-ddbtn').setAttribute('aria-expanded','false');});}
+  dds.forEach(function(dd){
+    dd.querySelector('.wdn-ddbtn').addEventListener('click',function(e){
+      e.stopPropagation();var o=dd.classList.contains('open');closeAll();
+      if(!o){dd.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  var ham=document.getElementById('wdn-ham'),dr=document.getElementById('wdn-drawer');
+  ham.addEventListener('click',function(){
+    var o=ham.classList.toggle('open');
+    ham.setAttribute('aria-expanded',String(o));
+    dr.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
+  });
+  document.querySelectorAll('.wdn-ahead').forEach(function(h){
+    h.addEventListener('click',function(){
+      var acc=this.closest('.wdn-acc'),o=acc.classList.contains('open');
+      document.querySelectorAll('.wdn-acc').forEach(function(a){a.classList.remove('open');});
+      if(!o)acc.classList.add('open');
+    });
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>960){ham.classList.remove('open');dr.classList.remove('open');document.body.style.overflow='';}});
+  var pg=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.wdn-item,.wdn-mlink').forEach(function(a){
+    if(a.getAttribute('href')===pg){a.classList.add('iscur');var d=a.closest('.wdn-dd');if(d)d.querySelector('.wdn-ddbtn').classList.add('iscur');}
+  });
+}());
+</script>
+
+
+
+<!-- ════════════════════ HTML ════════════════════ -->
+
+
+
+
+
+
+<!-- ════════════════════ HTML ════════════════════ -->
+
+
+
+
+
+
+<!-- ════════════════════ HTML ════════════════════ -->
+
+
+
+
+
+
+
+<main class="max-w-5xl mx-auto px-4 py-12">
+  <div class="mb-8">
+    <h1 class="text-4xl font-extrabold mb-2">Sitemap <span class="gradient-text">XML Generator</span></h1>
+    <p class="text-gray-400">Enter your website URL. The tool will fetch the page, extract all internal links from the HTML, and generate a ready-to-submit sitemap.xml — no existing sitemap needed.</p>
+  </div>
+
+  <!-- STEP 1: URL Input -->
+  <div class="bg-gray-900 rounded-2xl border border-gray-800 p-6 glow mb-5">
+    <label class="text-sm text-gray-400 mb-2 block font-medium">Step 1 — Enter your website URL</label>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <input type="text" id="site-url" placeholder="https://example.com"
+        class="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 text-sm"
+        onkeydown="if(event.key==='Enter')startGenerate()"/>
+      <button onclick="startGenerate()" id="gen-btn"
+        class="bg-gradient-to-r from-teal-600 to-green-600 hover:opacity-90 px-6 py-3 rounded-xl font-semibold text-sm text-white transition whitespace-nowrap">
+        🔗 Extract Links & Generate
+      </button>
+    </div>
+    <!-- status -->
+    <div id="status-wrap" class="hidden mt-4 flex items-center gap-3 text-sm">
+      <span id="status-icon" class="text-xl"></span>
+      <div>
+        <div id="status-msg" class="font-medium text-white"></div>
+        <div id="status-sub" class="text-xs text-gray-400 mt-0.5"></div>
+      </div>
+    </div>
+
+    <!-- CORS fallback -->
+    <div id="cors-fallback" class="hidden mt-4 border border-orange-800 bg-orange-950 rounded-xl p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm font-semibold text-orange-300">📋 Paste HTML Fallback</span>
+        <button onclick="togglePaste()" class="text-xs text-orange-400 hover:underline">Show / Hide</button>
+      </div>
+      <p class="text-xs text-orange-200 mb-3">Some servers block bots. As a workaround: open your website, press <kbd class="bg-gray-800 px-1 rounded">Ctrl+U</kbd> (View Source), select all, copy, then paste below.</p>
+      <div id="paste-section" class="hidden">
+        <textarea id="paste-html" rows="6" placeholder="Paste your page's HTML source here…"
+          class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs font-mono focus:outline-none focus:border-orange-500 mb-2 resize-y"></textarea>
+        <button onclick="parseFromPaste()" class="bg-orange-600 hover:bg-orange-500 px-4 py-2 rounded-lg text-xs font-semibold text-white transition">Extract Links from Pasted HTML</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Settings + URL editor -->
+  <div id="editor-section" class="hidden bg-gray-900 rounded-2xl border border-gray-800 p-6 glow mb-5">
+    <label class="text-sm text-gray-400 mb-3 block font-medium">Step 2 — Review and edit your URLs</label>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+      <div>
+        <label class="text-xs text-gray-500 mb-1 block">Change Freq</label>
+        <select id="sfreq" onchange="buildXml()" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs focus:outline-none">
+          <option>always</option><option>daily</option><option selected>weekly</option><option>monthly</option><option>yearly</option><option>never</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 mb-1 block">Priority</label>
+        <select id="spri" onchange="buildXml()" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs focus:outline-none">
+          <option>1.0</option><option selected>0.8</option><option>0.7</option><option>0.5</option><option>0.3</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 mb-1 block">Last Modified</label>
+        <input type="date" id="slastmod" onchange="buildXml()" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-xs focus:outline-none"/>
+      </div>
+      <div class="flex items-end">
+        <button onclick="addUrl()" class="w-full bg-indigo-700 hover:bg-indigo-600 px-3 py-2 rounded-lg text-xs font-medium text-white transition">+ Add URL</button>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-xs text-gray-400"><span id="url-count">0</span> URLs found</span>
+      <button onclick="clearAll()" class="text-xs text-red-400 hover:underline">Clear all</button>
+    </div>
+    <div id="url-list" class="space-y-1.5 max-h-64 overflow-y-auto pr-1"></div>
+  </div>
+
+  <!-- STEP 3: Output -->
+  <div id="output-section" class="hidden bg-gray-900 rounded-2xl border border-gray-800 p-6 glow">
+    <div class="flex justify-between items-center mb-3">
+      <span class="text-sm text-gray-300 font-semibold">Step 3 — Copy or Download sitemap.xml</span>
+      <div class="flex gap-2">
+        <button onclick="copySM()" id="sm-cp" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-lg text-xs font-medium text-white transition">Copy</button>
+        <button onclick="dlSM()" class="bg-teal-600 hover:bg-teal-500 px-3 py-1.5 rounded-lg text-xs font-medium text-white transition">⬇ Download sitemap.xml</button>
+      </div>
+    </div>
+    <pre id="smout" class="bg-gray-800 rounded-xl p-4 text-green-400 text-xs overflow-auto max-h-80 whitespace-pre-wrap leading-5"></pre>
+  </div>
+
+  <div class="mt-10 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+    <h2 class="text-xl font-bold mb-3">How It Works</h2>
+    <p class="text-gray-400 text-sm leading-7 mb-3">This tool fetches your page and extracts real links from it — no guessing, no existing sitemap required:</p>
+    <div class="space-y-2 text-sm text-gray-400">
+      <div class="flex gap-3"><span class="text-teal-400 font-bold shrink-0">1.</span><span><strong class="text-white">Fetch Page HTML</strong> — Downloads your website's HTML via a CORS proxy.</span></div>
+      <div class="flex gap-3"><span class="text-teal-400 font-bold shrink-0">2.</span><span><strong class="text-white">Extract All Links</strong> — Parses every <code class="text-indigo-300">&lt;a href&gt;</code> on the page and filters to same-domain URLs only.</span></div>
+      <div class="flex gap-3"><span class="text-teal-400 font-bold shrink-0">3.</span><span><strong class="text-white">Build Sitemap</strong> — Deduplicates, normalises, and generates a valid sitemap.xml you can copy or download.</span></div>
+    </div>
+    <p class="text-gray-500 text-xs mt-4">Note: Browser security (CORS) may prevent fetching some websites. In that case the tool will let you know and you can manually add your URLs below.</p>
+  </div>
+  <!-- New Tools Section -->
+  <div class="mt-10">
+    <h2 class="text-xl font-bold mb-1">More Free SEO & Dev Tools</h2>
+    <p class="text-gray-500 text-sm mb-5">High-traffic tools to help you build, optimise, and launch faster.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <a href="meta-tag-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🏷️</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Meta Tag Generator</div>
+        <div class="text-xs text-gray-400">Generate complete HTML meta tags for SEO, Open Graph, Twitter Cards, and more. One of the most-searched SEO tools.</div>
+      </a>
+
+      <a href="og-preview.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">👁️</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Open Graph Preview</div>
+        <div class="text-xs text-gray-400">See exactly how your page looks when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp before you publish.</div>
+      </a>
+
+      <a href="schema-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🧩</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">JSON-LD Schema Generator</div>
+        <div class="text-xs text-gray-400">Build structured data markup for Articles, Products, FAQs, LocalBusiness and more. Boost rich results in Google.</div>
+      </a>
+
+      <a href="htaccess-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">⚙️</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">.htaccess Generator</div>
+        <div class="text-xs text-gray-400">Configure redirects, HTTPS enforcement, caching headers, hotlink protection and more with a click-based UI.</div>
+      </a>
+
+      <a href="robots-txt-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🤖</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Robots.txt Generator</div>
+        <div class="text-xs text-gray-400">Build a proper robots.txt file to control which pages search engines crawl and index on your site.</div>
+      </a>
+
+      <a href="privacy-policy-generator.html" class="group bg-gray-900 border border-gray-800 hover:border-indigo-600 rounded-2xl p-5 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-950">
+        <div class="text-2xl mb-2">🔒</div>
+        <div class="font-semibold text-white group-hover:text-indigo-300 transition mb-1">Privacy Policy Generator</div>
+        <div class="text-xs text-gray-400">Generate a GDPR & CCPA compliant privacy policy for your website or app in under 60 seconds.</div>
+      </a>
+
+    </div>
+  </div>
+
+<!-- ═══════════════ SEO CONTENT ═══════════════ -->
+<section class="wd-seo-content">
+  <div class="wd-seo-inner">
+    <h2 class="wd-seo-h2">Everything You Need to Know About XML Sitemaps</h2>
+    <div class="wd-seo-body">
+      
+<p>An XML sitemap is one of the most fundamental SEO assets your website can have. It acts as a roadmap for search engine crawlers — a structured file that tells Google, Bing, and other search engines exactly which pages exist on your site, when they were last updated, and how important they are relative to each other. Without a sitemap, search engines have to discover your pages purely by following links, which means deep or newly published content can go unindexed for weeks or even months.</p>
+
+<h3>What Is an XML Sitemap?</h3>
+<p>An XML sitemap is a file — typically named <code>sitemap.xml</code> — that lives at the root of your domain (e.g. <code>https://example.com/sitemap.xml</code>). It follows a standardised protocol defined at <a href="https://www.sitemaps.org" target="_blank" rel="noopener">sitemaps.org</a> and lists every URL you want search engines to crawl. Each entry can include optional metadata: the last modification date (<code>lastmod</code>), how often the page changes (<code>changefreq</code>), and a priority score from 0.0 to 1.0.</p>
+
+<h3>Why Does Your Website Need a Sitemap?</h3>
+<p>Google has confirmed that sitemaps help with crawl discovery, especially for large websites, new websites with few inbound links, and websites with rich media content like video or images. Even for smaller sites, submitting a sitemap to Google Search Console gives you direct feedback on how many URLs have been discovered, how many are indexed, and which pages have errors. This data is invaluable for diagnosing SEO issues early.</p>
+<p>Beyond Google, Bing Webmaster Tools, Yandex, and other search engines all support sitemap submission. A single sitemap.xml file covers all of them simultaneously once you add it to your robots.txt using the <code>Sitemap:</code> directive.</p>
+
+<h3>How to Use This Sitemap Generator</h3>
+<p>Our free sitemap generator fetches your website through a CORS-proxy waterfall — trying multiple public proxies until one succeeds — then parses all internal links from the HTML using the browser's native DOMParser. This means it works entirely in your browser with no server-side processing and no data stored anywhere.</p>
+<p>Simply enter your domain URL and click Generate. The tool will crawl the page, extract all same-domain <code>href</code> links, filter out asset files, and produce a valid sitemap.xml you can download immediately. If proxy access is blocked, you can paste the page's HTML source directly and the tool will extract links locally.</p>
+
+<h3>Best Practices for XML Sitemaps</h3>
+<p>Keep your sitemap lean — only include canonical, indexable URLs. Exclude paginated pages beyond page 2, filtered parameter URLs, search results pages, login and admin pages, and any URL that carries a <code>noindex</code> directive. Google's crawler can handle sitemaps up to 50,000 URLs and 50MB uncompressed, but smaller focused sitemaps are generally more effective.</p>
+<p>For large sites, use a sitemap index file that references multiple child sitemaps — one per content type (blog posts, products, categories). This keeps each file manageable and makes it easier to diagnose crawl issues per content type.</p>
+<p>Always set a realistic <code>lastmod</code> date. Inflating lastmod dates to force recrawling is a known manipulation tactic, and Google has stated it ignores lastmod when the values are unreliable. Update lastmod only when content genuinely changes.</p>
+
+<h3>Submitting Your Sitemap to Google Search Console</h3>
+<p>Once you've downloaded your sitemap.xml, upload it to your server root and navigate to Google Search Console → Sitemaps → Add a new sitemap. Enter the full URL and click Submit. Within a few days you should see the number of discovered URLs increase. Monitor this report regularly — any URLs marked as "Excluded" or "Error" need attention.</p>
+<p>Also add the sitemap URL to your robots.txt file: <code>Sitemap: https://example.com/sitemap.xml</code>. This ensures any crawler that reads robots.txt discovers your sitemap automatically, without needing a manual submission.</p>
+
+<h3>Sitemap vs. HTML Sitemap</h3>
+<p>An HTML sitemap is a human-readable page listing all your site's pages, primarily useful for user navigation on large websites. An XML sitemap is machine-readable and exclusively for search engine crawlers. Both serve different purposes and are complementary — having both is a best practice for large content-heavy sites.</p>
+
+<h3>Common Sitemap Mistakes to Avoid</h3>
+<p>Including redirect URLs is one of the most common mistakes. Every URL in your sitemap should return a 200 status code — not a 301 redirect. Redirected URLs waste crawl budget and can dilute the signal. Similarly, never include URLs that return 404 errors or have a canonical pointing to a different URL. Your sitemap should only contain the definitive, canonical version of each page.</p>
+<p>Another common error is forgetting to update the sitemap after publishing new content. Consider automating sitemap generation through your CMS or build process, so it always reflects the current state of your website.</p>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.wd-seo-content{background:#060b14;border-top:1px solid #162035;padding:60px 20px;}
+.wd-seo-inner{max-width:860px;margin:0 auto;}
+.wd-seo-h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#dde8f8;margin-bottom:28px;line-height:1.2;}
+.wd-seo-body p{color:#7a9ab8;font-size:15px;line-height:1.85;margin-bottom:18px;}
+.wd-seo-body h3{font-size:1.05rem;font-weight:700;color:#c8d8f0;margin:32px 0 12px;}
+.wd-seo-body code{background:#0e1628;border:1px solid #162035;padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.85em;color:#7dd3fc;}
+.wd-seo-body a{color:#818cf8;text-decoration:underline;}
+.wd-seo-body a:hover{color:#a5b4fc;}
+</style>
+
+
+<!-- ═══════════════ SOCIAL SHARING ═══════════════ -->
+<div class="wd-share-bar" id="wd-share">
+  <div class="wd-share-inner">
+    <span class="wd-share-label">Share this tool</span>
+    <div class="wd-share-btns">
+      <a class="wd-share-btn wd-share-tw" href="#" onclick="shareTwitter();return false;" title="Share on Twitter/X">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Tweet
+      </a>
+      <a class="wd-share-btn wd-share-fb" href="#" onclick="shareFacebook();return false;" title="Share on Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="wd-share-btn wd-share-li" href="#" onclick="shareLinkedIn();return false;" title="Share on LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="wd-share-btn wd-share-wa" href="#" onclick="shareWhatsApp();return false;" title="Share on WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <button class="wd-share-btn wd-share-copy" onclick="copyLink()" title="Copy link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span id="copy-link-label">Copy Link</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+.wd-share-bar{background:#0b1220;border-top:1px solid #162035;border-bottom:1px solid #162035;padding:18px 20px;margin-top:40px;}
+.wd-share-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.wd-share-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#4a6080;white-space:nowrap;}
+.wd-share-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.wd-share-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;font-size:12px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;border:none;text-decoration:none;transition:opacity .15s,transform .1s;}
+.wd-share-btn:hover{opacity:.85;transform:translateY(-1px);}
+.wd-share-tw{background:#000;color:#fff;}
+.wd-share-fb{background:#1877f2;color:#fff;}
+.wd-share-li{background:#0a66c2;color:#fff;}
+.wd-share-wa{background:#25d366;color:#fff;}
+.wd-share-copy{background:#1e2d45;color:#94a3b8;border:1px solid #162035;}
+.wd-share-copy:hover{background:#243450;color:#e2e8f0;}
+@media(max-width:600px){.wd-share-label{width:100%;}.wd-share-btn{padding:8px 12px;font-size:11px;}}
+</style>
+
+<script>
+(function(){
+  function u(){return encodeURIComponent(window.location.href);}
+  function t(){return encodeURIComponent(document.title);}
+  window.shareTwitter  = function(){window.open('https://twitter.com/intent/tweet?url='+u()+'&text='+t(),'_blank','width=600,height=400');}
+  window.shareFacebook = function(){window.open('https://www.facebook.com/sharer/sharer.php?u='+u(),'_blank','width=600,height=400');}
+  window.shareLinkedIn = function(){window.open('https://www.linkedin.com/sharing/share-offsite/?url='+u(),'_blank','width=600,height=500');}
+  window.shareWhatsApp = function(){window.open('https://api.whatsapp.com/send?text='+t()+'%20'+u(),'_blank');}
+  window.copyLink = function(){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      var el=document.getElementById('copy-link-label');
+      el.textContent='Copied!';
+      setTimeout(function(){el.textContent='Copy Link';},2000);
+    });
+  }
+})();
+</script>
+
+</main>
+
+<script>
+var foundUrls = [];
+var smXml = '';
+
+document.getElementById('slastmod').value = new Date().toISOString().split('T')[0];
+
+/* ══════════════════════════════════════════════════════
+   CORS PROXY WATERFALL
+   Tries proxies in order until one succeeds.
+   Using only stable, well-maintained open-source proxies:
+   1. allorigins.win  — returns JSON {contents, status}
+   2. corsproxy.io    — simple proxy, returns raw HTML
+   3. api.codetabs.com — popular open-source proxy
+   4. htmlcodegenerator CORS proxy — fallback
+══════════════════════════════════════════════════════ */
+var PROXIES = [
+  {
+    name: 'allorigins',
+    url:  function(u){ return 'https://api.allorigins.win/get?url=' + encodeURIComponent(u) + '&timestamp=' + Date.now(); },
+    parse: function(t){
+      try { var j = JSON.parse(t); return j.contents || null; } catch(e){ return null; }
+    }
+  },
+  {
+    name: 'corsproxy.io',
+    url:  function(u){ return 'https://corsproxy.io/?' + encodeURIComponent(u); },
+    parse: function(t){ return t; }
+  },
+  {
+    name: 'codetabs',
+    url:  function(u){ return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); },
+    parse: function(t){ return t; }
+  },
+  {
+    name: 'crossorigin.me',
+    url:  function(u){ return 'https://crossorigin.me/' + u; },
+    parse: function(t){ return t; }
+  }
+];
+
+function setStatus(icon, msg, sub, color) {
+  var w = document.getElementById('status-wrap');
+  if (!w) return;
+  w.classList.remove('hidden');
+  document.getElementById('status-icon').textContent = icon;
+  var msgEl = document.getElementById('status-msg');
+  msgEl.textContent = msg;
+  msgEl.style.color = color || '#fff';
+  var subEl = document.getElementById('status-sub');
+  if (subEl) subEl.textContent = sub || '';
+}
+
+async function fetchViaProxy(targetUrl) {
+  for (var i = 0; i < PROXIES.length; i++) {
+    var p = PROXIES[i];
+    try {
+      setStatus('⏳', 'Trying ' + p.name + ' (' + (i+1) + '/' + PROXIES.length + ')…', targetUrl);
+      var controller = new AbortController();
+      var tid = setTimeout(function(){ controller.abort(); }, 10000);
+      var res = await fetch(p.url(targetUrl), { signal: controller.signal });
+      clearTimeout(tid);
+      if (!res.ok) { continue; }
+      var raw = await res.text();
+      var content = p.parse(raw);
+      if (content && content.length > 200) {
+        console.log('Sitemap: proxy success:', p.name, content.length + ' bytes');
+        return content;
+      }
+    } catch(e) {
+      console.warn('Sitemap: proxy failed:', p.name, e.message);
+    }
+  }
+  return null;
+}
+
+function processHref(href, origin, set) {
+  if (!href) return;
+  href = href.trim();
+  if (!href || href[0]==='#' || /^(javascript|mailto|tel|data|ftp):/i.test(href)) return;
+  try {
+    var u = new URL(href, origin);
+    if (u.origin !== origin) return;
+    // Skip asset files
+    if (/\.(jpg|jpeg|png|gif|svg|webp|ico|pdf|zip|tar|gz|mp4|mp3|wav|css|js|xml|json|woff2?|ttf|eot|otf)(\?|$)/i.test(u.pathname)) return;
+    // Skip admin / system paths
+    if (/^\/(wp-admin|wp-json|api|_next|\.well-known)/i.test(u.pathname)) return;
+    u.search = ''; u.hash = '';
+    var clean = u.href.endsWith('/') && u.pathname !== '/'
+      ? u.href.slice(0,-1) : u.href;
+    set.add(clean);
+  } catch(e) {}
+}
+
+function extractLinks(html, origin) {
+  var found = new Set();
+  found.add(origin + '/');
+  try {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('a[href]').forEach(function(a){
+      processHref(a.getAttribute('href'), origin, found);
+    });
+  } catch(e) {
+    // Regex fallback for malformed HTML
+    var re = /href\s*=\s*["']([^"']+)["']/gi, m;
+    while((m = re.exec(html)) !== null) processHref(m[1], origin, found);
+  }
+  return Array.from(found).sort();
+}
+
+function togglePaste() {
+  var ps = document.getElementById('paste-section');
+  if (ps) ps.classList.toggle('hidden');
+}
+
+function parseFromPaste() {
+  var html   = document.getElementById('paste-html').value.trim();
+  var rawUrl = document.getElementById('site-url').value.trim();
+  if (!rawUrl) { alert('Enter your website URL first'); return; }
+  if (!rawUrl.startsWith('http')) rawUrl = 'https://' + rawUrl;
+  var origin;
+  try { origin = new URL(rawUrl).origin; } catch(e) { alert('Invalid URL'); return; }
+  if (!html) { alert('Paste your page HTML source first'); return; }
+  foundUrls = extractLinks(html, origin);
+  setStatus('✅', 'Extracted ' + foundUrls.length + ' links from pasted HTML.', origin, '#4ade80');
+  document.getElementById('paste-section').classList.add('hidden');
+  document.getElementById('cors-fallback').classList.add('hidden');
+  renderUrlList(); buildXml();
+}
+
+async function startGenerate() {
+  var raw = document.getElementById('site-url').value.trim();
+  if (!raw) { alert('Please enter a website URL'); return; }
+  if (!raw.startsWith('http')) raw = 'https://' + raw;
+  var origin;
+  try { origin = new URL(raw).origin; } catch(e) { alert('Invalid URL — please include https://'); return; }
+
+  var btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Fetching…';
+  document.getElementById('editor-section').classList.add('hidden');
+  document.getElementById('output-section').classList.add('hidden');
+  document.getElementById('cors-fallback').classList.add('hidden');
+  foundUrls = [];
+
+  var html = await fetchViaProxy(raw);
+
+  btn.disabled = false;
+  btn.textContent = '🔗 Extract Links & Generate';
+
+  if (!html) {
+    setStatus('⚠️', 'All proxies were blocked by the server.', 'Use the Paste HTML fallback below ↓', '#fb923c');
+    document.getElementById('cors-fallback').classList.remove('hidden');
+    foundUrls = [origin + '/'];
+    renderUrlList(); buildXml();
+    return;
+  }
+
+  document.getElementById('cors-fallback').classList.add('hidden');
+  foundUrls = extractLinks(html, origin);
+
+  if (foundUrls.length <= 1) {
+    setStatus('💡', 'Page fetched but only the homepage was found.', 'Site may be JavaScript-rendered. Use the Paste HTML fallback ↓', '#facc15');
+    document.getElementById('cors-fallback').classList.remove('hidden');
+  } else {
+    setStatus('✅', 'Found ' + foundUrls.length + ' internal URLs on ' + origin, 'Review below, then download sitemap.xml', '#4ade80');
+  }
+
+  renderUrlList(); buildXml();
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderUrlList() {
+  document.getElementById('editor-section').classList.remove('hidden');
+  document.getElementById('url-count').textContent = foundUrls.length;
+  var list = document.getElementById('url-list');
+  list.innerHTML = foundUrls.map(function(u, i){
+    return '<div class="flex gap-2 items-center">'
+      + '<input type="text" value="' + escHtml(u) + '"'
+      + ' oninput="foundUrls[' + i + ']=this.value;buildXml()"'
+      + ' class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-xs font-mono focus:outline-none focus:border-indigo-500"/>'
+      + '<button onclick="removeUrl(' + i + ')" style="color:#f87171;font-size:20px;background:none;border:none;cursor:pointer;line-height:1;padding:0 4px" title="Remove">&times;</button>'
+      + '</div>';
+  }).join('');
+}
+
+function removeUrl(i) { foundUrls.splice(i,1); renderUrlList(); buildXml(); }
+
+function addUrl() {
+  var origin = '';
+  try { origin = new URL(document.getElementById('site-url').value.trim()).origin; } catch(e){}
+  foundUrls.push(origin + '/new-page');
+  renderUrlList(); buildXml();
+  var inputs = document.getElementById('url-list').querySelectorAll('input');
+  if (inputs.length) { inputs[inputs.length-1].focus(); inputs[inputs.length-1].select(); }
+}
+
+function clearAll() { foundUrls = []; renderUrlList(); buildXml(); }
+
+function buildXml() {
+  var freq    = document.getElementById('sfreq').value;
+  var pri     = document.getElementById('spri').value;
+  var lastmod = document.getElementById('slastmod').value || new Date().toISOString().split('T')[0];
+  var urls    = foundUrls.filter(function(u){ return u && u.startsWith('http'); });
+  document.getElementById('url-count').textContent = foundUrls.length;
+  if (!urls.length) { document.getElementById('output-section').classList.add('hidden'); return; }
+
+  smXml = '<?xml version="1.0" encoding="UTF-8"?>
+'
+    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+'
+    + '        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+'
+    + '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+'
+    + '          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+'
+    + urls.map(function(u){
+        return '  <url>
+'
+          + '    <loc>' + u.replace(/&/g,'&amp;') + '</loc>
+'
+          + '    <lastmod>' + lastmod + '</lastmod>
+'
+          + '    <changefreq>' + freq + '</changefreq>
+'
+          + '    <priority>' + pri + '</priority>
+'
+          + '  </url>';
+      }).join('
+')
+    + '
+</urlset>';
+
+  document.getElementById('smout').textContent = smXml;
+  document.getElementById('output-section').classList.remove('hidden');
+}
+
+function copySM() {
+  if (!smXml) return;
+  navigator.clipboard.writeText(smXml).then(function(){
+    var btn = document.getElementById('sm-cp');
+    btn.textContent = '✅ Copied!'; btn.style.background = '#16a34a';
+    setTimeout(function(){ btn.textContent = 'Copy'; btn.style.background = ''; }, 2500);
+  });
+}
+
+function dlSM() {
+  if (!smXml) return;
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([smXml], {type:'application/xml'}));
+  a.download = 'sitemap.xml';
+  a.click();
+}
+</script>
+<footer class="wdf">
+<div class="wdf-inner">
+  <div class="wdf-brand">
+    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
+    <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
+  </div>
+  <div class="wdf-col">
+    <h4>&#127912; Design Tools</h4>
+    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
+    <a href="box-shadow-generator.html">Box Shadow Generator</a>
+    <a href="border-radius-generator.html">Border Radius Generator</a>
+    <a href="color-palette-generator.html">Color Palette Generator</a>
+    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128247; Image Tools</h4>
+    <a href="favicon-generator.html">Favicon Generator</a>
+    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
+    <a href="sitemap-generator.html">Sitemap Generator</a>
+    <a href="robots-txt-generator.html">Robots.txt Generator</a>
+    <a href="meta-tag-generator.html">Meta Tag Generator</a>
+    <a href="og-preview.html">Open Graph Preview</a>
+    <a href="schema-generator.html">Schema Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128203; Content Generators</h4>
+    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="js-formatter.html">JS / TS Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+    <a href="htaccess-generator.html">.htaccess Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128218; Resources</h4>
+    <a href="blog.html">Blog &amp; Tutorials</a>
+    <a href="downloads.html">Free PDF Downloads</a>
+    <h4 style="margin-top:18px">&#128101; Company</h4>
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <h4 style="margin-top:18px">&#128274; Legal</h4>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</div>
+<div class="wdf-base">
+  <span>&#169; 2025 WebDesign001.net &#8212; All tools are free forever.</span>
+  <span>Built for designers &amp; developers worldwide.</span>
+</div>
+</footer>
+<style>
+.wdf{background:#04080f;border-top:1px solid #0c1624;padding:56px 20px 0;font-family:"Inter","Plus Jakarta Sans",sans-serif;}
+.wdf-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;}
+@media(max-width:1100px){.wdf-inner{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:680px){.wdf-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.wdf-inner{grid-template-columns:1fr;}}
+.wdf-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;color:#e2e8f0;text-decoration:none;margin-bottom:12px;}
+.wdf-logo span{color:#6366f1;}
+.wdf-brand p{font-size:13px;color:#243550;line-height:1.75;margin-bottom:12px;max-width:230px;}
+.wdf-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.wdf-tags span{background:#0c1525;border:1px solid #141f33;border-radius:6px;padding:3px 9px;font-size:11px;color:#3d5570;font-weight:700;}
+.wdf-col h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#243550;margin-bottom:9px;}
+.wdf-col a{display:block;font-size:12.5px;color:#334d66;text-decoration:none;margin-bottom:6px;transition:color .15s;}
+.wdf-col a:hover{color:#7a9ab8;}
+.wdf-base{border-top:1px solid #0c1624;padding:18px 0;max-width:1280px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#172436;}
+</style>
+</body>
+</html>

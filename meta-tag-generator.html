@@ -3,8 +3,52 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Meta Tag Generator — Free SEO Meta Tags Tool</title>
-<meta name="description" content="Generate complete HTML meta tags instantly — SEO, Open Graph, Twitter Cards, robots, canonical and more. Free online meta tag generator."/>
+<title>Meta Tag Generator — Free SEO, OG & Twitter Card Builder | WebDesign001</title>
+<meta name="description" content="Generate complete HTML meta tags — SEO title, description, Open Graph, Twitter Cards, robots, and canonical. Copy and paste into your site instantly. Free."/>
+<meta name="keywords" content="meta tag generator, open graph generator, twitter card generator, seo meta tags, html meta tags tool, og tag generator"/>
+<link rel="canonical" href="https://webdesign001.net/meta-tag-generator.html"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Meta Tag Generator — SEO, Open Graph & Twitter Cards"/>
+<meta property="og:description" content="Generate all your HTML meta tags in one place. SEO, Open Graph, Twitter Cards, robots directives. Preview and copy instantly. Free."/>
+<meta property="og:url" content="https://webdesign001.net/meta-tag-generator.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-meta-tag-generator.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Meta Tag Generator — SEO, Open Graph & Twitter Cards"/>
+<meta property="og:site_name" content="WebDesign001"/>
+<meta property="og:locale" content="en_US"/>
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Meta Tag Generator — SEO, Open Graph & Twitter Cards"/>
+<meta name="twitter:description" content="Generate all your HTML meta tags in one place. SEO, Open Graph, Twitter Cards, robots directives. Preview and copy instantly. Free."/>
+<meta name="twitter:image" content="https://webdesign001.net/og-meta-tag-generator.png"/>
+<meta name="twitter:image:alt" content="Meta Tag Generator — SEO, Open Graph & Twitter Cards"/>
+<meta name="twitter:site" content="@webdesign001"/>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Meta Tag Generator",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://webdesign001.net/meta-tag-generator.html"
+}
+</script>
 <link rel="canonical" href="https://webdesign001.net/meta-tag-generator.html"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -27,646 +71,219 @@ input,select,textarea{font-family:'Syne',sans-serif;}
 </style>
 </head>
 <body class="bg-gray-950 text-white min-h-screen">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
 <style>
-/* ── Base reset scoped to nav ── */
-.wd-nav, .wd-nav * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-.wd-nav a { text-decoration: none; color: inherit; }
-.wd-nav button { font-family: 'Inter', sans-serif; cursor: pointer; }
-
-/* ════════════════════════════════
-   NAV SHELL
-════════════════════════════════ */
-.wd-nav {
-  font-family: 'Inter', sans-serif;
-  background: #080d18;
-  border-bottom: 1px solid #141f33;
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  -webkit-font-smoothing: antialiased;
-}
-
-.wd-nav__bar {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
-  height: 58px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ════════════════════════════════
-   LOGO
-════════════════════════════════ */
-.wd-logo {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-right: 10px;
-  flex-shrink: 0;
-  text-decoration: none;
-}
-.wd-logo__icon {
-  width: 34px; height: 34px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 15px; color: #fff;
-  flex-shrink: 0;
-}
-.wd-logo__text {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1;
-  white-space: nowrap;
-}
-.wd-logo__text em {
-  font-style: normal;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.wd-logo__text span { color: #475569; }
-
-/* ════════════════════════════════
-   DESKTOP MENU
-════════════════════════════════ */
-.wd-desktop-menu {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  flex: 1;
-}
-
-/* Dropdown wrapper */
-.wd-dd {
-  position: relative;
-}
-
-/* Trigger button */
-.wd-dd__btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 12px;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #94a3b8;
-  border: none;
-  background: transparent;
-  transition: background .15s, color .15s;
-  white-space: nowrap;
-  line-height: 1;
-}
-.wd-dd__btn:hover,
-.wd-dd.open .wd-dd__btn {
-  background: #111827;
-  color: #f1f5f9;
-}
-.wd-dd__btn svg {
-  width: 12px; height: 12px;
-  flex-shrink: 0;
-  opacity: .55;
-  transition: transform .2s;
-  margin-top: 1px;
-}
-.wd-dd.open .wd-dd__btn svg { transform: rotate(180deg); }
-.wd-dd__btn.cat-active { color: #a5b4fc; }
-
-/* Dropdown panel */
-.wd-dd__panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  background: #0c1322;
-  border: 1px solid #1a2540;
-  border-radius: 14px;
-  padding: 6px;
-  min-width: 240px;
-  box-shadow: 0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(99,102,241,.07);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: opacity .18s, transform .18s, visibility 0s .18s;
-  pointer-events: none;
-}
-.wd-dd.open .wd-dd__panel {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: opacity .18s, transform .18s;
-  pointer-events: all;
-}
-
-/* Category label inside dropdown */
-.wd-dd__cat {
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: #2d4060;
-  padding: 8px 10px 3px;
-}
-
-/* Link inside dropdown */
-.wd-dd__link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 9px;
-  font-size: 12.5px;
-  font-weight: 500;
-  color: #8ba0b8;
-  transition: background .12s, color .12s;
-  white-space: nowrap;
-}
-.wd-dd__link:hover { background: #131f38; color: #e2e8f0; }
-.wd-dd__link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
-.wd-dd__link-ico { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; line-height: 1; }
-
-/* Separator */
-.wd-dd__sep { height: 1px; background: #141f33; margin: 4px 8px; }
-
-/* ════════════════════════════════
-   ALL TOOLS BUTTON (desktop)
-════════════════════════════════ */
-.wd-nav__right {
-  margin-left: auto;
-  flex-shrink: 0;
-}
-.wd-all-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 20px;
-  transition: opacity .15s;
-  white-space: nowrap;
-}
-.wd-all-btn:hover { opacity: .85; }
-
-/* ════════════════════════════════
-   HAMBURGER BUTTON
-════════════════════════════════ */
-.wd-hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  border: 1px solid #1e2d45;
-  border-radius: 9px;
-  background: transparent;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-.wd-hamburger span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: #94a3b8;
-  border-radius: 2px;
-  transition: transform .25s ease, opacity .2s ease;
-  transform-origin: center;
-}
-.wd-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.wd-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.wd-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* ════════════════════════════════
-   MOBILE DRAWER
-════════════════════════════════ */
-.wd-drawer {
-  display: none;           /* hidden on desktop, shown via @media below */
-  overflow: hidden;        /* clips children when max-height is 0 */
-  max-height: 0;           /* CLOSED — takes no space */
-  transition: max-height .35s ease;
-  background: #090f1d;
-  border-top: 0px solid #141f33;  /* no border when closed */
-}
-.wd-drawer.is-open {
-  max-height: calc(100svh - 58px); /* OPEN — grows to fill viewport */
-  border-top-width: 1px;
-}
-
-.wd-drawer__scroll {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  max-height: calc(100svh - 58px);
-  overscroll-behavior: contain;
-}
-
-/* Accordion section */
-.wd-acc {
-  border-bottom: 1px solid #141f33;
-}
-
-.wd-acc__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 15px 20px;
-  background: transparent;
-  border: none;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 700;
-  color: #c8d4e8;
-  transition: background .15s, color .15s;
-  line-height: 1;
-  gap: 10px;
-  min-height: 52px;
-}
-.wd-acc__head:active { background: #0f1828; }
-.wd-acc__head-left { display: flex; align-items: center; gap: 10px; }
-.wd-acc__head-emoji { font-size: 16px; line-height: 1; }
-
-.wd-acc__chevron {
-  width: 16px; height: 16px;
-  flex-shrink: 0;
-  color: #3d5570;
-  transition: transform .25s ease, color .2s;
-  margin-left: auto;
-}
-.wd-acc.open .wd-acc__chevron { transform: rotate(180deg); color: #6366f1; }
-.wd-acc.open .wd-acc__head { color: #a5b4fc; }
-
-/* Accordion body — grid trick for smooth animation without JS height measuring */
-.wd-acc__body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .28s ease;
-}
-.wd-acc.open .wd-acc__body {
-  grid-template-rows: 1fr;
-}
-.wd-acc__body-inner {
-  overflow: hidden;
-  padding: 0 12px;
-  transition: padding .28s ease;
-}
-.wd-acc.open .wd-acc__body-inner {
-  padding: 2px 12px 10px;
-}
-
-/* Mobile link */
-.wd-mob-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #8ba0b8;
-  transition: background .12s, color .12s;
-  min-height: 44px;
-}
-.wd-mob-link:hover,
-.wd-mob-link:active { background: #111827; color: #e2e8f0; }
-.wd-mob-link.active { background: #1e1b4b; color: #a5b4fc; font-weight: 600; }
-.wd-mob-link-ico { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
-
-/* Mobile CTA */
-.wd-drawer__cta {
-  padding: 14px 20px 24px;
-}
-.wd-drawer__cta a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 13px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 12px;
-  min-height: 48px;
-  transition: opacity .15s;
-}
-.wd-drawer__cta a:active { opacity: .85; }
-
-/* ════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-════════════════════════════════ */
-@media (max-width: 900px) {
-  .wd-desktop-menu { display: none; }
-  .wd-nav__right { display: none; }
-  .wd-hamburger { display: flex; }
-  .wd-drawer { display: block; }
-}
-
-@media (min-width: 901px) and (max-width: 1100px) {
-  .wd-dd__btn { padding: 7px 9px; font-size: 12.5px; }
-  .wd-all-btn { padding: 7px 12px; font-size: 11.5px; }
-}
+.wdn,.wdn *{box-sizing:border-box;margin:0;padding:0;}
+.wdn a{text-decoration:none;color:inherit;}
+.wdn button{font-family:"Inter",sans-serif;cursor:pointer;border:none;background:none;}
+.wdn{font-family:"Inter",sans-serif;background:#07111f;border-bottom:1px solid #0f1e32;position:sticky;top:0;z-index:9999;}
+.wdn-bar{max-width:1300px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:6px;}
+.wdn-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px;color:#e2e8f0;margin-right:10px;white-space:nowrap;text-decoration:none;}
+.wdn-gem{width:26px;height:26px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+.wdn-logo em{color:#6366f1;font-style:normal;}
+.wdn-menu{display:flex;align-items:center;gap:1px;flex:1;}
+@media(max-width:960px){.wdn-menu{display:none;}}
+.wdn-dd{position:relative;}
+.wdn-ddbtn{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;color:#7a94ae;font-size:12.5px;font-weight:700;white-space:nowrap;transition:background .15s,color .15s;}
+.wdn-ddbtn svg{width:13px;height:13px;transition:transform .2s;}
+.wdn-ddbtn:hover,.wdn-dd.open .wdn-ddbtn{background:#0d1a2d;color:#dde8f8;}
+.wdn-dd.open .wdn-ddbtn svg{transform:rotate(180deg);}
+.wdn-ddbtn.iscur{color:#a5b4fc;}
+.wdn-panel{display:none;position:absolute;top:calc(100% + 5px);left:0;background:#0b1726;border:1px solid #1a2d45;border-radius:13px;padding:7px;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:1000;}
+.wdn-dd.open .wdn-panel{display:block;animation:wdnFade .15s ease;}
+@keyframes wdnFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.wdn-cat{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#243550;padding:5px 9px 3px;}
+.wdn-sep{height:1px;background:#0f1e32;margin:4px 4px;}
+.wdn-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:#5a7a96;white-space:nowrap;transition:background .12s,color .12s;}
+.wdn-item:hover{background:#111f35;color:#e2e8f0;}
+.wdn-item.iscur{background:#1a1f40;color:#a5b4fc;font-weight:700;}
+.wdn-ico{width:18px;text-align:center;font-size:13px;flex-shrink:0;line-height:1;}
+.wdn-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
+@media(max-width:960px){.wdn-right{display:none;}}
+.wdn-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;border:1px solid #1a2d45;color:#6b8099;font-size:12px;font-weight:700;transition:all .15s;}
+.wdn-pill:hover{background:#0d1a2d;color:#dde8f8;border-color:#2a3f60;}
+.wdn-allbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12.5px;font-weight:800;transition:opacity .15s;}
+.wdn-allbtn:hover{opacity:.87;}
+.wdn-ham{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto;}
+.wdn-ham span{display:block;width:21px;height:2px;background:#6b8099;border-radius:2px;transition:transform .3s,opacity .3s;}
+.wdn-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.wdn-ham.open span:nth-child(2){opacity:0;}
+.wdn-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:960px){.wdn-ham{display:flex;}}
+.wdn-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:#07111f;z-index:9998;overflow-y:auto;}
+.wdn-drawer.open{display:block;}
+.wdn-dscroll{padding:8px 14px 40px;}
+.wdn-acc{border-bottom:1px solid #0d1a2d;}
+.wdn-ahead{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:#7a94ae;font-size:13.5px;font-weight:700;}
+.wdn-ahead svg{width:15px;height:15px;transition:transform .25s;flex-shrink:0;}
+.wdn-acc.open .wdn-ahead svg{transform:rotate(180deg);}
+.wdn-abody{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.wdn-acc.open .wdn-abody{max-height:500px;}
+.wdn-abinner{padding:2px 0 10px 24px;display:flex;flex-direction:column;gap:1px;}
+.wdn-mlink{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#5a7a96;transition:background .12s,color .12s;}
+.wdn-mlink:hover,.wdn-mlink.iscur{background:#0d1a2d;color:#e2e8f0;}
+.wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
+.wdn-dcta{padding:18px 4px 0;}
+.wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
 </style>
-
-<!-- ════════════════════ HTML ════════════════════ -->
-<nav class="wd-nav" role="navigation" aria-label="Site navigation">
-
-  <div class="wd-nav__bar">
-
-    <!-- Logo -->
-    <a href="index.html" class="wd-logo" aria-label="WebDesign001 – Home">
-      <div class="wd-logo__icon" aria-hidden="true">W</div>
-      <div class="wd-logo__text"><em>WebDesign</em><span>001</span></div>
-    </a>
-
-    <!-- ── DESKTOP DROPDOWNS ── -->
-    <div class="wd-desktop-menu" role="menubar">
-
-      <!-- 🎨 Design Tools -->
-      <div class="wd-dd" role="none">
-        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
-          🎨 Design Tools
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-dd__panel" role="menu" aria-label="Design Tools">
-          <div class="wd-dd__cat">Visual &amp; CSS</div>
-          <a class="wd-dd__link" href="css-gradient-generator.html" role="menuitem"><span class="wd-dd__link-ico">🌈</span>CSS Gradient Generator</a>
-          <a class="wd-dd__link" href="box-shadow-generator.html" role="menuitem"><span class="wd-dd__link-ico">🟦</span>Box Shadow Generator</a>
-          <a class="wd-dd__link" href="border-radius-generator.html" role="menuitem"><span class="wd-dd__link-ico">⬜</span>Border Radius Generator</a>
-          <a class="wd-dd__link" href="color-palette-generator.html" role="menuitem"><span class="wd-dd__link-ico">🎨</span>Color Palette Generator</a>
-          <div class="wd-dd__sep"></div>
-          <div class="wd-dd__cat">Units</div>
-          <a class="wd-dd__link" href="px-to-rem-converter.html" role="menuitem"><span class="wd-dd__link-ico">📐</span>PX → REM Converter</a>
-        </div>
+<nav class="wdn">
+<div class="wdn-bar">
+  <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
+  <div class="wdn-menu">
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">CSS Generators</div>
+        <a class="wdn-item" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-item" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-item" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-item" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Units &amp; Convert</div>
+        <a class="wdn-item" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX &#8594; REM Converter</a>
       </div>
-
-      <!-- 🔍 SEO Tools -->
-      <div class="wd-dd" role="none">
-        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
-          🔍 SEO Tools
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-dd__panel" role="menu" aria-label="SEO Tools">
-          <div class="wd-dd__cat">Indexing &amp; Crawling</div>
-          <a class="wd-dd__link" href="sitemap-generator.html" role="menuitem"><span class="wd-dd__link-ico">🗺️</span>Sitemap XML Generator</a>
-          <a class="wd-dd__link" href="robots-txt-generator.html" role="menuitem"><span class="wd-dd__link-ico">🤖</span>Robots.txt Generator</a>
-          <div class="wd-dd__sep"></div>
-          <div class="wd-dd__cat">Social &amp; Meta</div>
-          <a class="wd-dd__link" href="meta-tag-generator.html" role="menuitem"><span class="wd-dd__link-ico">🏷️</span>Meta Tag Generator</a>
-          <a class="wd-dd__link" href="og-preview.html" role="menuitem"><span class="wd-dd__link-ico">👁️</span>Open Graph Preview</a>
-          <div class="wd-dd__sep"></div>
-          <div class="wd-dd__cat">Structured Data</div>
-          <a class="wd-dd__link" href="schema-generator.html" role="menuitem"><span class="wd-dd__link-ico">🧩</span>JSON-LD Schema Generator</a>
-        </div>
-      </div>
-
-      <!-- 📄 Content Generators -->
-      <div class="wd-dd" role="none">
-        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
-          📄 Content Generators
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-dd__panel" role="menu" aria-label="Content Generators">
-          <div class="wd-dd__cat">Legal Pages</div>
-          <a class="wd-dd__link" href="privacy-policy-generator.html" role="menuitem"><span class="wd-dd__link-ico">🔒</span>Privacy Policy Generator</a>
-          <a class="wd-dd__link" href="terms-conditions-generator.html" role="menuitem"><span class="wd-dd__link-ico">📋</span>Terms &amp; Conditions</a>
-          <a class="wd-dd__link" href="refund-policy-generator.html" role="menuitem"><span class="wd-dd__link-ico">↩️</span>Refund Policy Generator</a>
-        </div>
-      </div>
-
-      <!-- ⚙️ Developer Tools -->
-      <div class="wd-dd" role="none">
-        <button class="wd-dd__btn" aria-haspopup="true" aria-expanded="false" role="menuitem">
-          ⚙️ Developer Tools
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-dd__panel" role="menu" aria-label="Developer Tools">
-          <div class="wd-dd__cat">Formatters &amp; Minifiers</div>
-          <a class="wd-dd__link" href="html-formatter.html" role="menuitem"><span class="wd-dd__link-ico">⟨/⟩</span>HTML Formatter</a>
-          <a class="wd-dd__link" href="css-minifier.html" role="menuitem"><span class="wd-dd__link-ico">{ }</span>CSS Minifier &amp; Beautifier</a>
-          <a class="wd-dd__link" href="json-formatter.html" role="menuitem"><span class="wd-dd__link-ico">{ }</span>JSON Formatter &amp; Validator</a>
-          <div class="wd-dd__sep"></div>
-          <div class="wd-dd__cat">Testing &amp; Config</div>
-          <a class="wd-dd__link" href="regex-tester.html" role="menuitem"><span class="wd-dd__link-ico">.*</span>Regex Tester</a>
-          <a class="wd-dd__link" href="htaccess-generator.html" role="menuitem"><span class="wd-dd__link-ico">⚙️</span>.htaccess Generator</a>
-        </div>
-      </div>
-
-    </div><!-- /desktop menu -->
-
-    <!-- All Tools CTA (desktop) -->
-    <div class="wd-nav__right">
-      <a href="index.html" class="wd-all-btn">✦ All Tools</a>
     </div>
-
-    <!-- Hamburger (mobile) -->
-    <button class="wd-hamburger" id="wd-ham" aria-label="Open menu" aria-expanded="false" aria-controls="wd-drawer">
-      <span></span><span></span><span></span>
-    </button>
-
-  </div><!-- /bar -->
-
-  <!-- ── MOBILE DRAWER ── -->
-  <div class="wd-drawer" id="wd-drawer" aria-hidden="true">
-    <div class="wd-drawer__scroll">
-
-      <!-- Accordion: Design Tools -->
-      <div class="wd-acc">
-        <button class="wd-acc__head" aria-expanded="false">
-          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">🎨</span>Design Tools</span>
-          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-acc__body">
-          <div class="wd-acc__body-inner">
-            <a class="wd-mob-link" href="css-gradient-generator.html"><span class="wd-mob-link-ico">🌈</span>CSS Gradient Generator</a>
-            <a class="wd-mob-link" href="box-shadow-generator.html"><span class="wd-mob-link-ico">🟦</span>Box Shadow Generator</a>
-            <a class="wd-mob-link" href="border-radius-generator.html"><span class="wd-mob-link-ico">⬜</span>Border Radius Generator</a>
-            <a class="wd-mob-link" href="color-palette-generator.html"><span class="wd-mob-link-ico">🎨</span>Color Palette Generator</a>
-            <a class="wd-mob-link" href="px-to-rem-converter.html"><span class="wd-mob-link-ico">📐</span>PX → REM Converter</a>
-          </div>
-        </div>
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-item" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image &#8594; WebP Converter</a>
       </div>
-
-      <!-- Accordion: SEO Tools -->
-      <div class="wd-acc">
-        <button class="wd-acc__head" aria-expanded="false">
-          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">🔍</span>SEO Tools</span>
-          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-acc__body">
-          <div class="wd-acc__body-inner">
-            <a class="wd-mob-link" href="sitemap-generator.html"><span class="wd-mob-link-ico">🗺️</span>Sitemap XML Generator</a>
-            <a class="wd-mob-link" href="robots-txt-generator.html"><span class="wd-mob-link-ico">🤖</span>Robots.txt Generator</a>
-            <a class="wd-mob-link" href="meta-tag-generator.html"><span class="wd-mob-link-ico">🏷️</span>Meta Tag Generator</a>
-            <a class="wd-mob-link" href="og-preview.html"><span class="wd-mob-link-ico">👁️</span>Open Graph Preview</a>
-            <a class="wd-mob-link" href="schema-generator.html"><span class="wd-mob-link-ico">🧩</span>JSON-LD Schema Generator</a>
-          </div>
-        </div>
+    </div>
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-item" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-item" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-item" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-item" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
       </div>
-
-      <!-- Accordion: Content Generators -->
-      <div class="wd-acc">
-        <button class="wd-acc__head" aria-expanded="false">
-          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">📄</span>Content Generators</span>
-          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-acc__body">
-          <div class="wd-acc__body-inner">
-            <a class="wd-mob-link" href="privacy-policy-generator.html"><span class="wd-mob-link-ico">🔒</span>Privacy Policy Generator</a>
-            <a class="wd-mob-link" href="terms-conditions-generator.html"><span class="wd-mob-link-ico">📋</span>Terms &amp; Conditions</a>
-            <a class="wd-mob-link" href="refund-policy-generator.html"><span class="wd-mob-link-ico">↩️</span>Refund Policy Generator</a>
-          </div>
-        </div>
+    </div>
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-item" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-item" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
       </div>
-
-      <!-- Accordion: Developer Tools -->
-      <div class="wd-acc">
-        <button class="wd-acc__head" aria-expanded="false">
-          <span class="wd-acc__head-left"><span class="wd-acc__head-emoji">⚙️</span>Developer Tools</span>
-          <svg class="wd-acc__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="wd-acc__body">
-          <div class="wd-acc__body-inner">
-            <a class="wd-mob-link" href="html-formatter.html"><span class="wd-mob-link-ico">⟨/⟩</span>HTML Formatter</a>
-            <a class="wd-mob-link" href="css-minifier.html"><span class="wd-mob-link-ico">{ }</span>CSS Minifier &amp; Beautifier</a>
-            <a class="wd-mob-link" href="json-formatter.html"><span class="wd-mob-link-ico">{ }</span>JSON Formatter &amp; Validator</a>
-            <a class="wd-mob-link" href="regex-tester.html"><span class="wd-mob-link-ico">.*</span>Regex Tester</a>
-            <a class="wd-mob-link" href="htaccess-generator.html"><span class="wd-mob-link-ico">⚙️</span>.htaccess Generator</a>
-          </div>
-        </div>
+    </div>
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">Formatters</div>
+        <a class="wdn-item" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-item" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-item" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-item" href="js-formatter.html"><span class="wdn-ico">JS</span>JS / TS Formatter</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Utilities</div>
+        <a class="wdn-item" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-item" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
       </div>
-
-      <!-- CTA -->
-      <div class="wd-drawer__cta">
-        <a href="index.html">✦ View All Tools</a>
+    </div>
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-item" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <div class="wdn-sep"></div>
+        <a class="wdn-item" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-item" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-item" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
       </div>
-
-    </div><!-- /scroll -->
-  </div><!-- /drawer -->
-
+    </div>
+  </div>
+  <div class="wdn-right">
+    <a href="downloads.html" class="wdn-pill">&#11015; Free PDFs</a>
+    <a href="index.html" class="wdn-allbtn">&#10022; All 22 Tools</a>
+  </div>
+  <button class="wdn-ham" id="wdn-ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="wdn-drawer" id="wdn-drawer">
+  <div class="wdn-dscroll">
+    <div class="wdn-acc"><button class="wdn-ahead">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-mlink" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-mlink" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-mlink" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <a class="wdn-mlink" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX to REM Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-mlink" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image to WebP Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-mlink" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-mlink" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-mlink" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-mlink" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-mlink" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-mlink" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-mlink" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-mlink" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-mlink" href="js-formatter.html"><span class="wdn-ico">JS</span>JS/TS Formatter</a>
+        <a class="wdn-mlink" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-mlink" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-mlink" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <a class="wdn-mlink" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-mlink" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-mlink" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+    </div></div></div>
+    <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
+  </div>
+</div>
 </nav>
-
 <script>
-(function () {
-  'use strict';
-
-  /* ══════════════════════════════
-     DESKTOP DROPDOWNS
-  ══════════════════════════════ */
-  var dds = document.querySelectorAll('.wd-dd');
-
-  function closeAllDd() {
-    dds.forEach(function (dd) {
-      dd.classList.remove('open');
-      dd.querySelector('.wd-dd__btn').setAttribute('aria-expanded', 'false');
-    });
-  }
-
-  dds.forEach(function (dd) {
-    var btn = dd.querySelector('.wd-dd__btn');
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var isOpen = dd.classList.contains('open');
-      closeAllDd();
-      if (!isOpen) {
-        dd.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
+(function(){
+  var dds=document.querySelectorAll('.wdn-dd');
+  function closeAll(){dds.forEach(function(d){d.classList.remove('open');d.querySelector('.wdn-ddbtn').setAttribute('aria-expanded','false');});}
+  dds.forEach(function(dd){
+    dd.querySelector('.wdn-ddbtn').addEventListener('click',function(e){
+      e.stopPropagation();var o=dd.classList.contains('open');closeAll();
+      if(!o){dd.classList.add('open');this.setAttribute('aria-expanded','true');}
     });
   });
-
-  document.addEventListener('click', closeAllDd);
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeAllDd();
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  var ham=document.getElementById('wdn-ham'),dr=document.getElementById('wdn-drawer');
+  ham.addEventListener('click',function(){
+    var o=ham.classList.toggle('open');
+    ham.setAttribute('aria-expanded',String(o));
+    dr.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
   });
-
-  /* ══════════════════════════════
-     HAMBURGER / DRAWER
-  ══════════════════════════════ */
-  var ham = document.getElementById('wd-ham');
-  var drawer = document.getElementById('wd-drawer');
-
-  ham.addEventListener('click', function () {
-    var isOpen = ham.classList.toggle('is-open');
-    ham.setAttribute('aria-expanded', String(isOpen));
-    drawer.classList.toggle('is-open', isOpen);   /* ← controls visibility */
-    drawer.setAttribute('aria-hidden', String(!isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  /* ══════════════════════════════
-     ACCORDION (mobile)
-  ══════════════════════════════ */
-  var accs = document.querySelectorAll('.wd-acc');
-
-  accs.forEach(function (acc) {
-    var head = acc.querySelector('.wd-acc__head');
-    head.addEventListener('click', function () {
-      var isOpen = acc.classList.contains('open');
-      // Close all others first
-      accs.forEach(function (a) {
-        a.classList.remove('open');
-        a.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'false');
-      });
-      if (!isOpen) {
-        acc.classList.add('open');
-        head.setAttribute('aria-expanded', 'true');
-      }
+  document.querySelectorAll('.wdn-ahead').forEach(function(h){
+    h.addEventListener('click',function(){
+      var acc=this.closest('.wdn-acc'),o=acc.classList.contains('open');
+      document.querySelectorAll('.wdn-acc').forEach(function(a){a.classList.remove('open');});
+      if(!o)acc.classList.add('open');
     });
   });
-
-  /* ══════════════════════════════
-     AUTO-HIGHLIGHT CURRENT PAGE
-  ══════════════════════════════ */
-  var page = window.location.pathname.split('/').pop() || 'index.html';
-
-  // Desktop
-  document.querySelectorAll('.wd-dd__link').forEach(function (a) {
-    if (a.getAttribute('href') === page) {
-      a.classList.add('active');
-      var parentDd = a.closest('.wd-dd');
-      if (parentDd) parentDd.querySelector('.wd-dd__btn').classList.add('cat-active');
-    }
+  window.addEventListener('resize',function(){if(window.innerWidth>960){ham.classList.remove('open');dr.classList.remove('open');document.body.style.overflow='';}});
+  var pg=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.wdn-item,.wdn-mlink').forEach(function(a){
+    if(a.getAttribute('href')===pg){a.classList.add('iscur');var d=a.closest('.wdn-dd');if(d)d.querySelector('.wdn-ddbtn').classList.add('iscur');}
   });
-
-  // Mobile — also auto-open that accordion section
-  document.querySelectorAll('.wd-mob-link').forEach(function (a) {
-    if (a.getAttribute('href') === page) {
-      a.classList.add('active');
-      var parentAcc = a.closest('.wd-acc');
-      if (parentAcc) {
-        parentAcc.classList.add('open');
-        parentAcc.querySelector('.wd-acc__head').setAttribute('aria-expanded', 'true');
-      }
-    }
-  });
-
-  /* ══════════════════════════════
-     RESET ON RESIZE TO DESKTOP
-  ══════════════════════════════ */
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 900) {
-      ham.classList.remove('is-open');
-      ham.setAttribute('aria-expanded', 'false');
-      drawer.classList.remove('is-open');           /* ← hide drawer on resize */
-      drawer.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-  });
-
 }());
 </script>
 
@@ -958,15 +575,79 @@ input,select,textarea{font-family:'Syne',sans-serif;}
 
 </main>
 
-<footer class="bg-gray-900 border-t border-gray-800 py-8 mt-12">
-  <div class="max-w-7xl mx-auto px-4 text-center">
-    <a href="index.html" class="inline-flex items-center gap-2 mb-3">
-      <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">W</div>
-      <span class="font-bold text-white"><span class="gradient-text">WebDesign</span><span class="text-gray-400">001.net</span></span>
-    </a>
-    <p class="text-gray-500 text-sm">Free online web design and SEO tools.</p>
+<footer class="wdf">
+<div class="wdf-inner">
+  <div class="wdf-brand">
+    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
+    <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
   </div>
+  <div class="wdf-col">
+    <h4>&#127912; Design Tools</h4>
+    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
+    <a href="box-shadow-generator.html">Box Shadow Generator</a>
+    <a href="border-radius-generator.html">Border Radius Generator</a>
+    <a href="color-palette-generator.html">Color Palette Generator</a>
+    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128247; Image Tools</h4>
+    <a href="favicon-generator.html">Favicon Generator</a>
+    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
+    <a href="sitemap-generator.html">Sitemap Generator</a>
+    <a href="robots-txt-generator.html">Robots.txt Generator</a>
+    <a href="meta-tag-generator.html">Meta Tag Generator</a>
+    <a href="og-preview.html">Open Graph Preview</a>
+    <a href="schema-generator.html">Schema Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128203; Content Generators</h4>
+    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="js-formatter.html">JS / TS Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+    <a href="htaccess-generator.html">.htaccess Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128218; Resources</h4>
+    <a href="blog.html">Blog &amp; Tutorials</a>
+    <a href="downloads.html">Free PDF Downloads</a>
+    <h4 style="margin-top:18px">&#128101; Company</h4>
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <h4 style="margin-top:18px">&#128274; Legal</h4>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</div>
+<div class="wdf-base">
+  <span>&#169; 2025 WebDesign001.net &#8212; All tools are free forever.</span>
+  <span>Built for designers &amp; developers worldwide.</span>
+</div>
 </footer>
+<style>
+.wdf{background:#04080f;border-top:1px solid #0c1624;padding:56px 20px 0;font-family:"Inter","Plus Jakarta Sans",sans-serif;}
+.wdf-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;}
+@media(max-width:1100px){.wdf-inner{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:680px){.wdf-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.wdf-inner{grid-template-columns:1fr;}}
+.wdf-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;color:#e2e8f0;text-decoration:none;margin-bottom:12px;}
+.wdf-logo span{color:#6366f1;}
+.wdf-brand p{font-size:13px;color:#243550;line-height:1.75;margin-bottom:12px;max-width:230px;}
+.wdf-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.wdf-tags span{background:#0c1525;border:1px solid #141f33;border-radius:6px;padding:3px 9px;font-size:11px;color:#3d5570;font-weight:700;}
+.wdf-col h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#243550;margin-bottom:9px;}
+.wdf-col a{display:block;font-size:12.5px;color:#334d66;text-decoration:none;margin-bottom:6px;transition:color .15s;}
+.wdf-col a:hover{color:#7a9ab8;}
+.wdf-base{border-top:1px solid #0c1624;padding:18px 0;max-width:1280px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#172436;}
+</style>
 
 <script>
 var currentTab = 'all';
