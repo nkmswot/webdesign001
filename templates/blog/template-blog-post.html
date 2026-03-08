@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Quiet Revolution of Type — The Margin</title>
+<meta name="description" content="Variable fonts promised everything and delivered almost nothing — until suddenly, they delivered everything."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,600&family=Epilogue:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   THE MARGIN — Individual Post Page
+   Same design system; long-form article layout
+   ═══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #101010; --ink2: #1e1e1e; --mid: #5a5a5a; --muted: #8a8a8a;
+  --rule:   #e2e2e2; --bg: #fafaf8; --white: #ffffff;
+  --red:    #c8352a; --red-lt: #e04038; --sand: #f4f1ea;
+  --font-h: 'Newsreader', Georgia, serif;
+  --font-b: 'Epilogue', sans-serif;
+  --font-m: 'Fira Mono', monospace;
+  --max:    1200px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-b); background: var(--bg); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ── Progress bar ── */
+#progress-bar { position: fixed; top: 0; left: 0; z-index: 999; height: 3px; background: var(--red); width: 0%; transition: width .1s linear; }
+
+/* ── Shared ── */
+.topbar { border-bottom: 1px solid var(--rule); padding: 9px 0; }
+.topbar-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.topbar-tagline { font-style: italic; font-family: var(--font-h); font-size: .72rem; letter-spacing: 0; text-transform: none; color: var(--mid); }
+.topbar-sub a { color: var(--red); text-decoration: none; font-weight: 500; transition: color .2s; }
+.topbar-sub a:hover { color: var(--red-lt); }
+
+.masthead { border-bottom: 2px solid var(--ink); padding: 28px 0 20px; }
+.masthead-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; align-items: center; }
+.masthead-name { font-family: var(--font-h); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300; letter-spacing: -.02em; line-height: 1; color: var(--ink); text-align: center; }
+.masthead-sub { font-family: var(--font-m); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+.masthead-topics { display: flex; align-items: center; gap: 0; margin-top: 14px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); width: 100%; }
+.topic-link { font-family: var(--font-b); font-size: .72rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--mid); padding: 9px 20px; border-right: 1px solid var(--rule); transition: all .2s; white-space: nowrap; }
+.topic-link:first-child { padding-left: 0; }
+.topic-link:hover { color: var(--red); }
+.topic-link.active { color: var(--red); }
+.topic-spacer { flex: 1; }
+.search-btn { padding: 9px 0 9px 20px; border-left: 1px solid var(--rule); background: none; border-top: none; border-right: none; border-bottom: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: color .2s; }
+.search-btn:hover { color: var(--ink); }
+.search-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ── Article header ── */
+.article-header { max-width: 760px; margin: 0 auto; padding: 56px 40px 0; }
+.article-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+.article-breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.article-breadcrumb a:hover { color: var(--red); }
+.article-breadcrumb span { color: var(--rule); }
+
+.article-cat { display: inline-block; font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; background: var(--red); color: white; padding: 4px 10px; margin-bottom: 20px; }
+
+.article-title {
+  font-family: var(--font-h);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400; line-height: 1.1; letter-spacing: -.02em;
+  color: var(--ink); margin-bottom: 20px;
+}
+
+.article-deck {
+  font-family: var(--font-h); font-style: italic;
+  font-size: 1.2rem; color: var(--mid);
+  line-height: 1.6; margin-bottom: 32px;
+  border-left: 3px solid var(--red); padding-left: 20px;
+}
+
+.article-byline { display: flex; align-items: center; gap: 16px; padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 0; flex-wrap: wrap; }
+.author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sand); display: flex; align-items: center; justify-content: center; font-family: var(--font-h); font-size: .85rem; font-weight: 600; color: var(--mid); flex-shrink: 0; }
+.byline-info { flex: 1; }
+.byline-name { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.byline-role { font-size: .78rem; color: var(--muted); }
+.byline-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.byline-date { font-family: var(--font-m); font-size: .62rem; letter-spacing: .08em; color: var(--muted); }
+.byline-time { font-family: var(--font-m); font-size: .62rem; letter-spacing: .08em; background: var(--sand); padding: 3px 9px; color: var(--mid); }
+.byline-share { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.share-btn { width: 30px; height: 30px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; background: none; }
+.share-btn:hover { border-color: var(--red); }
+.share-btn svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 1.8; transition: stroke .2s; }
+.share-btn:hover svg { stroke: var(--red); }
+
+/* ── Hero image ── */
+.article-hero-img { max-width: 900px; margin: 0 auto; padding: 0 40px; margin-top: 40px; }
+.hero-img-block { aspect-ratio: 16/9; background: var(--sand); display: flex; align-items: center; justify-content: center; position: relative; }
+.hero-img-letter { font-family: var(--font-h); font-size: 12rem; font-style: italic; color: rgba(16,16,16,.06); }
+.hero-img-caption { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+.img-caption-text { font-family: var(--font-m); font-size: .62rem; letter-spacing: .06em; color: var(--muted); padding: 10px 0; border-bottom: 1px solid var(--rule); }
+
+/* ── Article body + sidebar ── */
+.article-layout { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 240px; gap: 72px; margin-top: 48px; padding-bottom: 80px; }
+
+.article-body { max-width: 680px; }
+.article-body h2 { font-family: var(--font-h); font-size: 1.8rem; font-weight: 400; color: var(--ink); margin: 48px 0 16px; letter-spacing: -.01em; line-height: 1.2; }
+.article-body h3 { font-family: var(--font-h); font-size: 1.3rem; font-weight: 500; color: var(--ink); margin: 36px 0 12px; }
+.article-body p { font-family: var(--font-h); font-size: 1.1rem; color: var(--ink2); line-height: 1.8; margin-bottom: 24px; }
+.article-body p:first-child::first-letter { font-size: 4.5rem; font-weight: 300; float: left; line-height: .85; margin-right: 8px; margin-top: 4px; color: var(--ink); font-family: var(--font-h); }
+.article-body a { color: var(--red); text-decoration: none; border-bottom: 1px solid rgba(200,53,42,.3); transition: border-color .2s; }
+.article-body a:hover { border-color: var(--red); }
+.article-body ul, .article-body ol { font-family: var(--font-h); font-size: 1.1rem; line-height: 1.8; margin: 0 0 24px 24px; color: var(--ink2); }
+.article-body li { margin-bottom: 8px; }
+.article-body strong { font-weight: 600; color: var(--ink); }
+.article-body em { font-style: italic; }
+
+.pullquote { border-left: 3px solid var(--red); padding: 20px 28px; margin: 40px 0; background: var(--sand); }
+.pullquote p { font-family: var(--font-h) !important; font-size: 1.35rem !important; font-style: italic; color: var(--ink) !important; margin-bottom: 0 !important; line-height: 1.5 !important; }
+.pullquote p::first-letter { all: unset; }
+.pullquote cite { display: block; font-family: var(--font-m); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 10px; font-style: normal; }
+
+.article-body .inline-img { background: var(--sand); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; margin: 36px 0 8px; }
+.article-body .inline-img-letter { font-family: var(--font-h); font-size: 6rem; font-style: italic; color: rgba(16,16,16,.07); }
+.inline-img-cap { font-family: var(--font-m); font-size: .6rem; letter-spacing: .06em; color: var(--muted); margin-bottom: 36px; }
+
+.article-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
+.article-tag { font-family: var(--font-m); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; padding: 5px 11px; border: 1px solid var(--rule); color: var(--mid); text-decoration: none; transition: all .2s; }
+.article-tag:hover { border-color: var(--red); color: var(--red); }
+
+/* ── Article sidebar ── */
+.article-sidebar { padding-top: 4px; }
+.aside-section { margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--rule); }
+.aside-section:last-child { border-bottom: none; }
+.aside-label { font-family: var(--font-m); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding-bottom: 12px; border-bottom: 2px solid var(--ink); margin-bottom: 16px; }
+.aside-post { cursor: pointer; }
+.aside-post + .aside-post { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.aside-post-cat { font-family: var(--font-m); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+.aside-post-title { font-family: var(--font-h); font-size: .95rem; font-weight: 400; line-height: 1.3; color: var(--ink); margin-bottom: 4px; transition: color .2s; }
+.aside-post:hover .aside-post-title { color: var(--red); }
+.aside-post-meta { font-family: var(--font-m); font-size: .56rem; letter-spacing: .06em; color: var(--muted); }
+
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.toc-item a { font-size: .82rem; color: var(--mid); text-decoration: none; transition: color .2s; display: flex; gap: 8px; }
+.toc-item a:hover { color: var(--red); }
+.toc-num { font-family: var(--font-m); font-size: .6rem; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
+
+.nl-compact { display: flex; flex-direction: column; gap: 8px; }
+.nl-compact p { font-size: .8rem; color: var(--muted); line-height: 1.55; margin-bottom: 4px; font-style: italic; font-family: var(--font-h); }
+.nl-compact input { padding: 8px 10px; border: 1px solid var(--rule); font-family: var(--font-b); font-size: .82rem; color: var(--ink); outline: none; background: var(--white); transition: border-color .2s; }
+.nl-compact input:focus { border-color: var(--ink); }
+.nl-compact button { padding: 9px; background: var(--ink); color: var(--white); border: none; font-family: var(--font-m); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.nl-compact button:hover { background: var(--red); }
+
+/* ── Author bio ── */
+.author-bio-section { max-width: 760px; margin: 0 auto; padding: 0 40px 56px; }
+.author-bio-card { background: var(--sand); padding: 32px; display: flex; gap: 24px; border-top: 3px solid var(--red); }
+.author-bio-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--rule); display: flex; align-items: center; justify-content: center; font-family: var(--font-h); font-size: 1.2rem; font-weight: 600; color: var(--mid); flex-shrink: 0; }
+.author-bio-name { font-family: var(--font-h); font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.author-bio-title { font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.author-bio-text { font-size: .85rem; color: var(--mid); line-height: 1.65; }
+
+/* ── Related posts ── */
+.related { border-top: 2px solid var(--ink); background: var(--white); padding: 56px 0; }
+.related-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+.related-label { font-family: var(--font-m); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 32px; }
+.related-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); }
+.rel-card { background: var(--white); cursor: pointer; transition: background .2s; }
+.rel-card:hover { background: var(--bg); }
+.rel-card:hover .rel-title { color: var(--red); }
+.rel-img { aspect-ratio: 3/2; background: var(--sand); display: flex; align-items: center; justify-content: center; }
+.rel-img-letter { font-family: var(--font-h); font-size: 3.5rem; font-style: italic; color: rgba(16,16,16,.07); }
+.rel-body { padding: 20px; }
+.rel-cat { font-family: var(--font-m); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: 7px; }
+.rel-title { font-family: var(--font-h); font-size: 1rem; font-weight: 400; line-height: 1.3; color: var(--ink); margin-bottom: 8px; letter-spacing: -.01em; transition: color .2s; }
+.rel-meta { font-family: var(--font-m); font-size: .58rem; letter-spacing: .06em; color: var(--muted); }
+
+/* ── Footer ── */
+footer { border-top: 2px solid var(--ink); }
+.footer-top { max-width: var(--max); margin: 0 auto; padding: 48px 40px 36px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+.footer-brand { font-family: var(--font-h); font-size: 1.3rem; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+.footer-tagline-f { font-size: .85rem; color: var(--muted); line-height: 1.65; max-width: 220px; margin-bottom: 20px; font-style: italic; font-family: var(--font-h); }
+.footer-social { display: flex; gap: 8px; }
+.fsoc { width: 30px; height: 30px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .2s; }
+.fsoc:hover { border-color: var(--red); }
+.fsoc svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 1.8; transition: stroke .2s; }
+.fsoc:hover svg { stroke: var(--red); }
+.footer-col h4 { font-family: var(--font-m); font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: .85rem; color: var(--mid); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--red); }
+.footer-bottom { max-width: var(--max); margin: 0 auto; padding: 18px 40px; border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.footer-copy { font-family: var(--font-m); font-size: .6rem; letter-spacing: .06em; color: var(--muted); }
+.footer-credit { font-family: var(--font-m); font-size: .6rem; letter-spacing: .06em; color: var(--muted); }
+.footer-credit a { color: var(--red); text-decoration: none; transition: color .2s; }
+.footer-credit a:hover { color: var(--ink); }
+
+/* ═══ Responsive ═══ */
+@media(max-width:1024px) {
+  .article-layout { grid-template-columns: 1fr; }
+  .article-sidebar { border-top: 2px solid var(--ink); padding-top: 40px; }
+  .related-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:640px) {
+  .topbar-tagline { display: none; }
+  .masthead-topics { overflow-x: auto; }
+  .related-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .topbar-inner, .masthead-inner, .article-header, .article-hero-img, .hero-img-caption, .article-layout, .author-bio-section, .related-inner, .footer-top, .footer-bottom { padding-left: 20px; padding-right: 20px; }
+  .article-body p:first-child::first-letter { font-size: 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-date">Sunday, March 8, 2026</span>
+    <span class="topbar-tagline">Design, Technology &amp; Culture</span>
+    <span class="topbar-sub"><a href="#">Subscribe →</a></span>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="blog-home.html" style="text-decoration:none"><div class="masthead-name">The Margin</div></a>
+    <div class="masthead-sub">Independent writing on the things that shape how we work and live</div>
+    <nav class="masthead-topics">
+      <a href="blog-home.html" class="topic-link">All</a>
+      <a href="blog-categories.html" class="topic-link active">Design</a>
+      <a href="blog-categories.html" class="topic-link">Technology</a>
+      <a href="blog-categories.html" class="topic-link">Culture</a>
+      <a href="blog-categories.html" class="topic-link">Business</a>
+      <a href="blog-categories.html" class="topic-link">Craft</a>
+      <div class="topic-spacer"></div>
+      <button class="search-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ARTICLE HEADER -->
+<div class="article-header">
+  <div class="article-breadcrumb">
+    <a href="blog-home.html">Home</a><span>/</span>
+    <a href="blog-categories.html">Design</a><span>/</span>
+    <span>The Quiet Revolution of Type</span>
+  </div>
+  <div class="article-cat">Design</div>
+  <h1 class="article-title">The Quiet Revolution of Type: How Typeface Designers Are Reshaping the Texture of the Internet</h1>
+  <div class="article-deck">Variable fonts promised everything and delivered almost nothing — until suddenly, they delivered everything. A deep look at how a technical specification became the most significant typographic shift since desktop publishing.</div>
+  <div class="article-byline">
+    <div class="author-avatar">EV</div>
+    <div class="byline-info">
+      <div class="byline-name">Eleanor Vance</div>
+      <div class="byline-role">Contributing Writer · Design &amp; Typography</div>
+    </div>
+    <div class="byline-meta">
+      <span class="byline-date">March 6, 2026</span>
+      <span class="byline-time">12 min read</span>
+    </div>
+    <div class="byline-share">
+      <button class="share-btn" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></button>
+      <button class="share-btn" aria-label="Copy link"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+      <button class="share-btn" aria-label="Save"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO IMAGE -->
+<div class="article-hero-img">
+  <div class="hero-img-block"><div class="hero-img-letter">Aa</div></div>
+</div>
+<div class="hero-img-caption">
+  <div class="img-caption-text">Replace this placeholder with your article's hero image. Recommended ratio 16:9.</div>
+</div>
+
+<!-- ARTICLE BODY + SIDEBAR -->
+<div class="article-layout">
+  <article class="article-body" id="article-content">
+
+    <p>There is a photograph, famous among typographers, of the compositing room at the New York Times on the night the paper switched from hot metal to phototypesetting in 1978. The compositors stand beside their Linotype machines — enormous things, hissing and mechanical — and the expressions on their faces are precisely what you would expect: a mix of pride, grief, and a certain ironic resignation. The machines had served for nearly a century. Tomorrow they would not.</p>
+
+    <p>I think about that photograph often when I consider variable fonts. Not because variable fonts represent a similarly dramatic technological rupture — they don't, at least not visibly — but because the change they represent is, in its quiet way, just as profound. The typography of the internet is changing, and almost no one outside the field has noticed.</p>
+
+    <h2>What Variable Fonts Actually Are</h2>
+
+    <p>Before we get to what they mean, a moment on the mechanics. A traditional font file contains a single, fixed instance of a typeface — Regular, or Bold, or Italic. If you want all three, you load three files. If you want a weight between Regular and Bold, you cannot have it; the mathematics of interpolation doesn't exist for you.</p>
+
+    <p>A variable font file is different. It encodes not just one instance of a typeface, but the <a href="#">entire design space</a> of a typeface — every possible variation along every defined axis. A single file can contain weights from Thin to Black, widths from Condensed to Extended, optical sizes from caption to display, and whatever custom axes the type designer chose to include. A single variable font file does the work of a dozen static files, and then some.</p>
+
+    <div class="pullquote">
+      <p>"The constraint was never technical. It was economic. Serving twelve font files to render a single paragraph of text felt like madness, and it was."</p>
+      <cite>— Erik van Blokland, type designer</cite>
+    </div>
+
+    <p>The specification was finalised in 2016, which means variable fonts are not new. But adoption has been gradual, and the reasons for that gradualness are instructive. Variable fonts require tooling support — in browsers, in design software, in CSS implementations — and tooling support accumulates slowly. By 2022, the tooling had mostly caught up. By 2024, variable fonts had become the default choice for any typographically serious web project.</p>
+
+    <h2>The Performance Argument (Which Isn't the Interesting Argument)</h2>
+
+    <p>Most writing about variable fonts focuses on performance: one file instead of many, smaller total size, faster page loads. This is true and important, but it is the least interesting argument for variable fonts. It is the argument you make to an engineer. It is not the argument you make to a designer.</p>
+
+    <div class="inline-img"><div class="inline-img-letter">Wt</div></div>
+    <div class="inline-img-cap">Diagram placeholder — replace with a visual comparison of static vs variable font axes</div>
+
+    <p>The interesting argument is creative. For the first time in the history of typography on screens, designers have access to the full range of a typeface's design space, not the handful of static instances that a foundry decided to cut and sell. You can set a headline at weight 620 if 600 feels slightly too light and 700 feels slightly too heavy. You can animate a typeface across its weight axis as the user scrolls, creating a kinetic texture that responds to interaction. You can respond to viewport width by adjusting both size and optical weight simultaneously, as print designers have always been able to do and web designers never could.</p>
+
+    <h2>The Designers Who Saw It Coming</h2>
+
+    <p>There is a small group of type designers who understood what variable fonts would mean before almost anyone else. They are not, mostly, the famous names — not the designers of the great 20th century typefaces that still dominate brand identity work. They are a younger cohort, many of them trained in the Netherlands and Germany, who came up in the period when the web was maturing and who understood, intuitively, that the constraints of the medium they were designing for were about to change.</p>
+
+    <p>Laurenz Brunner's Aktiv Grotesk Variable was among the first commercially successful variable typefaces, released in 2019. Its design choices — the deliberate ambiguity between grotesque and humanist, the extraordinarily large optical size range — only make sense in the context of variable technology. You couldn't make those choices with static fonts and expect them to work at every size. The variable format made the design possible.</p>
+
+    <p>What these designers share is not a visual style but a methodology: designing for interpolation, building typefaces that are coherent not just at specific instances but across the entire space between instances. This is a fundamentally different design process, and it produces fundamentally different results.</p>
+
+    <h2>What Changes, and What Doesn't</h2>
+
+    <p>There is a version of this story where variable fonts change everything — where they usher in a new era of typographic richness on the web, where kinetic type becomes a standard element of interface design, where the visual hierarchy of web pages becomes as sophisticated as the visual hierarchy of well-designed print.</p>
+
+    <p>I am not certain that version is coming. The history of web typography is, in large part, a history of tools that enabled sophistication and defaults that prevented it. The fonts got better; the font stacks stayed the same. CSS allowed for fine typographic control; most people set font-size and called it done.</p>
+
+    <p>But something has already changed, and it is visible if you know where to look. The best-designed sites of the last three years use variable fonts not just for performance but for expression. They use the weight axis as a design element, not just as a choice between Regular and Bold. They understand that a typeface is not a font but a system, and that variable technology is what makes the system fully available for the first time.</p>
+
+    <p>The compositors in that photograph knew that something was ending. What they couldn't know was what would come next, and how long it would take to arrive. Typography moves slowly. But it moves.</p>
+
+    <div class="article-tags">
+      <a href="blog-categories.html" class="article-tag">Typography</a>
+      <a href="blog-categories.html" class="article-tag">Variable Fonts</a>
+      <a href="blog-categories.html" class="article-tag">Web Design</a>
+      <a href="blog-categories.html" class="article-tag">Design</a>
+      <a href="blog-categories.html" class="article-tag">Technology</a>
+    </div>
+  </article>
+
+  <aside class="article-sidebar">
+    <div class="aside-section">
+      <div class="aside-label">In This Article</div>
+      <ul class="toc-list">
+        <li class="toc-item"><a href="#"><span class="toc-num">01</span>What Variable Fonts Actually Are</a></li>
+        <li class="toc-item"><a href="#"><span class="toc-num">02</span>The Performance Argument</a></li>
+        <li class="toc-item"><a href="#"><span class="toc-num">03</span>The Designers Who Saw It Coming</a></li>
+        <li class="toc-item"><a href="#"><span class="toc-num">04</span>What Changes, and What Doesn't</a></li>
+      </ul>
+    </div>
+
+    <div class="aside-section">
+      <div class="aside-label">More from Eleanor</div>
+      <div class="aside-post">
+        <div class="aside-post-cat">Design</div>
+        <div class="aside-post-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Legibility Is Not Readability</a></div>
+        <div class="aside-post-meta">Feb 28 · 8 min</div>
+      </div>
+      <div class="aside-post">
+        <div class="aside-post-cat">Design</div>
+        <div class="aside-post-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">The Grid Is Dead, Long Live the Grid</a></div>
+        <div class="aside-post-meta">Feb 22 · 8 min</div>
+      </div>
+      <div class="aside-post">
+        <div class="aside-post-cat">Culture</div>
+        <div class="aside-post-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">What We Lost When We Stopped Writing Letters</a></div>
+        <div class="aside-post-meta">Feb 14 · 6 min</div>
+      </div>
+    </div>
+
+    <div class="aside-section">
+      <div class="aside-label">The Newsletter</div>
+      <div class="nl-compact">
+        <p>One email per week. No noise, just good writing.</p>
+        <input type="email" placeholder="your@email.com" aria-label="Email"/>
+        <button>Subscribe →</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- AUTHOR BIO -->
+<div class="author-bio-section">
+  <div class="author-bio-card">
+    <div class="author-bio-avatar">EV</div>
+    <div>
+      <div class="author-bio-name">Eleanor Vance</div>
+      <div class="author-bio-title">Contributing Writer · Design &amp; Typography</div>
+      <div class="author-bio-text">Eleanor writes about typography, visual culture, and the history of design. She has been a contributing editor at Print magazine and a guest critic at the Royal College of Art. She lives in London.</div>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED POSTS -->
+<div class="related">
+  <div class="related-inner">
+    <div class="related-label">Related Articles</div>
+    <div class="related-grid">
+      <div class="rel-card">
+        <div class="rel-img"><div class="rel-img-letter">L</div></div>
+        <div class="rel-body">
+          <div class="rel-cat">Design · Typography</div>
+          <div class="rel-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Legibility Is Not Readability: The Distinction That Changes Everything</a></div>
+          <div class="rel-meta">Eleanor Vance · Feb 28 · 8 min</div>
+        </div>
+      </div>
+      <div class="rel-card">
+        <div class="rel-img"><div class="rel-img-letter">S</div></div>
+        <div class="rel-body">
+          <div class="rel-cat">Design · Systems</div>
+          <div class="rel-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Systems Thinking Isn't a Design Methodology — It's a Mindset</a></div>
+          <div class="rel-meta">Aiko Tanaka · Feb 9 · 11 min</div>
+        </div>
+      </div>
+      <div class="rel-card">
+        <div class="rel-img"><div class="rel-img-letter">I</div></div>
+        <div class="rel-body">
+          <div class="rel-cat">Technology</div>
+          <div class="rel-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">The Interface Is the Product: Why Software Companies Are Finally Hiring Designers First</a></div>
+          <div class="rel-meta">Sam Rivera · Mar 1 · 8 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">The Margin</div>
+      <div class="footer-tagline-f">Independent writing on the things that shape how we work and live.</div>
+      <div class="footer-social">
+        <a class="fsoc" href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+        <a class="fsoc" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a>
+        <a class="fsoc" href="#" aria-label="RSS"><svg viewBox="0 0 24 24"><path d="M4 11a9 9 0 019 9M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Sections</h4><ul class="footer-links"><li><a href="#">Design</a></li><li><a href="#">Technology</a></li><li><a href="#">Culture</a></li><li><a href="#">Business</a></li><li><a href="#">Craft</a></li></ul></div>
+    <div class="footer-col"><h4>Publication</h4><ul class="footer-links"><li><a href="#">About</a></li><li><a href="#">Writers</a></li><li><a href="#">Submit</a></li><li><a href="#">Archive</a></li></ul></div>
+    <div class="footer-col"><h4>Follow</h4><ul class="footer-links"><li><a href="#">Newsletter</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">RSS Feed</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 The Margin. Free blog template.</div>
+    <div class="footer-credit">Template by <a href="https://webdesign001.net" target="_blank" rel="noopener">webdesign001.net</a></div>
+  </div>
+</footer>
+
+<script>
+// Reading progress bar
+window.addEventListener('scroll', function() {
+  var body = document.body, html = document.documentElement;
+  var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+  var scrolled = window.scrollY / (height - window.innerHeight) * 100;
+  document.getElementById('progress-bar').style.width = Math.min(scrolled, 100) + '%';
+});
+</script>
+</body>
+</html>

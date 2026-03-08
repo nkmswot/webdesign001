@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Design — The Margin</title>
+<meta name="description" content="Browse all Design articles on The Margin — writing on the things that shape how we work and live."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,600&family=Epilogue:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   THE MARGIN — Categories Page
+   Shares same design system as home + post pages
+   ═══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #101010; --ink2: #1e1e1e; --mid: #5a5a5a; --muted: #8a8a8a;
+  --rule:   #e2e2e2; --bg: #fafaf8; --white: #ffffff;
+  --red:    #c8352a; --red-lt: #e04038; --sand: #f4f1ea;
+  --font-h: 'Newsreader', Georgia, serif;
+  --font-b: 'Epilogue', sans-serif;
+  --font-m: 'Fira Mono', monospace;
+  --max:    1200px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-b); background: var(--bg); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* ── Shared ── */
+.topbar { border-bottom: 1px solid var(--rule); padding: 9px 0; }
+.topbar-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.topbar-tagline { font-style: italic; font-family: var(--font-h); font-size: .72rem; letter-spacing: 0; text-transform: none; color: var(--mid); }
+.topbar-sub a { color: var(--red); text-decoration: none; font-weight: 500; transition: color .2s; }
+.topbar-sub a:hover { color: var(--red-lt); }
+
+.masthead { border-bottom: 2px solid var(--ink); padding: 28px 0 20px; }
+.masthead-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; align-items: center; }
+.masthead-name { font-family: var(--font-h); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300; letter-spacing: -.02em; line-height: 1; color: var(--ink); text-align: center; }
+.masthead-sub { font-family: var(--font-m); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+.masthead-topics { display: flex; align-items: center; gap: 0; margin-top: 14px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); width: 100%; }
+.topic-link { font-family: var(--font-b); font-size: .72rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--mid); padding: 9px 20px; border-right: 1px solid var(--rule); transition: all .2s; white-space: nowrap; }
+.topic-link:first-child { padding-left: 0; }
+.topic-link:hover { color: var(--red); }
+.topic-link.active { color: var(--red); font-weight: 600; }
+.topic-spacer { flex: 1; }
+.search-btn { padding: 9px 0 9px 20px; border-left: 1px solid var(--rule); background: none; border-top: none; border-right: none; border-bottom: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: color .2s; }
+.search-btn:hover { color: var(--ink); }
+.search-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ── Category hero ── */
+.cat-hero {
+  background: var(--ink); padding: 60px 0;
+  border-bottom: 3px solid var(--red);
+}
+.cat-hero-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+.cat-hero-label { font-family: var(--font-m); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.cat-hero-name { font-family: var(--font-h); font-size: clamp(3rem, 6vw, 6rem); font-weight: 300; color: white; line-height: 1; letter-spacing: -.03em; }
+.cat-hero-name em { font-style: italic; color: var(--red); }
+.cat-hero-desc { font-size: .95rem; color: rgba(255,255,255,.5); line-height: 1.7; margin-top: 20px; max-width: 400px; }
+.cat-hero-stats { display: flex; flex-direction: column; gap: 24px; }
+.cat-stat-num { font-family: var(--font-h); font-size: 2.5rem; font-weight: 300; color: white; line-height: 1; margin-bottom: 4px; }
+.cat-stat-label { font-family: var(--font-m); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+
+/* ── Cat filters ── */
+.cat-filters { max-width: var(--max); margin: 0 auto; padding: 28px 40px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.filter-label { font-family: var(--font-m); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.filter-btn { font-family: var(--font-m); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--rule); background: none; cursor: pointer; color: var(--mid); transition: all .2s; }
+.filter-btn:hover, .filter-btn.active { border-color: var(--red); color: var(--red); }
+.filter-sort { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.sort-label { font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.sort-select { font-family: var(--font-m); font-size: .62rem; letter-spacing: .08em; border: 1px solid var(--rule); background: var(--bg); padding: 6px 10px; color: var(--mid); cursor: pointer; outline: none; }
+
+/* ── Featured post in cat ── */
+.cat-featured { max-width: var(--max); margin: 0 auto; padding: 48px 40px; border-bottom: 1px solid var(--rule); }
+.cat-feat-grid { display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: center; }
+.cat-feat-img { aspect-ratio: 16/10; background: var(--sand); display: flex; align-items: center; justify-content: center; }
+.cat-feat-img-letter { font-family: var(--font-h); font-size: 8rem; font-style: italic; color: rgba(16,16,16,.07); }
+.cat-feat-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-m); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+.cat-feat-badge::before { content: ''; width: 18px; height: 2px; background: var(--red); }
+.cat-feat-h { font-family: var(--font-h); font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 400; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 16px; }
+.cat-feat-h a { text-decoration: none; color: inherit; transition: color .2s; }
+.cat-feat-h a:hover { color: var(--red); }
+.cat-feat-excerpt { font-size: .95rem; color: var(--mid); line-height: 1.7; margin-bottom: 20px; }
+.cat-feat-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: var(--font-m); font-size: .62rem; letter-spacing: .06em; color: var(--muted); }
+.cat-feat-meta strong { color: var(--ink); }
+
+/* ── Post grid ── */
+.cat-main { max-width: var(--max); margin: 0 auto; padding: 0 40px 80px; }
+.posts-header { display: flex; align-items: center; justify-content: space-between; padding: 32px 0 20px; border-bottom: 2px solid var(--ink); margin-bottom: 0; }
+.posts-header-left { font-family: var(--font-m); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.posts-header-count { font-family: var(--font-h); font-size: .9rem; color: var(--mid); font-style: italic; }
+
+.posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); margin-top: 0; }
+.pg-card { background: var(--bg); transition: background .2s; cursor: pointer; }
+.pg-card:hover { background: var(--white); }
+.pg-img { aspect-ratio: 3/2; background: var(--sand); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.pg-img-letter { font-family: var(--font-h); font-size: 4rem; font-style: italic; color: rgba(16,16,16,.07); }
+.pg-body { padding: 24px 24px 28px; }
+.pg-cat { font-family: var(--font-m); font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+.pg-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 400; line-height: 1.3; letter-spacing: -.01em; color: var(--ink); margin-bottom: 10px; }
+.pg-card:hover .pg-title { color: var(--red); }
+.pg-excerpt { font-size: .82rem; color: var(--mid); line-height: 1.55; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.pg-meta { font-family: var(--font-m); font-size: .58rem; letter-spacing: .06em; color: var(--muted); }
+
+.pagination { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 48px 0 0; }
+.pg-num { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--rule); font-family: var(--font-m); font-size: .72rem; cursor: pointer; text-decoration: none; color: var(--mid); transition: all .2s; }
+.pg-num:hover, .pg-num.active { border-color: var(--red); color: var(--red); }
+.pg-num.active { background: var(--red); color: white; border-color: var(--red); }
+.pg-arr { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--rule); cursor: pointer; transition: all .2s; color: var(--mid); font-size: .9rem; text-decoration: none; }
+.pg-arr:hover { border-color: var(--ink); color: var(--ink); }
+.pg-ellipsis { font-family: var(--font-m); font-size: .72rem; color: var(--muted); padding: 0 4px; }
+
+/* ── All cats strip ── */
+.all-cats { background: var(--sand); border-top: 1px solid var(--rule); padding: 56px 0; }
+.all-cats-inner { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+.all-cats-label { font-family: var(--font-m); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding-bottom: 14px; border-bottom: 2px solid var(--ink); margin-bottom: 28px; }
+.cats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--rule); }
+.cat-pill { background: var(--sand); padding: 24px 20px; text-decoration: none; display: block; transition: background .2s; }
+.cat-pill:hover { background: var(--white); }
+.cat-pill-name { font-family: var(--font-h); font-size: 1.2rem; font-weight: 400; color: var(--ink); margin-bottom: 4px; transition: color .2s; }
+.cat-pill:hover .cat-pill-name { color: var(--red); }
+.cat-pill-count { font-family: var(--font-m); font-size: .6rem; letter-spacing: .08em; color: var(--muted); }
+
+/* ── Footer (same as home) ── */
+footer { border-top: 2px solid var(--ink); }
+.footer-top { max-width: var(--max); margin: 0 auto; padding: 48px 40px 36px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+.footer-brand { font-family: var(--font-h); font-size: 1.3rem; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+.footer-tagline-f { font-size: .85rem; color: var(--muted); line-height: 1.65; max-width: 220px; margin-bottom: 20px; font-style: italic; font-family: var(--font-h); }
+.footer-social { display: flex; gap: 8px; }
+.fsoc { width: 30px; height: 30px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .2s; }
+.fsoc:hover { border-color: var(--red); }
+.fsoc svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 1.8; transition: stroke .2s; }
+.fsoc:hover svg { stroke: var(--red); }
+.footer-col h4 { font-family: var(--font-m); font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: .85rem; color: var(--mid); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--red); }
+.footer-bottom { max-width: var(--max); margin: 0 auto; padding: 18px 40px; border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.footer-copy { font-family: var(--font-m); font-size: .6rem; letter-spacing: .06em; color: var(--muted); }
+.footer-credit { font-family: var(--font-m); font-size: .6rem; letter-spacing: .06em; color: var(--muted); }
+.footer-credit a { color: var(--red); text-decoration: none; transition: color .2s; }
+.footer-credit a:hover { color: var(--ink); }
+
+/* ═══ Responsive ═══ */
+@media(max-width:1024px) {
+  .cat-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .cat-feat-grid { grid-template-columns: 1fr; }
+  .cat-feat-img { display: none; }
+  .posts-grid { grid-template-columns: 1fr 1fr; }
+  .cats-grid { grid-template-columns: repeat(3,1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:640px) {
+  .topbar-tagline { display: none; }
+  .masthead-topics { overflow-x: auto; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .cats-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .topbar-inner, .masthead-inner, .cat-hero-inner, .cat-filters, .cat-featured, .cat-main, .all-cats-inner, .footer-top, .footer-bottom { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-date">Sunday, March 8, 2026</span>
+    <span class="topbar-tagline">Design, Technology &amp; Culture</span>
+    <span class="topbar-sub"><a href="#">Subscribe to the letter →</a></span>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="blog-home.html" style="text-decoration:none"><div class="masthead-name">The Margin</div></a>
+    <div class="masthead-sub">Independent writing on the things that shape how we work and live</div>
+    <nav class="masthead-topics">
+      <a href="blog-home.html" class="topic-link">All</a>
+      <a href="blog-categories.html" class="topic-link active">Design</a>
+      <a href="blog-categories.html" class="topic-link">Technology</a>
+      <a href="blog-categories.html" class="topic-link">Culture</a>
+      <a href="blog-categories.html" class="topic-link">Business</a>
+      <a href="blog-categories.html" class="topic-link">Craft</a>
+      <div class="topic-spacer"></div>
+      <button class="search-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search</button>
+    </nav>
+  </div>
+</header>
+
+<!-- CATEGORY HERO -->
+<section class="cat-hero">
+  <div class="cat-hero-inner">
+    <div>
+      <div class="cat-hero-label">Category</div>
+      <div class="cat-hero-name">De<em>sign</em></div>
+      <p class="cat-hero-desc">Writing about visual craft, systems thinking, creative process, and the people and ideas shaping how things look and feel.</p>
+    </div>
+    <div class="cat-hero-stats">
+      <div>
+        <div class="cat-stat-num">48</div>
+        <div class="cat-stat-label">Articles Published</div>
+      </div>
+      <div>
+        <div class="cat-stat-num">8</div>
+        <div class="cat-stat-label">Contributing Writers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="cat-filters">
+  <span class="filter-label">Filter by:</span>
+  <button class="filter-btn active">All</button>
+  <button class="filter-btn">Typography</button>
+  <button class="filter-btn">Systems</button>
+  <button class="filter-btn">Process</button>
+  <button class="filter-btn">Branding</button>
+  <button class="filter-btn">Web</button>
+  <button class="filter-btn">Motion</button>
+  <div class="filter-sort">
+    <span class="sort-label">Sort:</span>
+    <select class="sort-select">
+      <option>Newest First</option>
+      <option>Most Read</option>
+      <option>Alphabetical</option>
+    </select>
+  </div>
+</div>
+
+<!-- CAT FEATURED -->
+<div class="cat-featured">
+  <div class="cat-feat-grid">
+    <div class="cat-feat-img"><div class="cat-feat-img-letter">Aa</div></div>
+    <div>
+      <div class="cat-feat-badge">Latest from Design</div>
+      <h2 class="cat-feat-h"><a href="blog-post.html">The Quiet Revolution of Type: How Typeface Designers Are Reshaping the Texture of the Internet</a></h2>
+      <p class="cat-feat-excerpt">Variable fonts promised everything and delivered almost nothing — until suddenly, they delivered everything. A deep look at how a technical specification became the most significant typographic shift since desktop publishing.</p>
+      <div class="cat-feat-meta">
+        <strong>Eleanor Vance</strong>
+        <span>·</span>
+        <span>March 6, 2026</span>
+        <span>·</span>
+        <span>12 min read</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POSTS GRID -->
+<div class="cat-main">
+  <div class="posts-header">
+    <div class="posts-header-left">All Design Posts</div>
+    <div class="posts-header-count">48 articles</div>
+  </div>
+  <div class="posts-grid">
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">G</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Systems</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">The Grid Is Dead, Long Live the Grid</a></div>
+        <div class="pg-excerpt">Breaking grids is easy. Breaking them with intention — knowing exactly what rule you're breaking and why — takes years to learn.</div>
+        <div class="pg-meta">Eleanor Vance · Feb 22, 2026 · 8 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">C</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Colour</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Colour in Interface Design: Beyond Aesthetics</a></div>
+        <div class="pg-excerpt">Colour decisions in interfaces carry far more meaning than most designers acknowledge. A study in perception, accessibility, and cultural context.</div>
+        <div class="pg-meta">Sam Rivera · Feb 18, 2026 · 9 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">M</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Motion</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Why the Most Interesting Motion Designers Work in Film</a></div>
+        <div class="pg-excerpt">The discipline of motion design in digital products is stuck in a narrow set of conventions. The people pushing it forward are mostly working in cinema.</div>
+        <div class="pg-meta">Marcus Chen · Feb 14, 2026 · 7 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">S</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Process</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Systems Thinking Isn't a Design Methodology — It's a Mindset</a></div>
+        <div class="pg-excerpt">Design systems are everywhere now. Very few of them were actually designed by people who think in systems. The difference shows.</div>
+        <div class="pg-meta">Aiko Tanaka · Feb 9, 2026 · 11 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">B</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Branding</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">The Brand That Refuses to Be Recognised</a></div>
+        <div class="pg-excerpt">A handful of luxury brands have realised that the most powerful signal of status is not showing it. How absence became a design language.</div>
+        <div class="pg-meta">Eleanor Vance · Feb 4, 2026 · 6 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">T</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Typography</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">Legibility Is Not Readability: The Distinction That Changes Everything</a></div>
+        <div class="pg-excerpt">Two words used interchangeably by everyone who hasn't spent time thinking about them. They are not the same, and confusing them produces worse typography.</div>
+        <div class="pg-meta">Sam Rivera · Jan 28, 2026 · 8 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">I</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Web</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">The Interactive That Never Worked and Why We Keep Making Them</a></div>
+        <div class="pg-excerpt">Years of analytics showing that nobody scrolls to the end of the parallax story haven't stopped anyone from commissioning another one.</div>
+        <div class="pg-meta">Aiko Tanaka · Jan 20, 2026 · 5 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">P</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Process</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">The Portfolio Is Not the Work</a></div>
+        <div class="pg-excerpt">Everything about how designers present themselves has been optimised for beauty and against honesty. A case for showing the messy middle.</div>
+        <div class="pg-meta">Marcus Chen · Jan 14, 2026 · 7 min</div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <div class="pg-img"><div class="pg-img-letter">R</div></div>
+      <div class="pg-body">
+        <div class="pg-cat">Design · Craft</div>
+        <div class="pg-title"><a href="blog-post.html" style="text-decoration:none;color:inherit">On Redesigning Things That Weren't Broken</a></div>
+        <div class="pg-excerpt">Some of the most expensive and disruptive design decisions in recent years were made not because the old design failed, but because new design felt necessary.</div>
+        <div class="pg-meta">Eleanor Vance · Jan 7, 2026 · 9 min</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination">
+    <a class="pg-arr" href="#">‹</a>
+    <a class="pg-num active" href="#">1</a>
+    <a class="pg-num" href="#">2</a>
+    <a class="pg-num" href="#">3</a>
+    <span class="pg-ellipsis">…</span>
+    <a class="pg-num" href="#">6</a>
+    <a class="pg-arr" href="#">›</a>
+  </div>
+</div>
+
+<!-- ALL CATEGORIES -->
+<div class="all-cats">
+  <div class="all-cats-inner">
+    <div class="all-cats-label">Browse All Categories</div>
+    <div class="cats-grid">
+      <a href="blog-categories.html" class="cat-pill"><div class="cat-pill-name">Design</div><div class="cat-pill-count">48 articles</div></a>
+      <a href="blog-categories.html" class="cat-pill"><div class="cat-pill-name">Technology</div><div class="cat-pill-count">62 articles</div></a>
+      <a href="blog-categories.html" class="cat-pill"><div class="cat-pill-name">Culture</div><div class="cat-pill-count">35 articles</div></a>
+      <a href="blog-categories.html" class="cat-pill"><div class="cat-pill-name">Business</div><div class="cat-pill-count">41 articles</div></a>
+      <a href="blog-categories.html" class="cat-pill"><div class="cat-pill-name">Craft</div><div class="cat-pill-count">28 articles</div></a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">The Margin</div>
+      <div class="footer-tagline-f">Independent writing on the things that shape how we work and live.</div>
+      <div class="footer-social">
+        <a class="fsoc" href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+        <a class="fsoc" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a>
+        <a class="fsoc" href="#" aria-label="RSS"><svg viewBox="0 0 24 24"><path d="M4 11a9 9 0 019 9M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Sections</h4><ul class="footer-links"><li><a href="#">Design</a></li><li><a href="#">Technology</a></li><li><a href="#">Culture</a></li><li><a href="#">Business</a></li><li><a href="#">Craft</a></li></ul></div>
+    <div class="footer-col"><h4>Publication</h4><ul class="footer-links"><li><a href="#">About</a></li><li><a href="#">Writers</a></li><li><a href="#">Submit a Pitch</a></li><li><a href="#">Archive</a></li></ul></div>
+    <div class="footer-col"><h4>Follow</h4><ul class="footer-links"><li><a href="#">Newsletter</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">RSS Feed</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 The Margin. Free blog template.</div>
+    <div class="footer-credit">Template by <a href="https://webdesign001.net" target="_blank" rel="noopener">webdesign001.net</a></div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
