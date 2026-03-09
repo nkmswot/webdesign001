@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Forma — The Modern SaaS Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#05070f;
+  --surface:#0b0f1e;
+  --card:#101628;
+  --border:#1a2540;
+  --border-hover:#2d3f6e;
+  --text:#e8eeff;
+  --muted:#5a7090;
+  --accent:#5b6ef5;
+  --accent2:#8b5cf6;
+  --accent3:#06d6a0;
+  --grad:linear-gradient(135deg,#5b6ef5,#8b5cf6);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,backdrop-filter .3s;}
+nav.scrolled{background:rgba(5,7,15,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:32px;align-items:center;list-style:none;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{display:flex;gap:10px;align-items:center;}
+.btn-ghost{padding:9px 20px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);transition:all .2s;cursor:pointer;font-family:inherit;}
+.btn-ghost:hover{border-color:var(--border-hover);color:var(--text);}
+.btn-primary{padding:9px 22px;border:none;border-radius:8px;font-size:14px;font-weight:600;background:var(--grad);color:#fff;cursor:pointer;font-family:inherit;transition:opacity .2s;}
+.btn-primary:hover{opacity:.85;}
+.hamburger{display:none;width:36px;height:36px;border:none;background:none;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;}
+@media(max-width:800px){.nav-links,.nav-cta .btn-ghost{display:none;}.hamburger{display:flex;}}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.18;}
+.hero-orb-1{width:600px;height:600px;background:var(--accent);top:-100px;left:-150px;}
+.hero-orb-2{width:500px;height:500px;background:var(--accent2);bottom:-100px;right:-100px;}
+.hero-orb-3{width:300px;height:300px;background:var(--accent3);top:50%;left:50%;transform:translate(-50%,-50%);}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(91,110,245,.35);border-radius:20px;font-size:12px;font-weight:600;color:#818cf8;background:rgba(91,110,245,.08);margin-bottom:28px;animation:fadeUp .7s ease both;}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--accent3);display:inline-block;animation:pulse 2s ease infinite;}
+h1.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:24px;animation:fadeUp .7s .1s ease both;}
+.hero-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-desc{max-width:540px;font-size:1.1rem;line-height:1.7;color:var(--muted);margin:0 auto 40px;font-weight:300;animation:fadeUp .7s .2s ease both;}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+.btn-lg{padding:14px 32px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .25s;border:none;}
+.btn-lg.primary{background:var(--grad);color:#fff;box-shadow:0 0 40px rgba(91,110,245,.3);}
+.btn-lg.primary:hover{box-shadow:0 0 60px rgba(91,110,245,.5);transform:translateY(-2px);}
+.btn-lg.ghost{background:transparent;color:var(--muted);border:1px solid var(--border);}
+.btn-lg.ghost:hover{border-color:var(--border-hover);color:var(--text);}
+.hero-trust{margin-top:60px;animation:fadeUp .7s .5s ease both;}
+.hero-trust p{font-size:12px;color:var(--muted);margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em;}
+.trust-logos{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.trust-logo{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.5;transition:opacity .2s;}
+.trust-logo:hover{opacity:.8;}
+.hero-screenshot{margin-top:72px;position:relative;animation:fadeUp .8s .6s ease both;}
+.screenshot-glow{position:absolute;inset:-40px;background:radial-gradient(ellipse at 50% 50%,rgba(91,110,245,.25),transparent 70%);pointer-events:none;}
+.screenshot-frame{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 40px 100px rgba(0,0,0,.6);}
+.screenshot-bar{height:36px;background:var(--card);display:flex;align-items:center;padding:0 16px;gap:8px;border-bottom:1px solid var(--border);}
+.dot{width:10px;height:10px;border-radius:50%;}
+.screenshot-content{height:300px;background:var(--surface);display:grid;grid-template-columns:200px 1fr;gap:0;}
+.sc-sidebar{background:var(--card);border-right:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:8px;}
+.sc-nav-item{height:32px;border-radius:6px;background:rgba(255,255,255,.04);}
+.sc-nav-item.active{background:rgba(91,110,245,.15);border:1px solid rgba(91,110,245,.3);}
+.sc-main{padding:24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-content:start;}
+.sc-card{height:80px;border-radius:8px;background:var(--card);border:1px solid var(--border);}
+.sc-card.big{grid-column:span 2;height:120px;}
+
+/* ── LOGOS ── */
+.logos-section{padding:60px 5%;text-align:center;border-top:1px solid var(--border);}
+.logos-section p{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:28px;}
+.logos-row{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.logo-item{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--muted);opacity:.3;transition:opacity .2s;}
+.logo-item:hover{opacity:.6;}
+
+/* ── FEATURES ── */
+.features{padding:100px 5%;max-width:1200px;margin:0 auto;}
+.section-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:16px;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px;}
+.section-desc{max-width:480px;font-size:1rem;line-height:1.7;color:var(--muted);}
+.features-header{margin-bottom:64px;}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:900px){.features-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.features-grid{grid-template-columns:1fr;}}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,transform .2s;}
+.feat-card:hover{border-color:var(--border-hover);transform:translateY(-3px);}
+.feat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;background:rgba(91,110,245,.1);border:1px solid rgba(91,110,245,.2);}
+.feat-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.feat-desc{font-size:14px;line-height:1.65;color:var(--muted);}
+.feat-card.featured{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;background:linear-gradient(135deg,rgba(91,110,245,.06),rgba(139,92,246,.06));border-color:rgba(91,110,245,.3);}
+@media(max-width:600px){.feat-card.featured{grid-column:span 1;grid-template-columns:1fr;}}
+
+/* ── HOW IT WORKS ── */
+.how{padding:100px 5%;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.how-inner{max-width:1100px;margin:0 auto;}
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px;position:relative;}
+@media(max-width:700px){.steps-row{grid-template-columns:1fr;}}
+.steps-row::before{content:'';position:absolute;top:28px;left:calc(16.66% + 8px);right:calc(16.66% + 8px);height:1px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:.3;}
+@media(max-width:700px){.steps-row::before{display:none;}}
+.step{text-align:center;padding:32px 24px;}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--grad);color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 30px rgba(91,110,245,.35);}
+.step-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.step-desc{font-size:14px;line-height:1.65;color:var(--muted);}
+
+/* ── PRICING ── */
+.pricing{padding:100px 5%;max-width:1100px;margin:0 auto;}
+.pricing-header{text-align:center;margin-bottom:64px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:800px){.pricing-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto;}}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 28px;position:relative;transition:transform .2s;}
+.price-card:hover{transform:translateY(-4px);}
+.price-card.popular{border-color:rgba(91,110,245,.5);background:linear-gradient(135deg,rgba(91,110,245,.06),rgba(139,92,246,.06));}
+.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 16px;background:var(--grad);color:#fff;font-size:11px;font-weight:700;border-radius:20px;white-space:nowrap;}
+.price-tier{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px;}
+.price-amount{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;letter-spacing:-.04em;margin-bottom:4px;}
+.price-amount sup{font-size:1.2rem;vertical-align:super;}
+.price-period{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.price-features li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);}
+.price-features li::before{content:'✓';color:var(--accent3);font-weight:700;flex-shrink:0;}
+.price-features li.na{opacity:.4;}
+.price-features li.na::before{content:'✕';color:var(--muted);}
+.price-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;border:none;}
+.price-btn.outline{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.price-btn.outline:hover{border-color:var(--border-hover);color:var(--text);}
+.price-btn.solid{background:var(--grad);color:#fff;box-shadow:0 0 30px rgba(91,110,245,.3);}
+.price-btn.solid:hover{opacity:.85;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{padding:100px 5%;background:var(--surface);border-top:1px solid var(--border);}
+.testimonials-inner{max-width:1100px;margin:0 auto;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px;}
+@media(max-width:800px){.testi-grid{grid-template-columns:1fr;}}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s;}
+.testi-card:hover{border-color:var(--border-hover);}
+.testi-stars{color:#f59e0b;font-size:13px;margin-bottom:14px;letter-spacing:2px;}
+.testi-text{font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:20px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.testi-name{font-size:13px;font-weight:700;color:var(--text);}
+.testi-role{font-size:12px;color:var(--muted);}
+
+/* ── CTA ── */
+.cta{padding:120px 5%;text-align:center;position:relative;overflow:hidden;}
+.cta-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(91,110,245,.2),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.cta h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,4rem);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:20px;position:relative;}
+.cta p{max-width:440px;margin:0 auto 40px;font-size:1rem;color:var(--muted);line-height:1.7;position:relative;}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
+
+/* ── FOOTER ── */
+footer{padding:60px 5% 40px;border-top:1px solid var(--border);}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+@media(max-width:700px){.footer-top{grid-template-columns:1fr 1fr;}}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.65;margin-top:10px;max-width:240px;}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul a{font-size:14px;color:var(--muted);transition:color .2s;}
+.footer-col ul a:hover{color:var(--text);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);flex-wrap:wrap;gap:10px;}
+.footer-credit a{color:var(--accent);transition:color .2s;}
+.footer-credit a:hover{color:var(--accent2);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="logo" href="#">Forma</a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button class="btn-ghost" onclick="alert('Sign in')">Sign in</button>
+    <button class="btn-primary" onclick="alert('Get started')">Get started</button>
+  </div>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+
+  <div class="hero-badge"><span></span> Now with AI-powered workflows</div>
+  <h1 class="hero-title">Build faster.<br>Ship <span class="grad">with confidence.</span></h1>
+  <p class="hero-desc">Forma gives your team the tools to collaborate, automate, and launch products at the speed of thought. No complexity, just results.</p>
+  <div class="hero-actions">
+    <button class="btn-lg primary" onclick="alert('Start free trial')">Start free — no card needed</button>
+    <button class="btn-lg ghost" onclick="alert('Watch demo')">▶ Watch 2-min demo</button>
+  </div>
+  <div class="hero-trust">
+    <p>Trusted by 10,000+ product teams</p>
+    <div class="trust-logos">
+      <span class="trust-logo">Acme Corp</span>
+      <span class="trust-logo">Veritas</span>
+      <span class="trust-logo">NovaTech</span>
+      <span class="trust-logo">Meridian</span>
+      <span class="trust-logo">Zenith</span>
+    </div>
+  </div>
+  <div class="hero-screenshot">
+    <div class="screenshot-glow"></div>
+    <div class="screenshot-frame">
+      <div class="screenshot-bar">
+        <div class="dot" style="background:#f87171"></div>
+        <div class="dot" style="background:#fbbf24"></div>
+        <div class="dot" style="background:#34d399"></div>
+      </div>
+      <div class="screenshot-content">
+        <div class="sc-sidebar">
+          <div class="sc-nav-item active"></div>
+          <div class="sc-nav-item"></div>
+          <div class="sc-nav-item"></div>
+          <div class="sc-nav-item"></div>
+          <div class="sc-nav-item"></div>
+        </div>
+        <div class="sc-main">
+          <div class="sc-card big"></div>
+          <div class="sc-card"></div>
+          <div class="sc-card"></div>
+          <div class="sc-card"></div>
+          <div class="sc-card big"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos-section">
+  <p>Used at world-class companies</p>
+  <div class="logos-row">
+    <div class="logo-item">LUMEX</div>
+    <div class="logo-item">SONAR</div>
+    <div class="logo-item">STRATUM</div>
+    <div class="logo-item">VANTAGE</div>
+    <div class="logo-item">AXIOM</div>
+    <div class="logo-item">PARALLAX</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header reveal">
+    <div class="section-badge">✦ Features</div>
+    <h2 class="section-title">Everything your team needs<br>to <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">move faster</span></h2>
+    <p class="section-desc">From first idea to production deploy, Forma handles the complexity so your team can focus on what matters.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feat-card featured">
+      <div>
+        <div class="feat-icon" style="background:rgba(6,214,160,.1);border-color:rgba(6,214,160,.25);font-size:24px;">⚡</div>
+        <h3 class="feat-title">Real-time Collaboration</h3>
+        <p class="feat-desc">Your entire team works on the same canvas, simultaneously. See changes as they happen with sub-50ms sync across all devices globally.</p>
+        <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(6,214,160,.1);color:var(--accent3);border:1px solid rgba(6,214,160,.2);">Live cursors</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(6,214,160,.1);color:var(--accent3);border:1px solid rgba(6,214,160,.2);">Conflict-free</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(6,214,160,.1);color:var(--accent3);border:1px solid rgba(6,214,160,.2);">Offline sync</span>
+        </div>
+      </div>
+      <div style="background:var(--surface);border-radius:12px;border:1px solid var(--border);height:160px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;">Live preview widget</div>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">🤖</div>
+      <h3 class="feat-title">AI-Powered Automation</h3>
+      <p class="feat-desc">Let Forma handle repetitive tasks. Smart workflows that learn from your team's patterns.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">🔒</div>
+      <h3 class="feat-title">Enterprise Security</h3>
+      <p class="feat-desc">SOC 2 Type II certified. End-to-end encryption. SSO/SAML. Audit logs for every action.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.25);">📊</div>
+      <h3 class="feat-title">Advanced Analytics</h3>
+      <p class="feat-desc">Deep insights into team performance, project health, and delivery velocity. Export to any BI tool.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">🔌</div>
+      <h3 class="feat-title">250+ Integrations</h3>
+      <p class="feat-desc">Connect with Slack, GitHub, Jira, Figma, and 246 more tools your team already uses.</p>
+    </div>
+    <div class="feat-card reveal">
+      <div class="feat-icon">🌍</div>
+      <h3 class="feat-title">Global Edge Network</h3>
+      <p class="feat-desc">99.99% uptime SLA. Distributed across 40 regions. Your data stays where you need it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div style="text-align:center;" class="reveal">
+      <div class="section-badge">✦ How it works</div>
+      <h2 class="section-title">Up and running<br>in under 5 minutes</h2>
+    </div>
+    <div class="steps-row reveal">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Connect your tools</h3>
+        <p class="step-desc">Import your existing projects from GitHub, Jira, or any source. Forma instantly maps your workflow.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Invite your team</h3>
+        <p class="step-desc">Add teammates in seconds. Set roles and permissions. They join with zero setup required on their end.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Ship together</h3>
+        <p class="step-desc">Collaborate, track progress, and deploy with confidence. Forma keeps everyone aligned, always.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header reveal">
+    <div class="section-badge">✦ Pricing</div>
+    <h2 class="section-title">Simple, honest pricing</h2>
+    <p style="font-size:1rem;color:var(--muted);max-width:420px;margin:0 auto;">No hidden fees. No per-feature paywalls. Cancel anytime.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount"><sup>$</sup>0</div>
+      <div class="price-period">Free forever</div>
+      <ul class="price-features">
+        <li>Up to 5 team members</li>
+        <li>3 active projects</li>
+        <li>5GB storage</li>
+        <li>Basic analytics</li>
+        <li class="na">AI automation</li>
+        <li class="na">Priority support</li>
+      </ul>
+      <button class="price-btn outline" onclick="alert('Get started free')">Get started free</button>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="price-tier">Pro</div>
+      <div class="price-amount"><sup>$</sup>49</div>
+      <div class="price-period">per workspace / month</div>
+      <ul class="price-features">
+        <li>Unlimited team members</li>
+        <li>Unlimited projects</li>
+        <li>100GB storage</li>
+        <li>Advanced analytics</li>
+        <li>AI automation (50 runs/mo)</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="price-btn solid" onclick="alert('Start Pro trial')">Start 14-day free trial</button>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Enterprise</div>
+      <div class="price-amount" style="font-size:2rem;">Custom</div>
+      <div class="price-period">contact us</div>
+      <ul class="price-features">
+        <li>Everything in Pro</li>
+        <li>Unlimited AI runs</li>
+        <li>1TB+ storage</li>
+        <li>SSO / SAML</li>
+        <li>Dedicated CSM</li>
+        <li>SLA &amp; compliance</li>
+      </ul>
+      <button class="price-btn outline" onclick="alert('Contact sales')">Contact sales</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <div style="text-align:center;" class="reveal">
+      <div class="section-badge">✦ Testimonials</div>
+      <h2 class="section-title">Loved by product teams<br>around the world</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Forma cut our release cycle by 40%. The real-time collaboration is genuinely unlike anything we've tried before. It just works."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SJ</div>
+          <div><div class="testi-name">Sarah Johnson</div><div class="testi-role">VP Engineering, Meridian</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"We migrated our entire team in a weekend. The import tools are excellent, and the AI automation saves us hours every week."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">AM</div>
+          <div><div class="testi-name">Alex Martínez</div><div class="testi-role">CTO, NovaTech</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The analytics alone are worth the subscription. We finally have visibility into what's actually blocking our velocity."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#06d6a0,#5b6ef5)">LP</div>
+          <div><div class="testi-name">Lena Park</div><div class="testi-role">Head of Product, Axiom</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-glow"></div>
+  <h2 class="reveal">Ready to build<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">something great?</span></h2>
+  <p class="reveal">Join 10,000+ teams already using Forma. Start for free — no credit card required.</p>
+  <div class="cta-actions reveal">
+    <button class="btn-lg primary" onclick="alert('Start free trial')">Start for free</button>
+    <button class="btn-lg ghost" onclick="alert('Talk to sales')">Talk to sales</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="#">Forma</a>
+        <p>The modern platform for product teams who want to ship faster without the chaos.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Integrations</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">DPA</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Forma. All rights reserved.</span>
+      <span class="footer-credit">Template by <a href="https://webdesign001.net">webdesign001.net</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', function() {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Reveal on scroll
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+</script>
+</body>
+</html>

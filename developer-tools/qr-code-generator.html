@@ -1,0 +1,1271 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>QR Code Generator &mdash; URL, Wi-Fi, vCard &amp; More | WebDesign001</title>
+<meta name="description" content="Free online QR code generator. Create QR codes for URLs, text, email, phone numbers, Wi-Fi credentials, and vCards. Custom colors and sizes. Download as PNG."/>
+<meta name="keywords" content="qr code generator, qr code maker online, free qr code, url qr code, wifi qr code, vcard qr code, qr code download png"/>
+<link rel="canonical" href="https://webdesign001.net/qr-code-generator.html"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="QR Code Generator &mdash; URL, Wi-Fi, vCard &amp; More"/>
+<meta property="og:description" content="Free online QR code generator. Create QR codes for URLs, Wi-Fi, vCards and more. Download as PNG."/>
+<meta property="og:url" content="https://webdesign001.net/qr-code-generator.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-images/og-index.png"/>
+<meta property="og:site_name" content="WebDesign001"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #060b14;
+  --surface: #0b1220;
+  --card: #0e1628;
+  --border: #162035;
+  --border-hover: #2a3f60;
+  --text: #dde8f8;
+  --muted: #4a6080;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --accent3: #ec4899;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* Gradient text */
+.gt { background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── Hero background ── */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 80px 20px 72px;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 60%, rgba(236,72,153,.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,92,246,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* Subtle grid */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(99,102,241,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* ── Search bar ── */
+.search-wrap {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.search-wrap input {
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 14px 20px 14px 48px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+.search-wrap input::placeholder { color: var(--muted); }
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* ── Stats row ── */
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99,102,241,.1);
+  border: 1px solid rgba(99,102,241,.2);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+/* ── Category section ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.section-label-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-label h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.section-label p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.section-count {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Tool card ── */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99,102,241,.05), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s;
+  border-radius: inherit;
+}
+.tool-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+}
+.tool-card:hover::before { opacity: 1; }
+
+.tool-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.tool-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+.tool-arrow {
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color .15s, gap .15s;
+}
+.tool-card:hover .tool-arrow {
+  color: #a5b4fc;
+  gap: 8px;
+}
+
+/* Category colour themes */
+.ic-design { background: rgba(99,102,241,.12); }
+.ic-seo    { background: rgba(20,184,166,.12); }
+.ic-content{ background: rgba(249,115,22,.12); }
+.ic-dev    { background: rgba(168,85,247,.12); }
+
+.border-design { border-left: 3px solid #6366f1; }
+.border-seo    { border-left: 3px solid #14b8a6; }
+.border-content{ border-left: 3px solid #f97316; }
+.border-dev    { border-left: 3px solid #a855f7; }
+
+/* ── No results ── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ── Footer ── */
+footer {
+  background: #04080f;
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-links a:hover { color: #a5b4fc; }
+
+/* ── Animations ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fu { animation: fadeUp .4s ease forwards; opacity: 0; }
+.fu-1 { animation-delay: .05s; }
+.fu-2 { animation-delay: .12s; }
+.fu-3 { animation-delay: .19s; }
+.fu-4 { animation-delay: .26s; }
+.fu-5 { animation-delay: .33s; }
+
+/* ── Responsive ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .tools-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tool-card { padding: 14px; }
+  .tool-icon { width: 36px; height: 36px; font-size: 17px; margin-bottom: 10px; }
+  .tool-name { font-size: 13px; }
+  .tool-desc { display: none; }
+  .tool-arrow { display: none; }
+  .hero-bg { padding: 48px 20px 52px; }
+}
+@media (max-width: 380px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
+
+
+.tool-wrap{max-width:1060px;margin:0 auto;padding:32px 20px 80px;}
+.th{text-align:center;margin-bottom:32px;}
+.th h1{font-size:2rem;font-weight:800;margin-bottom:10px;}
+.th p{color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;}
+.badge{display:inline-block;padding:3px 10px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);border-radius:20px;font-size:12px;color:#818cf8;font-weight:600;margin-bottom:14px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.ch{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.btn:hover{background:#0c1525;color:var(--text);}
+.btn.pri{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-color:transparent;}
+.btn.pri:hover{opacity:.88;}
+.btn.ok{color:#34d399;border-color:#065f46;}
+.inp{width:100%;background:#070e1c;border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border-color .15s;font-family:inherit;}
+.inp:focus{border-color:#6366f1;}
+.ta{width:100%;background:#070e1c;border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:#c8d9ef;font-size:13px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;}
+.ta:focus{border-color:#6366f1;}
+.sel{width:100%;background:#070e1c;border:1px solid var(--border);border-radius:8px;padding:9px 10px;color:var(--text);font-size:13px;outline:none;cursor:pointer;}
+.sel:focus{border-color:#6366f1;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px;}
+/* layout */
+.qr-layout{display:grid;grid-template-columns:1fr 300px;gap:20px;}
+@media(max-width:740px){.qr-layout{grid-template-columns:1fr;}}
+/* type tabs */
+.qr-tabs{display:flex;gap:0;border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:18px;}
+.qr-tab{flex:1;padding:8px 4px;background:transparent;border:none;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid var(--border);transition:all .15s;text-align:center;}
+.qr-tab:last-child{border-right:none;}
+.qr-tab.on{background:#6366f1;color:#fff;}
+.qr-tab:hover:not(.on){background:#0c1525;color:var(--text);}
+/* type panels */
+.qr-pane{display:none;}
+.qr-pane.on{display:block;}
+/* color swatches */
+.swatch-row{display:flex;gap:12px;}
+.swatch-field{flex:1;}
+.swatch-box{width:100%;height:36px;border-radius:8px;border:2px solid var(--border);overflow:hidden;position:relative;cursor:pointer;}
+.swatch-box input[type=color]{position:absolute;inset:0;width:140%;height:140%;opacity:0;cursor:pointer;transform:translate(-15%,-15%);}
+/* preview */
+.qr-preview-bg{background:#f8fafc;border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:260px;}
+canvas#qrCanvas{display:block;image-rendering:pixelated;max-width:100%;}
+/* error */
+.qr-err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 14px;color:#f87171;font-size:13px;display:none;margin-top:10px;}
+.qr-err.on{display:block;}
+/* seo */
+.seo{max-width:860px;margin:48px auto 0;padding:0 20px 64px;}
+.seo h2{font-size:1.15rem;font-weight:700;color:var(--text);margin:28px 0 10px;}
+.seo p,.seo li{font-size:.9rem;line-height:1.75;color:var(--muted);}
+.seo ul{padding-left:1.4em;margin-bottom:12px;}
+</style>
+</head><body>
+<style>
+.wdn,.wdn *{box-sizing:border-box;margin:0;padding:0;}
+.wdn a{text-decoration:none;color:inherit;}
+.wdn button{font-family:"Inter",sans-serif;cursor:pointer;border:none;background:none;}
+.wdn{font-family:"Inter",sans-serif;background:#07111f;border-bottom:1px solid #0f1e32;position:sticky;top:0;z-index:9999;}
+.wdn-bar{max-width:1300px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:6px;}
+.wdn-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px;color:#e2e8f0;margin-right:10px;white-space:nowrap;text-decoration:none;}
+.wdn-gem{width:26px;height:26px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+.wdn-logo em{color:#6366f1;font-style:normal;}
+.wdn-menu{display:flex;align-items:center;gap:1px;flex:1;}
+@media(max-width:960px){.wdn-menu{display:none;}}
+.wdn-dd{position:relative;}
+.wdn-ddbtn{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;color:#7a94ae;font-size:12.5px;font-weight:700;white-space:nowrap;transition:background .15s,color .15s;}
+.wdn-ddbtn svg{width:13px;height:13px;transition:transform .2s;}
+.wdn-ddbtn:hover,.wdn-dd.open .wdn-ddbtn{background:#0d1a2d;color:#dde8f8;}
+.wdn-dd.open .wdn-ddbtn svg{transform:rotate(180deg);}
+.wdn-ddbtn.iscur{color:#a5b4fc;}
+.wdn-panel{display:none;position:absolute;top:calc(100% + 5px);left:0;background:#0b1726;border:1px solid #1a2d45;border-radius:13px;padding:7px;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:1000;}
+.wdn-dd.open .wdn-panel{display:block;animation:wdnFade .15s ease;}
+@keyframes wdnFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.wdn-cat{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#243550;padding:5px 9px 3px;}
+.wdn-sep{height:1px;background:#0f1e32;margin:4px 4px;}
+.wdn-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:#5a7a96;white-space:nowrap;transition:background .12s,color .12s;}
+.wdn-item:hover{background:#111f35;color:#e2e8f0;}
+.wdn-item.iscur{background:#1a1f40;color:#a5b4fc;font-weight:700;}
+.wdn-ico{width:18px;text-align:center;font-size:13px;flex-shrink:0;line-height:1;}
+.wdn-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
+@media(max-width:960px){.wdn-right{display:none;}}
+.wdn-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;border:1px solid #1a2d45;color:#6b8099;font-size:12px;font-weight:700;transition:all .15s;}
+.wdn-pill:hover{background:#0d1a2d;color:#dde8f8;border-color:#2a3f60;}
+.wdn-allbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12.5px;font-weight:800;transition:opacity .15s;}
+.wdn-allbtn:hover{opacity:.87;}
+.wdn-ham{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto;}
+.wdn-ham span{display:block;width:21px;height:2px;background:#6b8099;border-radius:2px;transition:transform .3s,opacity .3s;}
+.wdn-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.wdn-ham.open span:nth-child(2){opacity:0;}
+.wdn-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:960px){.wdn-ham{display:flex;}}
+.wdn-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:#07111f;z-index:9998;overflow-y:auto;}
+.wdn-drawer.open{display:block;}
+.wdn-dscroll{padding:8px 14px 40px;}
+.wdn-acc{border-bottom:1px solid #0d1a2d;}
+.wdn-ahead{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:#7a94ae;font-size:13.5px;font-weight:700;}
+.wdn-ahead svg{width:15px;height:15px;transition:transform .25s;flex-shrink:0;}
+.wdn-acc.open .wdn-ahead svg{transform:rotate(180deg);}
+.wdn-abody{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.wdn-acc.open .wdn-abody{max-height:500px;}
+.wdn-abinner{padding:2px 0 10px 24px;display:flex;flex-direction:column;gap:1px;}
+.wdn-mlink{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#5a7a96;transition:background .12s,color .12s;}
+.wdn-mlink:hover,.wdn-mlink.iscur{background:#0d1a2d;color:#e2e8f0;}
+.wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
+.wdn-dcta{padding:18px 4px 0;}
+.wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
+</style>
+<nav class="wdn">
+<div class="wdn-bar">
+  <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
+  <div class="wdn-menu">
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">CSS Generators</div>
+        <a class="wdn-item" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-item" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-item" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-item" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Units &amp; Convert</div>
+        <a class="wdn-item" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX &#8594; REM Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-item" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image &#8594; WebP Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-item" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-item" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-item" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-item" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-item" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-item" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">Formatters</div>
+        <a class="wdn-item" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-item" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-item" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-item" href="js-formatter.html"><span class="wdn-ico">JS</span>JS / TS Formatter</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Utilities</div>
+        <a class="wdn-item" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-item" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-item" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <div class="wdn-sep"></div>
+        <a class="wdn-item" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-item" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-item" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="wdn-right">
+    <a href="downloads.html" class="wdn-pill">&#11015; Free PDFs</a>
+    <a href="index.html" class="wdn-allbtn">&#10022; All 22 Tools</a>
+  </div>
+  <button class="wdn-ham" id="wdn-ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="wdn-drawer" id="wdn-drawer">
+  <div class="wdn-dscroll">
+    <div class="wdn-acc"><button class="wdn-ahead">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-mlink" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-mlink" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-mlink" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <a class="wdn-mlink" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX to REM Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-mlink" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image to WebP Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-mlink" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-mlink" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-mlink" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-mlink" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-mlink" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-mlink" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-mlink" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-mlink" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-mlink" href="js-formatter.html"><span class="wdn-ico">JS</span>JS/TS Formatter</a>
+        <a class="wdn-mlink" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-mlink" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-mlink" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <a class="wdn-mlink" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-mlink" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-mlink" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+    </div></div></div>
+    <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
+  </div>
+</div>
+</nav>
+
+<main class="tool-wrap">
+  <div class="th">
+    <span class="badge">Free Online Tool</span>
+    <h1>QR Code Generator</h1>
+    <p>Generate QR codes for URLs, text, email, phone, Wi-Fi, and vCards. Custom colors, sizes, error correction. Download as PNG. Fully client-side.</p>
+  </div>
+
+  <div class="qr-layout">
+    <!-- LEFT: controls -->
+    <div class="card">
+      <!-- type tabs -->
+      <div class="qr-tabs">
+        <button class="qr-tab on"  data-pane="url">URL</button>
+        <button class="qr-tab"     data-pane="text">Text</button>
+        <button class="qr-tab"     data-pane="email">Email</button>
+        <button class="qr-tab"     data-pane="phone">Phone</button>
+        <button class="qr-tab"     data-pane="wifi">Wi-Fi</button>
+        <button class="qr-tab"     data-pane="vcard">vCard</button>
+      </div>
+
+      <!-- URL -->
+      <div class="qr-pane on" id="pane-url">
+        <div class="field"><label>URL</label>
+          <input class="inp" id="f-url" value="https://webdesign001.net" placeholder="https://example.com"/>
+        </div>
+      </div>
+      <!-- Text -->
+      <div class="qr-pane" id="pane-text">
+        <div class="field"><label>Text</label>
+          <textarea class="ta" id="f-text" rows="4" placeholder="Enter any text&#8230;"></textarea>
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="qr-pane" id="pane-email">
+        <div class="field"><label>Email</label><input class="inp" id="f-email" placeholder="you@example.com"/></div>
+        <div class="field"><label>Subject (optional)</label><input class="inp" id="f-subject" placeholder="Hello"/></div>
+        <div class="field"><label>Body (optional)</label><textarea class="ta" id="f-body" rows="3"></textarea></div>
+      </div>
+      <!-- Phone -->
+      <div class="qr-pane" id="pane-phone">
+        <div class="field"><label>Phone number</label><input class="inp" id="f-phone" placeholder="+1234567890"/></div>
+      </div>
+      <!-- WiFi -->
+      <div class="qr-pane" id="pane-wifi">
+        <div class="field"><label>Network name (SSID)</label><input class="inp" id="f-ssid" placeholder="MyNetwork"/></div>
+        <div class="field"><label>Password</label><input class="inp" id="f-wpass" placeholder="password"/></div>
+        <div class="field"><label>Security</label>
+          <select class="sel" id="f-wsec"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">None</option></select>
+        </div>
+      </div>
+      <!-- vCard -->
+      <div class="qr-pane" id="pane-vcard">
+        <div class="field"><label>Full name</label><input class="inp" id="f-vname" placeholder="Jane Smith"/></div>
+        <div class="field"><label>Phone</label><input class="inp" id="f-vphone" placeholder="+1234567890"/></div>
+        <div class="field"><label>Email</label><input class="inp" id="f-vemail" placeholder="jane@example.com"/></div>
+        <div class="field"><label>Website</label><input class="inp" id="f-vweb" placeholder="https://example.com"/></div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0;"/>
+
+      <div class="field"><label>Error correction level</label>
+        <select class="sel" id="f-ecc">
+          <option value="L">L — Low (7%)</option>
+          <option value="M" selected>M — Medium (15%)</option>
+          <option value="Q">Q — Quartile (25%)</option>
+          <option value="H">H — High (30%)</option>
+        </select>
+      </div>
+      <div class="field"><label>Size</label>
+        <select class="sel" id="f-size">
+          <option value="200">200 × 200 px</option>
+          <option value="300" selected>300 × 300 px</option>
+          <option value="400">400 × 400 px</option>
+          <option value="600">600 × 600 px</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Colors</label>
+        <div class="swatch-row">
+          <div class="swatch-field">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">Foreground</div>
+            <div class="swatch-box" id="sb-fg" style="background:#000000"><input type="color" id="f-fg" value="#000000"/></div>
+          </div>
+          <div class="swatch-field">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">Background</div>
+            <div class="swatch-box" id="sb-bg" style="background:#ffffff"><input type="color" id="f-bg" value="#ffffff"/></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        <button class="btn pri" id="btnGen">&#9654; Generate</button>
+        <button class="btn" id="btnDl">&#8595; Download PNG</button>
+        <button class="btn" id="btnCopy">Copy PNG</button>
+      </div>
+      <div class="qr-err" id="qrErr"></div>
+    </div>
+
+    <!-- RIGHT: preview -->
+    <div class="card" style="text-align:center;">
+      <div class="ch">Preview</div>
+      <div class="qr-preview-bg" id="qrPreviewBg">
+        <canvas id="qrCanvas" width="300" height="300"></canvas>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:10px;">Updates automatically as you type</p>
+    </div>
+  </div>
+</main>
+
+<section class="seo">
+  <h2>Free QR Code Generator</h2>
+  <p>Create QR codes for any purpose — websites, contact details, Wi-Fi credentials, and more. All generation happens entirely in your browser using a pure JavaScript QR encoder. Nothing is uploaded to any server.</p>
+  <h2>QR Code Types</h2>
+  <ul>
+    <li><strong>URL</strong> — links to any website or app</li>
+    <li><strong>Wi-Fi</strong> — lets people join your network by scanning</li>
+    <li><strong>vCard</strong> — shares contact info with any smartphone</li>
+    <li><strong>Email / Phone</strong> — opens the mail or phone app when scanned</li>
+  </ul>
+  <h2>Error Correction Levels</h2>
+  <p>Higher error correction lets the QR code remain scannable even if part of it is damaged or covered. Level M (15%) is recommended for most uses. Use Level H (30%) if you plan to overlay a logo on the QR code.</p>
+</section>
+
+<style>
+.wdf{background:#04080f;border-top:1px solid #0c1624;padding:56px 20px 0;font-family:"Inter","Plus Jakarta Sans",sans-serif;}
+.wdf-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;}
+@media(max-width:1100px){.wdf-inner{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:680px){.wdf-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.wdf-inner{grid-template-columns:1fr;}}
+.wdf-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;color:#e2e8f0;text-decoration:none;margin-bottom:12px;}
+.wdf-logo span{color:#6366f1;}
+.wdf-brand p{font-size:13px;color:#243550;line-height:1.75;margin-bottom:12px;max-width:230px;}
+.wdf-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.wdf-tags span{background:#0c1525;border:1px solid #141f33;border-radius:6px;padding:3px 9px;font-size:11px;color:#3d5570;font-weight:700;}
+.wdf-col h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#243550;margin-bottom:9px;}
+.wdf-col a{display:block;font-size:12.5px;color:#334d66;text-decoration:none;margin-bottom:6px;transition:color .15s;}
+.wdf-col a:hover{color:#7a9ab8;}
+.wdf-base{border-top:1px solid #0c1624;padding:18px 0;max-width:1280px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#172436;}
+</style>
+<footer class="wdf">
+<div class="wdf-inner">
+  <div class="wdf-brand">
+    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
+    <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
+  </div>
+  <div class="wdf-col">
+    <h4>&#127912; Design Tools</h4>
+    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
+    <a href="box-shadow-generator.html">Box Shadow Generator</a>
+    <a href="border-radius-generator.html">Border Radius Generator</a>
+    <a href="color-palette-generator.html">Color Palette Generator</a>
+    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128247; Image Tools</h4>
+    <a href="favicon-generator.html">Favicon Generator</a>
+    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
+    <a href="sitemap-generator.html">Sitemap Generator</a>
+    <a href="robots-txt-generator.html">Robots.txt Generator</a>
+    <a href="meta-tag-generator.html">Meta Tag Generator</a>
+    <a href="og-preview.html">Open Graph Preview</a>
+    <a href="schema-generator.html">Schema Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128203; Content Generators</h4>
+    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="js-formatter.html">JS / TS Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+    <a href="htaccess-generator.html">.htaccess Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128218; Resources</h4>
+    <a href="blog.html">Blog &amp; Tutorials</a>
+    <a href="downloads.html">Free PDF Downloads</a>
+    <h4 style="margin-top:18px">&#128101; Company</h4>
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <h4 style="margin-top:18px">&#128274; Legal</h4>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</div>
+<div class="wdf-base">
+  <span>&#169; 2025 WebDesign001.net &#8212; All tools are free forever.</span>
+  <span>Built for designers &amp; developers worldwide.</span>
+</div>
+</footer>
+<script>
+(function(){
+  var dds=document.querySelectorAll('.wdn-dd');
+  function closeAll(){dds.forEach(function(d){d.classList.remove('open');d.querySelector('.wdn-ddbtn').setAttribute('aria-expanded','false');});}
+  dds.forEach(function(dd){
+    dd.querySelector('.wdn-ddbtn').addEventListener('click',function(e){
+      e.stopPropagation();var o=dd.classList.contains('open');closeAll();
+      if(!o){dd.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  var ham=document.getElementById('wdn-ham'),dr=document.getElementById('wdn-drawer');
+  ham.addEventListener('click',function(){
+    var o=ham.classList.toggle('open');
+    ham.setAttribute('aria-expanded',String(o));
+    dr.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
+  });
+  document.querySelectorAll('.wdn-ahead').forEach(function(h){
+    h.addEventListener('click',function(){
+      var acc=this.closest('.wdn-acc'),o=acc.classList.contains('open');
+      document.querySelectorAll('.wdn-acc').forEach(function(a){a.classList.remove('open');});
+      if(!o)acc.classList.add('open');
+    });
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>960){ham.classList.remove('open');dr.classList.remove('open');document.body.style.overflow='';}});
+  var pg=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.wdn-item,.wdn-mlink').forEach(function(a){
+    if(a.getAttribute('href')===pg){a.classList.add('iscur');var d=a.closest('.wdn-dd');if(d)d.querySelector('.wdn-ddbtn').classList.add('iscur');}
+  });
+}());
+</script>
+<script>document.querySelectorAll(".wdn-item,.wdn-mlink").forEach(function(a){if(a.getAttribute("href")==="qr-code-generator.html")a.classList.add("iscur");});</script>
+<script>
+
+// ============================================================
+// QR Code encoder — pure JS, no dependencies
+// Reed-Solomon GF(2^8) with primitive polynomial x^8+x^4+x^3+x^2+1 = 285
+// ============================================================
+(function(global){
+
+// ── Galois Field tables ───────────────────────────────────────
+var EXP = new Array(256);   // EXP[i] = alpha^i
+var LOG = new Array(256);   // LOG[v] = i  (LOG[EXP[i]] = i)
+EXP[0] = 1;
+for (var _i = 0; _i < 255; _i++) {
+  EXP[_i + 1] = EXP[_i] << 1;
+  if (EXP[_i + 1] >= 256) EXP[_i + 1] ^= 285;
+}
+for (var _i = 0; _i < 255; _i++) {
+  LOG[EXP[_i]] = _i;
+}
+
+function gfMul(a, b) {
+  if (a === 0 || b === 0) return 0;
+  return EXP[(LOG[a] + LOG[b]) % 255];
+}
+function gfPow(a, n) {
+  return EXP[(LOG[a] * n) % 255];
+}
+
+// ── RS generator polynomial for ecl error codewords ──────────
+function rsGeneratorPoly(ecl) {
+  var poly = [1];
+  for (var i = 0; i < ecl; i++) {
+    var t = [1, EXP[i]];
+    var r = new Array(poly.length + 1).fill(0);
+    for (var j = 0; j < poly.length; j++) {
+      for (var k = 0; k < t.length; k++) {
+        r[j + k] ^= gfMul(poly[j], t[k]);
+      }
+    }
+    poly = r;
+  }
+  return poly;
+}
+
+function rsEncode(data, ecl) {
+  var gen  = rsGeneratorPoly(ecl);
+  var rem  = data.slice();
+  for (var i = 0; i < ecl; i++) rem.push(0);
+  for (var i = 0; i < data.length; i++) {
+    var c = rem[i];
+    if (c !== 0) {
+      for (var j = 0; j < gen.length; j++) {
+        rem[i + j] ^= gfMul(gen[j], c);
+      }
+    }
+  }
+  return rem.slice(data.length);
+}
+
+// ── RS block table (version 1-10, modes L M Q H) ─────────────
+// Each group of 3 = [count, totalCodewords, dataCodewords]
+var RS_BLOCKS = [
+  /* v1 */ [1,26,19], [1,26,16], [1,26,13], [1,26,9],
+  /* v2 */ [1,44,34], [1,44,28], [1,44,22], [1,44,16],
+  /* v3 */ [1,70,55], [1,70,44], [2,35,17], [2,35,13],
+  /* v4 */ [1,100,80], [2,50,32], [2,50,24], [4,25,9],
+  /* v5 */ [1,134,108],[2,67,43], [2,33,15,2,34,16], [2,33,11,2,34,12],
+  /* v6 */ [2,86,68],  [4,43,27], [4,43,19], [4,43,15],
+  /* v7 */ [2,98,78],  [4,49,31], [2,32,14,4,33,14], [4,39,13,1,40,14],
+  /* v8 */ [2,121,97], [2,60,38,2,61,39], [4,40,18,2,41,19], [4,40,14,2,41,15],
+  /* v9 */ [2,146,116],[3,58,36,2,59,37],  [4,36,16,4,37,17], [4,36,12,4,37,13],
+  /*v10 */ [2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16]
+];
+
+var EC_IDX = {L:0, M:1, Q:2, H:3};
+
+function getRSBlocks(version, ecl) {
+  var raw = RS_BLOCKS[(version - 1) * 4 + EC_IDX[ecl]];
+  var blocks = [];
+  var i = 0;
+  while (i < raw.length) {
+    var cnt = raw[i], tot = raw[i+1], dat = raw[i+2];
+    for (var j = 0; j < cnt; j++) blocks.push({total: tot, data: dat});
+    i += 3;
+  }
+  return blocks;
+}
+
+// ── Alignment pattern positions ───────────────────────────────
+var ALIGN_POS = [
+  [], [6,18],[6,22],[6,26],[6,30],[6,34],
+  [6,22,38],[6,24,42],[6,26,46],[6,28,50]
+];
+
+// ── BCH for format/version info ───────────────────────────────
+function bchFormat(data) {
+  var d = data << 10;
+  var g = 0x537;
+  for (var i = 4; i >= 0; i--) {
+    if ((d >> (i + 10)) & 1) d ^= (g << i);
+  }
+  return ((data << 10) | d) ^ 0x5412;
+}
+
+function bchVersion(data) {
+  var d = data << 12;
+  var g = 0x1F25;
+  for (var i = 5; i >= 0; i--) {
+    if ((d >> (i + 12)) & 1) d ^= (g << i);
+  }
+  return (data << 12) | d;
+}
+
+// ── Bit buffer ────────────────────────────────────────────────
+function BitBuffer() {
+  this.bytes  = [];
+  this.length = 0;
+}
+BitBuffer.prototype.put = function(val, bits) {
+  for (var i = bits - 1; i >= 0; i--) this.putBit((val >> i) & 1);
+};
+BitBuffer.prototype.putBit = function(b) {
+  var idx = this.length >> 3;
+  if (this.bytes.length <= idx) this.bytes.push(0);
+  if (b) this.bytes[idx] |= 0x80 >> (this.length & 7);
+  this.length++;
+};
+
+// ── UTF-8 encode ──────────────────────────────────────────────
+function toUTF8Bytes(str) {
+  var out = [];
+  for (var i = 0; i < str.length; i++) {
+    var c = str.charCodeAt(i);
+    if (c < 0x80) {
+      out.push(c);
+    } else if (c < 0x800) {
+      out.push(0xC0 | (c >> 6), 0x80 | (c & 0x3F));
+    } else {
+      out.push(0xE0|(c>>12), 0x80|((c>>6)&0x3F), 0x80|(c&0x3F));
+    }
+  }
+  return out;
+}
+
+// ── Character capacity (byte mode) ───────────────────────────
+var BYTE_CAP = [
+  [17,14,11,7],  // v1
+  [32,26,20,14], // v2
+  [53,42,32,24], // v3
+  [78,62,46,34], // v4
+  [106,84,60,44],// v5
+  [134,106,74,58],
+  [154,122,86,64],
+  [192,152,108,84],
+  [230,180,130,98],
+  [271,213,151,119]  // v10
+];
+
+function pickVersion(byteLen, ecl) {
+  var ei = EC_IDX[ecl];
+  for (var v = 0; v < BYTE_CAP.length; v++) {
+    if (byteLen <= BYTE_CAP[v][ei]) return v + 1;
+  }
+  return -1; // too long
+}
+
+// ── Module grid ───────────────────────────────────────────────
+function makeGrid(size) {
+  var g = [];
+  for (var i = 0; i < size; i++) {
+    g[i] = new Int8Array(size).fill(-1); // -1 = unset
+  }
+  return g;
+}
+
+function setFinder(grid, r, c) {
+  for (var dr = -1; dr <= 7; dr++) {
+    for (var dc = -1; dc <= 7; dc++) {
+      var rr = r + dr, cc = c + dc;
+      if (rr < 0 || rr >= grid.length || cc < 0 || cc >= grid.length) continue;
+      var dark = (dr >= 0 && dr <= 6 && (dc === 0 || dc === 6)) ||
+                 (dc >= 0 && dc <= 6 && (dr === 0 || dr === 6)) ||
+                 (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4);
+      grid[rr][cc] = dark ? 1 : 0;
+    }
+  }
+}
+
+function setAlignment(grid, r, c) {
+  for (var dr = -2; dr <= 2; dr++) {
+    for (var dc = -2; dc <= 2; dc++) {
+      grid[r + dr][c + dc] = (Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0)) ? 1 : 0;
+    }
+  }
+}
+
+function setFormatInfo(grid, size, mask, ecl) {
+  var fmtData = (EC_IDX[ecl] << 3) | mask;  // note: QREC order L=01 M=00 Q=11 H=10
+  // Reorder EC bits to QR spec: L=01 M=00 Q=11 H=10
+  var EC_QR = {L:1, M:0, Q:3, H:2};
+  fmtData = (EC_QR[ecl] << 3) | mask;
+  var fmt = bchFormat(fmtData);
+
+  // format info positions
+  var positions = [
+    [8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],
+    [7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]
+  ];
+  for (var i = 0; i < 15; i++) {
+    var bit = (fmt >> i) & 1;
+    var pos = positions[i];
+    grid[pos[0]][pos[1]] = bit;
+    // mirror
+    if (i < 8) {
+      grid[pos[0]][size - 1 - i] = bit;
+    } else {
+      grid[size - 7 + (i - 8)][8] = bit;
+    }
+  }
+  grid[size - 8][8] = 1; // dark module
+}
+
+var MASK_FN = [
+  function(r,c){ return (r+c)%2===0; },
+  function(r,c){ return r%2===0; },
+  function(r,c){ return c%3===0; },
+  function(r,c){ return (r+c)%3===0; },
+  function(r,c){ return (Math.floor(r/2)+Math.floor(c/3))%2===0; },
+  function(r,c){ return (r*c)%2+(r*c)%3===0; },
+  function(r,c){ return ((r*c)%2+(r*c)%3)%2===0; },
+  function(r,c){ return ((r+c)%2+(r*c)%3)%2===0; }
+];
+
+function penalty(grid, size) {
+  var score = 0;
+  // Rule 1: 5+ same-color in a row/col
+  for (var r = 0; r < size; r++) {
+    var run = 1;
+    for (var c = 1; c < size; c++) {
+      if (grid[r][c] === grid[r][c-1]) { run++; if (run===5) score+=3; else if(run>5) score++; }
+      else run = 1;
+    }
+  }
+  for (var c = 0; c < size; c++) {
+    var run = 1;
+    for (var r = 1; r < size; r++) {
+      if (grid[r][c] === grid[r-1][c]) { run++; if (run===5) score+=3; else if(run>5) score++; }
+      else run = 1;
+    }
+  }
+  // Rule 2: 2x2 blocks
+  for (var r = 0; r < size-1; r++) {
+    for (var c = 0; c < size-1; c++) {
+      var v = grid[r][c];
+      if (v === grid[r][c+1] && v === grid[r+1][c] && v === grid[r+1][c+1]) score += 3;
+    }
+  }
+  // Rule 4: dark proportion
+  var dark = 0;
+  for (var r = 0; r < size; r++) for (var c = 0; c < size; c++) if (grid[r][c]) dark++;
+  var pct = dark * 100 / (size * size);
+  score += Math.abs(Math.floor(pct / 5) * 5 - 50) / 5 * 10;
+  return score;
+}
+
+// ── Main encode function ──────────────────────────────────────
+function encode(text, ecl) {
+  var bytes   = toUTF8Bytes(text);
+  var version = pickVersion(bytes.length, ecl);
+  if (version < 0) return null; // too long
+
+  var size = version * 4 + 17;
+
+  // ── Build data bits
+  var buf = new BitBuffer();
+  buf.put(4, 4); // byte mode
+  buf.put(bytes.length, version < 10 ? 8 : 16);
+  for (var i = 0; i < bytes.length; i++) buf.put(bytes[i], 8);
+
+  // Padding
+  var blocks   = getRSBlocks(version, ecl);
+  var totalDC  = blocks.reduce(function(s,b){ return s + b.data; }, 0);
+  if (buf.length + 4 <= totalDC * 8) buf.put(0, 4);
+  while (buf.length % 8 !== 0) buf.putBit(0);
+  var pad = [0xEC, 0x11];
+  for (var pi = 0; buf.length < totalDC * 8; pi++) buf.put(pad[pi % 2], 8);
+
+  // ── Interleave data + EC
+  var dcData = [], ecData = [], offset = 0;
+  for (var bi = 0; bi < blocks.length; bi++) {
+    var dc = blocks[bi].data;
+    var ec = blocks[bi].total - dc;
+    dcData.push(buf.bytes.slice(offset, offset + dc));
+    ecData.push(rsEncode(buf.bytes.slice(offset, offset + dc), ec));
+    offset += dc;
+  }
+  var maxDC = Math.max.apply(null, blocks.map(function(b){ return b.data; }));
+  var maxEC = Math.max.apply(null, blocks.map(function(b){ return b.total - b.data; }));
+  var codewords = [];
+  for (var i = 0; i < maxDC; i++) for (var b = 0; b < dcData.length; b++) if (i < dcData[b].length) codewords.push(dcData[b][i]);
+  for (var i = 0; i < maxEC; i++) for (var b = 0; b < ecData.length; b++) if (i < ecData[b].length) codewords.push(ecData[b][i]);
+
+  // ── Place modules — try all 8 masks, pick best ──────────────
+  var bestMask = 0, bestScore = Infinity, bestGrid = null;
+
+  for (var maskIdx = 0; maskIdx < 8; maskIdx++) {
+    var grid = makeGrid(size);
+
+    // Finder patterns + separators
+    setFinder(grid, 0, 0);
+    setFinder(grid, 0, size - 7);
+    setFinder(grid, size - 7, 0);
+
+    // Timing strips
+    for (var i = 8; i < size - 8; i++) {
+      if (grid[6][i] < 0) grid[6][i] = i % 2 === 0 ? 1 : 0;
+      if (grid[i][6] < 0) grid[i][6] = i % 2 === 0 ? 1 : 0;
+    }
+
+    // Alignment patterns
+    var ap = ALIGN_POS[version - 1];
+    for (var ai = 0; ai < ap.length; ai++) {
+      for (var aj = 0; aj < ap.length; aj++) {
+        var ar = ap[ai], ac = ap[aj];
+        if (grid[ar][ac] < 0) setAlignment(grid, ar, ac);
+      }
+    }
+
+    // Format info placeholder (we'll overwrite after data placement)
+    // Reserve format info modules
+    for (var i = 0; i <= 8; i++) {
+      if (grid[8][i] < 0) grid[8][i] = 0;
+      if (grid[i][8] < 0) grid[i][8] = 0;
+    }
+    for (var i = size - 8; i < size; i++) {
+      if (grid[8][i] < 0) grid[8][i] = 0;
+      if (grid[i][8] < 0) grid[i][8] = 0;
+    }
+
+    // Place data codewords
+    var bitIdx = 0;
+    var col = size - 1;
+    while (col > 0) {
+      if (col === 6) col--;
+      var up = true;
+      for (var row = 0; row < size; row++) {
+        var r = up ? (size - 1 - row) : row;
+        for (var cc = 0; cc <= 1; cc++) {
+          var c = col - cc;
+          if (grid[r][c] >= 0) continue;
+          var bit = 0;
+          if (bitIdx < codewords.length * 8) {
+            bit = (codewords[bitIdx >> 3] >> (7 - (bitIdx & 7))) & 1;
+            bitIdx++;
+          }
+          grid[r][c] = MASK_FN[maskIdx](r, c) ? bit ^ 1 : bit;
+        }
+      }
+      up = !up;
+      col -= 2;
+    }
+
+    setFormatInfo(grid, size, maskIdx, ecl);
+
+    var s = penalty(grid, size);
+    if (s < bestScore) { bestScore = s; bestMask = maskIdx; bestGrid = grid; }
+  }
+
+  return { grid: bestGrid, size: size };
+}
+
+global.QREncode = encode;
+})(window);
+
+// ── UI logic ─────────────────────────────────────────────────────
+var qrType = 'url';
+
+document.querySelectorAll('.qr-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    qrType = tab.dataset.pane;
+    document.querySelectorAll('.qr-tab').forEach(function(t){ t.classList.remove('on'); });
+    document.querySelectorAll('.qr-pane').forEach(function(p){ p.classList.remove('on'); });
+    tab.classList.add('on');
+    document.getElementById('pane-' + qrType).classList.add('on');
+    autoGen();
+  });
+});
+
+function getData() {
+  switch(qrType) {
+    case 'url':   return document.getElementById('f-url').value.trim() || 'https://webdesign001.net';
+    case 'text':  return document.getElementById('f-text').value.trim() || 'Hello, World!';
+    case 'email': {
+      var e = document.getElementById('f-email').value.trim();
+      var s = document.getElementById('f-subject').value.trim();
+      var b = document.getElementById('f-body').value.trim();
+      var url = 'mailto:' + e;
+      var q = [];
+      if (s) q.push('subject=' + encodeURIComponent(s));
+      if (b) q.push('body=' + encodeURIComponent(b));
+      return q.length ? url + '?' + q.join('&') : url;
+    }
+    case 'phone': return 'tel:' + (document.getElementById('f-phone').value.trim() || '+1234567890');
+    case 'wifi': {
+      var ss = document.getElementById('f-ssid').value.trim();
+      var pw = document.getElementById('f-wpass').value.trim();
+      var sec = document.getElementById('f-wsec').value;
+      return 'WIFI:T:' + sec + ';S:' + ss + ';P:' + pw + ';;';
+    }
+    case 'vcard': {
+      var n  = document.getElementById('f-vname').value.trim();
+      var ph = document.getElementById('f-vphone').value.trim();
+      var em = document.getElementById('f-vemail').value.trim();
+      var w  = document.getElementById('f-vweb').value.trim();
+      return 'BEGIN:VCARD\nVERSION:3.0\nFN:' + n + '\nTEL:' + ph + '\nEMAIL:' + em + '\nURL:' + w + '\nEND:VCARD';
+    }
+    default: return 'https://webdesign001.net';
+  }
+}
+
+function drawQR(qr, canvas, fg, bg) {
+  var sz  = qr.size;
+  var dim = canvas.width;
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, dim, dim);
+  ctx.fillStyle = fg;
+  var cell = dim / sz;
+  for (var r = 0; r < sz; r++) {
+    for (var c = 0; c < sz; c++) {
+      if (qr.grid[r][c]) {
+        ctx.fillRect(
+          Math.floor(c * cell),
+          Math.floor(r * cell),
+          Math.ceil(cell),
+          Math.ceil(cell)
+        );
+      }
+    }
+  }
+}
+
+function genQR() {
+  var data = getData();
+  var ecl  = document.getElementById('f-ecc').value;
+  var sz   = parseInt(document.getElementById('f-size').value, 10);
+  var fg   = document.getElementById('f-fg').value;
+  var bg   = document.getElementById('f-bg').value;
+  var errEl = document.getElementById('qrErr');
+  var canvas = document.getElementById('qrCanvas');
+  canvas.width  = sz;
+  canvas.height = sz;
+  try {
+    var qr = window.QREncode(data, ecl);
+    if (!qr) {
+      errEl.textContent = 'Text is too long for a QR code at this error correction level. Try a shorter URL or lower error correction.';
+      errEl.classList.add('on');
+      return;
+    }
+    errEl.classList.remove('on');
+    drawQR(qr, canvas, fg, bg);
+  } catch(e) {
+    errEl.textContent = 'Error: ' + e.message;
+    errEl.classList.add('on');
+  }
+}
+
+var autoTimer;
+function autoGen() { clearTimeout(autoTimer); autoTimer = setTimeout(genQR, 350); }
+
+// wire all inputs
+['f-url','f-text','f-email','f-subject','f-body','f-phone',
+ 'f-ssid','f-wpass','f-vname','f-vphone','f-vemail','f-vweb'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', autoGen);
+});
+['f-ecc','f-size','f-wsec'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('change', genQR);
+});
+
+// Color pickers
+['f-fg','f-bg'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', function() {
+    document.getElementById('sb-' + id.slice(2)).style.background = this.value;
+    genQR();
+  });
+});
+
+document.getElementById('btnGen').addEventListener('click', genQR);
+
+document.getElementById('btnDl').addEventListener('click', function() {
+  var a = document.createElement('a');
+  a.download = 'qrcode.png';
+  a.href = document.getElementById('qrCanvas').toDataURL('image/png');
+  a.click();
+});
+
+document.getElementById('btnCopy').addEventListener('click', function() {
+  document.getElementById('qrCanvas').toBlob(function(blob) {
+    navigator.clipboard.write([new ClipboardItem({'image/png': blob})])
+      .then(function() {
+        var b = document.getElementById('btnCopy');
+        b.textContent = 'Copied!'; b.classList.add('ok');
+        setTimeout(function(){ b.textContent = 'Copy PNG'; b.classList.remove('ok'); }, 1600);
+      })
+      .catch(function() { alert('PNG copy not supported in this browser — use Download instead.'); });
+  });
+});
+
+// Initial render
+genQR();
+
+</script>
+</body></html>

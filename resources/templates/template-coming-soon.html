@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Luminary — Coming Soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0c;
+  --surface:#141418;
+  --border:#222228;
+  --text:#f0eee8;
+  --muted:#605e58;
+  --gold:#c8a96e;
+  --gold2:#e8c98e;
+}
+html,body{height:100%;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* ── CANVAS BG ── */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ── GRAIN OVERLAY ── */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px 200px;}
+
+/* ── LAYOUT ── */
+.page{position:relative;z-index:2;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;align-items:stretch;}
+
+/* ── HEADER ── */
+header{padding:28px 5%;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;}
+.logo-icon{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:12px;color:#0a0a0c;font-weight:700;}
+.header-right{display:flex;align-items:center;gap:20px;}
+.header-link{font-size:13px;font-weight:300;color:var(--muted);letter-spacing:.05em;transition:color .2s;}
+.header-link:hover{color:var(--text);}
+
+/* ── MAIN ── */
+main{display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:60px 5%;}
+
+.pre-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border:1px solid rgba(200,169,110,.25);border-radius:2px;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:40px;animation:fadeUp 1s ease both;}
+.pre-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s ease infinite;}
+
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,12vw,9rem);font-weight:300;line-height:1;letter-spacing:-.02em;margin-bottom:8px;animation:fadeUp 1s .1s ease both;}
+h1 em{font-style:italic;font-weight:300;color:var(--gold);}
+.subtitle{font-size:clamp(1rem,2.5vw,1.4rem);font-weight:300;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:56px;animation:fadeUp 1s .2s ease both;}
+
+/* ── COUNTDOWN ── */
+.countdown{display:flex;gap:32px;justify-content:center;margin-bottom:64px;flex-wrap:wrap;animation:fadeUp 1s .3s ease both;}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:80px;}
+.cd-num{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:300;line-height:1;color:var(--text);transition:all .4s ease;}
+.cd-num.flash{color:var(--gold);}
+.cd-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.cd-divider{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:200;color:var(--border);align-self:flex-start;padding-top:10px;animation:blinkDiv 1s step-end infinite;}
+
+/* ── EMAIL FORM ── */
+.form-wrap{width:100%;max-width:480px;animation:fadeUp 1s .4s ease both;}
+.form-label{font-size:12px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:block;}
+.email-form{display:flex;gap:0;border:1px solid rgba(200,169,110,.25);border-radius:4px;overflow:hidden;transition:border-color .2s;}
+.email-form:focus-within{border-color:var(--gold);}
+.email-inp{flex:1;padding:14px 20px;background:transparent;border:none;color:var(--text);font-size:14px;font-family:inherit;font-weight:300;outline:none;letter-spacing:.03em;}
+.email-inp::placeholder{color:var(--muted);}
+.email-btn{padding:14px 24px;background:var(--gold);border:none;color:#0a0a0c;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;letter-spacing:.08em;transition:background .2s;white-space:nowrap;}
+.email-btn:hover{background:var(--gold2);}
+.form-note{font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:.03em;}
+.success-msg{display:none;padding:14px 20px;border:1px solid rgba(200,169,110,.25);border-radius:4px;font-size:14px;color:var(--gold);letter-spacing:.05em;}
+
+/* ── PROGRESS ── */
+.progress-wrap{width:100%;max-width:480px;margin-top:48px;animation:fadeUp 1s .5s ease both;}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.progress-bar{height:1px;background:var(--border);border-radius:1px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:1px;width:0%;transition:width 2s ease;}
+.features-peek{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.fp-item{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.fp-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.5;}
+.fp-item.done{color:rgba(200,169,110,.7);}
+.fp-item.done::before{opacity:1;}
+
+/* ── FOOTER ── */
+footer{padding:24px 5%;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:12px;color:var(--muted);letter-spacing:.05em;transition:color .2s;}
+.footer-links a:hover{color:var(--text);}
+.social-row{display:flex;gap:16px;}
+.social-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;transition:all .2s;cursor:pointer;}
+.social-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-credit{font-size:11px;color:var(--muted);}
+.footer-credit a{color:var(--gold);}
+
+/* ── NOTIFY COUNT ── */
+.notify-count{position:fixed;bottom:28px;right:28px;background:var(--surface);border:1px solid var(--border);border-radius:40px;padding:10px 18px;display:flex;align-items:center;gap:10px;z-index:10;animation:slideUp .5s 2s ease both;opacity:0;}
+.nc-avatars{display:flex;margin-right:4px;}
+.nc-avatar{width:26px;height:26px;border-radius:50%;border:2px solid var(--surface);margin-left:-8px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;}
+.nc-avatar:first-child{margin-left:0;}
+.nc-text{font-size:12px;color:var(--muted);}
+.nc-text strong{color:var(--text);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideUp{to{opacity:1;}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes blinkDiv{50%{opacity:.2;}}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="grain"></div>
+
+<div class="page">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">L</div>
+      Luminary
+    </div>
+    <div class="header-right">
+      <a href="#" class="header-link">About</a>
+      <a href="#" class="header-link">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="pre-badge"><span class="pre-badge-dot"></span>Something extraordinary is coming</div>
+
+    <h1>The future<br>is <em>almost</em> here</h1>
+    <p class="subtitle">A new way to experience the world</p>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown">
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-days">00</div>
+        <div class="cd-label">Days</div>
+      </div>
+      <div class="cd-divider">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-hours">00</div>
+        <div class="cd-label">Hours</div>
+      </div>
+      <div class="cd-divider">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-mins">00</div>
+        <div class="cd-label">Minutes</div>
+      </div>
+      <div class="cd-divider">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-secs">00</div>
+        <div class="cd-label">Seconds</div>
+      </div>
+    </div>
+
+    <!-- EMAIL FORM -->
+    <div class="form-wrap">
+      <label class="form-label">Be first to know — get early access</label>
+      <div class="email-form" id="emailForm">
+        <input type="email" class="email-inp" id="emailInput" placeholder="your@email.com"/>
+        <button class="email-btn" onclick="submitEmail()">Notify me</button>
+      </div>
+      <div class="success-msg" id="successMsg">✦ You're on the list. We'll be in touch.</div>
+      <p class="form-note">No spam. Unsubscribe anytime. We respect your privacy.</p>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Development progress</span>
+        <span id="progressPct">73%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="features-peek">
+        <span class="fp-item done">Core platform</span>
+        <span class="fp-item done">Onboarding</span>
+        <span class="fp-item done">Integrations</span>
+        <span class="fp-item">Beta testing</span>
+        <span class="fp-item">Public launch</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Press</a>
+    </div>
+    <span class="footer-credit">Template by <a href="https://webdesign001.net">webdesign001.net</a></span>
+    <div class="social-row">
+      <div class="social-btn" title="Twitter/X">𝕏</div>
+      <div class="social-btn" title="LinkedIn">in</div>
+      <div class="social-btn" title="Instagram">◎</div>
+    </div>
+  </footer>
+</div>
+
+<!-- Notify count badge -->
+<div class="notify-count" id="notifyCount">
+  <div class="nc-avatars">
+    <div class="nc-avatar" style="background:linear-gradient(135deg,#5b6ef5,#8b5cf6)">A</div>
+    <div class="nc-avatar" style="background:linear-gradient(135deg,#06d6a0,#5b6ef5)">B</div>
+    <div class="nc-avatar" style="background:linear-gradient(135deg,#c8a96e,#e8c98e)">C</div>
+  </div>
+  <span class="nc-text"><strong>2,847</strong> people already waiting</span>
+</div>
+
+<script>
+// ── PARTICLE CANVAS ──────────────────────
+var canvas = document.getElementById('bgCanvas');
+var ctx = canvas.getContext('2d');
+var particles = [];
+var W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function Particle() {
+  this.reset();
+}
+Particle.prototype.reset = function() {
+  this.x = Math.random() * W;
+  this.y = Math.random() * H;
+  this.vx = (Math.random() - 0.5) * 0.15;
+  this.vy = -Math.random() * 0.3 - 0.05;
+  this.size = Math.random() * 1.5 + 0.3;
+  this.alpha = Math.random() * 0.4 + 0.05;
+  this.gold = Math.random() > 0.7;
+};
+Particle.prototype.update = function() {
+  this.x += this.vx;
+  this.y += this.vy;
+  if (this.y < -5) this.reset();
+};
+
+for (var i = 0; i < 80; i++) particles.push(new Particle());
+
+function drawFrame() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(function(p) {
+    p.update();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = p.gold
+      ? 'rgba(200,169,110,' + p.alpha + ')'
+      : 'rgba(240,238,232,' + (p.alpha * 0.4) + ')';
+    ctx.fill();
+  });
+  requestAnimationFrame(drawFrame);
+}
+drawFrame();
+
+// ── COUNTDOWN ──────────────────────────
+// Set launch date: 45 days from now
+var launch = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000);
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function updateCountdown() {
+  var now = new Date();
+  var diff = Math.max(0, launch - now);
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+
+  setNum('cd-days', pad(d));
+  setNum('cd-hours', pad(h));
+  setNum('cd-mins', pad(m));
+  setNum('cd-secs', pad(s));
+}
+
+function setNum(id, val) {
+  var el = document.getElementById(id);
+  if (el.textContent !== val) {
+    el.classList.add('flash');
+    el.textContent = val;
+    setTimeout(function() { el.classList.remove('flash'); }, 300);
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── PROGRESS BAR ──────────────────────
+setTimeout(function() {
+  document.getElementById('progressFill').style.width = '73%';
+}, 500);
+
+// ── EMAIL FORM ──────────────────────
+function submitEmail() {
+  var email = document.getElementById('emailInput').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('emailInput').style.borderRight = '2px solid rgba(200,169,110,.5)';
+    return;
+  }
+  document.getElementById('emailForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+  // Update counter
+  var countEl = document.querySelector('.nc-text strong');
+  if (countEl) countEl.textContent = '2,848';
+}
+
+document.getElementById('emailInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') submitEmail();
+});
+</script>
+</body>
+</html>

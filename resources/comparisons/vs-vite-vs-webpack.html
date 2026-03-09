@@ -1,0 +1,833 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vite vs webpack: Modern Build Tools Compared (2025) | WebDesign001</title>
+<meta name="description" content="Vite vs webpack comparison — dev server speed, configuration complexity, HMR, plugin ecosystems, and when to choose each for modern web projects."/>
+<meta name="keywords" content="vite vs webpack, vite vs webpack 2025, webpack vs vite, javascript build tools comparison"/>
+<link rel="canonical" href="https://webdesign001.net/vs-vite-vs-webpack.html"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Vite vs webpack: Modern Build Tools Compared (2025)"/>
+<meta property="og:description" content="Vite vs webpack comparison — dev server speed, configuration complexity, HMR, plugin ecosystems, and when to choose each for modern web projects."/>
+<meta property="og:url" content="https://webdesign001.net/vs-vite-vs-webpack.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-images/og-index.png"/>
+<meta property="og:site_name" content="WebDesign001"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Should I migrate from webpack to Vite?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you have an existing webpack project, migration is often worth it \u2014 especially for developer experience. Tools like vite-plugin-commonjs and compatibility plugins ease the transition. Medium-sized projects can typically migrate in a day or two."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Vite production-ready?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Vite uses Rollup for production builds, which is mature and battle-tested. Vite is used in production by thousands of companies including large ones. Next.js, Nuxt, and SvelteKit all use Vite or Vite-like approaches under the hood."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Vite work with React?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, perfectly. Vite has a first-class React plugin (@vitejs/plugin-react). You can scaffold a new React + Vite project with: npm create vite@latest my-app -- --template react-ts"
+      }
+    }
+  ]
+}</script>
+<style>
+:root {
+  --bg: #060b14;
+  --surface: #0b1220;
+  --card: #0e1628;
+  --border: #162035;
+  --border-hover: #2a3f60;
+  --text: #dde8f8;
+  --muted: #4a6080;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --accent3: #ec4899;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* Gradient text */
+.gt { background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── Hero background ── */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 80px 20px 72px;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 60%, rgba(236,72,153,.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,92,246,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* Subtle grid */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(99,102,241,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* ── Search bar ── */
+.search-wrap {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.search-wrap input {
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 14px 20px 14px 48px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+.search-wrap input::placeholder { color: var(--muted); }
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* ── Stats row ── */
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99,102,241,.1);
+  border: 1px solid rgba(99,102,241,.2);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+/* ── Category section ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.section-label-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-label h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.section-label p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.section-count {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Tool card ── */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99,102,241,.05), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s;
+  border-radius: inherit;
+}
+.tool-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+}
+.tool-card:hover::before { opacity: 1; }
+
+.tool-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.tool-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+.tool-arrow {
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color .15s, gap .15s;
+}
+.tool-card:hover .tool-arrow {
+  color: #a5b4fc;
+  gap: 8px;
+}
+
+/* Category colour themes */
+.ic-design { background: rgba(99,102,241,.12); }
+.ic-seo    { background: rgba(20,184,166,.12); }
+.ic-content{ background: rgba(249,115,22,.12); }
+.ic-dev    { background: rgba(168,85,247,.12); }
+
+.border-design { border-left: 3px solid #6366f1; }
+.border-seo    { border-left: 3px solid #14b8a6; }
+.border-content{ border-left: 3px solid #f97316; }
+.border-dev    { border-left: 3px solid #a855f7; }
+
+/* ── No results ── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ── Footer ── */
+footer {
+  background: #04080f;
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-links a:hover { color: #a5b4fc; }
+
+/* ── Animations ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fu { animation: fadeUp .4s ease forwards; opacity: 0; }
+.fu-1 { animation-delay: .05s; }
+.fu-2 { animation-delay: .12s; }
+.fu-3 { animation-delay: .19s; }
+.fu-4 { animation-delay: .26s; }
+.fu-5 { animation-delay: .33s; }
+
+/* ── Responsive ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .tools-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tool-card { padding: 14px; }
+  .tool-icon { width: 36px; height: 36px; font-size: 17px; margin-bottom: 10px; }
+  .tool-name { font-size: 13px; }
+  .tool-desc { display: none; }
+  .tool-arrow { display: none; }
+  .hero-bg { padding: 48px 20px 52px; }
+}
+@media (max-width: 380px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
+
+
+*{box-sizing:border-box;}
+body{background:#060b14;color:#dde8f8;font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+.art-outer{max-width:900px;margin:0 auto;padding:44px 22px 100px;}
+.art-back{display:inline-flex;align-items:center;gap:6px;color:#3d5570;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:28px;transition:color .15s;border:1px solid #0f1e32;border-radius:8px;padding:7px 14px;background:#0c1525;}
+.art-back:hover{color:#7a9ab8;border-color:#1a2d45;}
+.art-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.art-cat{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:6px;background:rgba(99,102,241,.15);color:#818cf8;}
+.art-date{font-size:12px;color:#243550;}
+.art-mins{font-size:12px;color:#243550;}
+.art-emoji{font-size:56px;display:block;margin-bottom:20px;line-height:1;}
+h1.art-title{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:900;line-height:1.12;color:#f1f5f9;margin-bottom:14px;}
+.art-lead{font-size:16px;color:#3d5570;line-height:1.85;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid #0c1624;}
+
+/* VS hero */
+.vs-hero{display:grid;grid-template-columns:1fr auto 1fr;gap:0;background:#080f1e;border:1px solid #0f1e32;border-radius:16px;overflow:hidden;margin-bottom:40px;}
+.vs-side{padding:28px 24px;text-align:center;}
+.vs-side.a{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(99,102,241,.03));}
+.vs-side.b{background:linear-gradient(135deg,rgba(139,92,246,.03),rgba(139,92,246,.1));}
+.vs-badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.vs-badge.a{background:rgba(99,102,241,.15);color:#818cf8;}
+.vs-badge.b{background:rgba(139,92,246,.15);color:#c084fc;}
+.vs-logo{font-size:2rem;font-weight:900;margin:6px 0;}
+.vs-logo.a{color:#818cf8;}
+.vs-logo.b{color:#c084fc;}
+.vs-tagline{font-size:12px;color:#3d5570;line-height:1.5;}
+.vs-divider{display:flex;align-items:center;justify-content:center;padding:0 16px;background:#060b14;font-size:18px;font-weight:900;color:#1a2d45;letter-spacing:.05em;writing-mode:vertical-lr;border-left:1px solid #0f1e32;border-right:1px solid #0f1e32;}
+
+/* Quick verdict */
+.verdict-box{background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:20px 24px;margin-bottom:36px;}
+.verdict-title{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#818cf8;margin-bottom:10px;}
+.verdict-text{font-size:14px;line-height:1.75;color:#90aac8;}
+.verdict-text strong{color:#c8d8f0;}
+
+/* Comparison table */
+.comp-table{width:100%;border-collapse:collapse;margin:24px 0 36px;font-size:13px;}
+.comp-table th{padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#3d5570;border-bottom:2px solid #0c1624;}
+.comp-table th:nth-child(2){color:#818cf8;}
+.comp-table th:nth-child(3){color:#c084fc;}
+.comp-table td{padding:12px 16px;border-bottom:1px solid #0a1020;color:#6b8099;vertical-align:top;line-height:1.6;}
+.comp-table td:first-child{font-weight:700;color:#90aac8;}
+.comp-table tr:hover td{background:rgba(255,255,255,.015);}
+.win-a{color:#86efac!important;font-weight:700;}
+.win-b{color:#c084fc!important;font-weight:700;}
+.tie{color:#fbbf24!important;font-weight:700;}
+
+/* Score cards */
+.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0;}
+.score-card{background:#080f1e;border:1px solid #0f1e32;border-radius:12px;padding:18px 20px;}
+.score-card h4{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
+.score-card.a h4{color:#818cf8;}
+.score-card.b h4{color:#c084fc;}
+.score-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.score-label{font-size:12px;color:#3d5570;min-width:100px;}
+.score-bar{flex:1;height:5px;background:#0c1624;border-radius:3px;overflow:hidden;}
+.score-fill{height:100%;border-radius:3px;}
+.score-fill.a{background:linear-gradient(90deg,#6366f1,#818cf8);}
+.score-fill.b{background:linear-gradient(90deg,#8b5cf6,#c084fc);}
+.score-num{font-size:11px;font-weight:700;min-width:28px;text-align:right;}
+.score-num.a{color:#818cf8;}
+.score-num.b{color:#c084fc;}
+
+/* Pros/cons */
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.pc-box{background:#080f1e;border:1px solid #0f1e32;border-radius:12px;padding:20px;}
+.pc-box h4{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
+.pros h4{color:#34d399;}
+.cons h4{color:#f87171;}
+.pc-box ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.pc-box ul li{font-size:13px;color:#6b8099;line-height:1.5;display:flex;gap:8px;align-items:flex-start;}
+.pros ul li::before{content:'✓';color:#34d399;font-weight:700;flex-shrink:0;}
+.cons ul li::before{content:'✗';color:#f87171;font-weight:700;flex-shrink:0;}
+
+/* Use case cards */
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+.use-card{background:#080f1e;border:1px solid #0f1e32;border-radius:10px;padding:16px;}
+.use-card h4{font-size:12px;font-weight:800;margin-bottom:8px;}
+.use-card.a h4{color:#818cf8;}
+.use-card.b h4{color:#c084fc;}
+.use-card ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.use-card ul li{font-size:12px;color:#4a6080;line-height:1.5;}
+.use-card ul li::before{content:'→ ';color:#3d5570;}
+
+/* Article body */
+.art-body h2{font-size:1.15rem;font-weight:800;color:#c8d8f0;margin:44px 0 14px;padding-top:30px;border-top:1px solid #0c1624;}
+.art-body h2:first-child{border-top:none;padding-top:0;margin-top:0;}
+.art-body h3{font-size:1rem;font-weight:700;color:#90aac8;margin:24px 0 10px;}
+.art-body p{font-size:15px;color:#6b8099;line-height:1.95;margin-bottom:18px;}
+.art-body ul,.art-body ol{padding-left:20px;margin-bottom:18px;}
+.art-body li{font-size:14px;color:#6b8099;line-height:1.8;margin-bottom:7px;}
+.art-body strong{color:#c8d8f0;font-weight:700;}
+.art-body code{background:#080e1c;border:1px solid #162035;padding:2px 7px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.84em;color:#7dd3fc;}
+.art-body pre{background:#050c18;border:1px solid #162035;border-radius:12px;padding:20px;margin:20px 0;overflow-x:auto;}
+.art-body pre code{border:none;background:none;padding:0;font-size:13px;line-height:1.75;color:#86efac;}
+.art-body blockquote{border-left:3px solid #6366f1;padding:14px 20px;margin:24px 0;background:#080e1c;border-radius:0 10px 10px 0;}
+.art-body blockquote p{margin:0;color:#90aac8;font-style:italic;}
+.callout{background:#080f1e;border:1px solid #0f1e32;border-radius:10px;padding:16px 20px;margin:20px 0;}
+.callout.tip{border-left:3px solid #34d399;}
+.callout.warn{border-left:3px solid #fbbf24;}
+.callout.info{border-left:3px solid #6366f1;}
+.callout-title{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.callout.tip .callout-title{color:#34d399;}
+.callout.warn .callout-title{color:#fbbf24;}
+.callout.info .callout-title{color:#818cf8;}
+.callout p{font-size:13px;color:#6b8099;margin:0;line-height:1.65;}
+
+/* Related */
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:16px;}
+.related-card{background:#080f1e;border:1px solid #0f1e32;border-radius:10px;padding:14px 16px;text-decoration:none;transition:border-color .15s;}
+.related-card:hover{border-color:#1a2d45;}
+.related-card-cat{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#3d5570;margin-bottom:5px;}
+.related-card-title{font-size:13px;font-weight:700;color:#7a9ab8;line-height:1.4;}
+
+/* ToC */
+.toc{background:#080f1e;border:1px solid #0f1e32;border-radius:12px;padding:20px 24px;margin:0 0 36px;}
+.toc-title{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#3d5570;margin-bottom:12px;}
+.toc ol{padding-left:18px;display:flex;flex-direction:column;gap:6px;}
+.toc li{font-size:13px;}
+.toc a{color:#4a6080;text-decoration:none;transition:color .15s;}
+.toc a:hover{color:#818cf8;}
+
+/* Schema */
+.faq-section{margin-top:48px;}
+.faq-item{border-bottom:1px solid #0c1624;padding:16px 0;}
+.faq-q{font-size:14px;font-weight:700;color:#90aac8;margin-bottom:8px;cursor:pointer;}
+.faq-a{font-size:13px;color:#6b8099;line-height:1.75;}
+
+@media(max-width:600px){
+  .vs-hero{grid-template-columns:1fr;}.vs-divider{writing-mode:horizontal-tb;padding:10px;border:none;border-top:1px solid #0f1e32;border-bottom:1px solid #0f1e32;}
+  .score-grid,.pros-cons,.use-grid{grid-template-columns:1fr;}
+  .comp-table{font-size:12px;}.comp-table th,.comp-table td{padding:8px 10px;}
+}
+</style>
+</head><body>
+<style>
+.wdn,.wdn *{box-sizing:border-box;margin:0;padding:0;}
+.wdn a{text-decoration:none;color:inherit;}
+.wdn button{font-family:"Inter",sans-serif;cursor:pointer;border:none;background:none;}
+.wdn{font-family:"Inter",sans-serif;background:#07111f;border-bottom:1px solid #0f1e32;position:sticky;top:0;z-index:9999;}
+.wdn-bar{max-width:1300px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:6px;}
+.wdn-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px;color:#e2e8f0;margin-right:10px;white-space:nowrap;text-decoration:none;}
+.wdn-gem{width:26px;height:26px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+.wdn-logo em{color:#6366f1;font-style:normal;}
+.wdn-menu{display:flex;align-items:center;gap:1px;flex:1;}
+@media(max-width:960px){.wdn-menu{display:none;}}
+.wdn-dd{position:relative;}
+.wdn-ddbtn{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;color:#7a94ae;font-size:12.5px;font-weight:700;white-space:nowrap;transition:background .15s,color .15s;}
+.wdn-ddbtn svg{width:13px;height:13px;transition:transform .2s;}
+.wdn-ddbtn:hover,.wdn-dd.open .wdn-ddbtn{background:#0d1a2d;color:#dde8f8;}
+.wdn-dd.open .wdn-ddbtn svg{transform:rotate(180deg);}
+.wdn-ddbtn.iscur{color:#a5b4fc;}
+.wdn-panel{display:none;position:absolute;top:calc(100% + 5px);left:0;background:#0b1726;border:1px solid #1a2d45;border-radius:13px;padding:7px;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:1000;}
+.wdn-dd.open .wdn-panel{display:block;animation:wdnFade .15s ease;}
+@keyframes wdnFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.wdn-cat{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#243550;padding:5px 9px 3px;}
+.wdn-sep{height:1px;background:#0f1e32;margin:4px 4px;}
+.wdn-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:#5a7a96;white-space:nowrap;transition:background .12s,color .12s;}
+.wdn-item:hover{background:#111f35;color:#e2e8f0;}
+.wdn-item.iscur{background:#1a1f40;color:#a5b4fc;font-weight:700;}
+.wdn-ico{width:18px;text-align:center;font-size:13px;flex-shrink:0;line-height:1;}
+.wdn-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
+@media(max-width:960px){.wdn-right{display:none;}}
+.wdn-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;border:1px solid #1a2d45;color:#6b8099;font-size:12px;font-weight:700;transition:all .15s;}
+.wdn-pill:hover{background:#0d1a2d;color:#dde8f8;border-color:#2a3f60;}
+.wdn-allbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12.5px;font-weight:800;transition:opacity .15s;}
+.wdn-allbtn:hover{opacity:.87;}
+.wdn-ham{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto;}
+.wdn-ham span{display:block;width:21px;height:2px;background:#6b8099;border-radius:2px;transition:transform .3s,opacity .3s;}
+.wdn-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.wdn-ham.open span:nth-child(2){opacity:0;}
+.wdn-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:960px){.wdn-ham{display:flex;}}
+.wdn-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:#07111f;z-index:9998;overflow-y:auto;}
+.wdn-drawer.open{display:block;}
+.wdn-dscroll{padding:8px 14px 40px;}
+.wdn-acc{border-bottom:1px solid #0d1a2d;}
+.wdn-ahead{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:#7a94ae;font-size:13.5px;font-weight:700;}
+.wdn-ahead svg{width:15px;height:15px;transition:transform .25s;flex-shrink:0;}
+.wdn-acc.open .wdn-ahead svg{transform:rotate(180deg);}
+.wdn-abody{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.wdn-acc.open .wdn-abody{max-height:500px;}
+.wdn-abinner{padding:2px 0 10px 24px;display:flex;flex-direction:column;gap:1px;}
+.wdn-mlink{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#5a7a96;transition:background .12s,color .12s;}
+.wdn-mlink:hover,.wdn-mlink.iscur{background:#0d1a2d;color:#e2e8f0;}
+.wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
+.wdn-dcta{padding:18px 4px 0;}
+.wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
+</style>
+<nav class="wdn">
+<div class="wdn-bar">
+  <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
+  <div class="wdn-menu">
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">CSS Generators</div>
+        <a class="wdn-item" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-item" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-item" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-item" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Units &amp; Convert</div>
+        <a class="wdn-item" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX &#8594; REM Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-item" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image &#8594; WebP Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-item" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-item" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-item" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-item" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-item" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-item" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">Formatters</div>
+        <a class="wdn-item" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-item" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-item" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-item" href="js-formatter.html"><span class="wdn-ico">JS</span>JS / TS Formatter</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Utilities</div>
+        <a class="wdn-item" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-item" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-item" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <div class="wdn-sep"></div>
+        <a class="wdn-item" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-item" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-item" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="wdn-right">
+    <a href="downloads.html" class="wdn-pill">&#11015; Free PDFs</a>
+    <a href="index.html" class="wdn-allbtn">&#10022; All 22 Tools</a>
+  </div>
+  <button class="wdn-ham" id="wdn-ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="wdn-drawer" id="wdn-drawer">
+  <div class="wdn-dscroll">
+    <div class="wdn-acc"><button class="wdn-ahead">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-mlink" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-mlink" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-mlink" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <a class="wdn-mlink" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX to REM Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-mlink" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image to WebP Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-mlink" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-mlink" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-mlink" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-mlink" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-mlink" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-mlink" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-mlink" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-mlink" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-mlink" href="js-formatter.html"><span class="wdn-ico">JS</span>JS/TS Formatter</a>
+        <a class="wdn-mlink" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-mlink" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-mlink" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <a class="wdn-mlink" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-mlink" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-mlink" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+    </div></div></div>
+    <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
+  </div>
+</div>
+</nav>
+<div class="art-outer">
+<a class="art-back" href="blog.html">← Blog &amp; Comparisons</a>
+<div class="art-meta-row">
+  <span class="art-cat">Comparison</span>
+  <span class="art-date">2025-02-22</span>
+  <span class="art-mins">· 11 min read</span>
+</div>
+<span class="art-emoji">⚡</span>
+<h1 class="art-title">Vite vs webpack: Modern Build Tools Compared (2025)</h1>
+<p class="art-lead">Vite vs webpack comparison — dev server speed, configuration complexity, HMR, plugin ecosystems, and when to choose each for modern web projects.</p>
+
+<div class="vs-hero">
+  <div class="vs-side a">
+    <span class="vs-badge a">Vite</span>
+    <div class="vs-logo a">Vite</div>
+    <div class="vs-tagline">Next-generation frontend tooling — blazing fast dev server</div>
+  </div>
+  <div class="vs-divider">VS</div>
+  <div class="vs-side b">
+    <span class="vs-badge b">webpack</span>
+    <div class="vs-logo b">webpack</div>
+    <div class="vs-tagline">Battle-hardened bundler — flexible & deeply configurable</div>
+  </div>
+</div>
+
+<div id="1">
+<div class="verdict-box">
+  <div class="verdict-title">⚡ Quick Verdict</div>
+  <div class="verdict-text"><strong>Vite</strong> is the right choice for almost all new projects in 2025. It's dramatically faster in development, has a simpler configuration, and supports all major frameworks. <strong>webpack</strong> remains justified for complex enterprise builds with years of existing configuration, or when you need a feature that Vite doesn't yet support.</div>
+</div>
+</div>
+
+<div class="toc"><div class="toc-title">📋 Table of Contents</div><ol><li><a href="#1">Quick verdict</a></li><li><a href="#2">Head-to-head comparison</a></li><li><a href="#3">Performance &amp; scores</a></li><li><a href="#4">Why Vite is So Much Faster</a></li><li><a href="#5">Configuration: Night and Day</a></li><li><a href="#6">When to use which</a></li><li><a href="#7">FAQs</a></li><li><a href="#8">Related comparisons</a></li></ol></div>
+
+<div class="art-body">
+
+<h2 id="2">Head-to-Head Comparison</h2>
+<p>Here's a quick overview of how Vite and webpack stack up across the most important decision criteria:</p>
+<table class="comp-table"><thead><tr><th>Category</th><th>Vite</th><th>webpack</th></tr></thead><tbody><tr><td>Dev Server Start</td><td class="win-a">~300ms (no bundling)</td><td>3–30s (full bundle)</td></tr><tr><td>HMR Speed</td><td class="win-a">Near-instant (~50ms)</td><td>0.5–3s</td></tr><tr><td>Config Complexity</td><td class="win-a">Minimal — works out of the box</td><td>High — dozens of options</td></tr><tr><td>Production Bundle</td><td>esbuild + Rollup</td><td class="win-b">webpack (very mature)</td></tr><tr><td>Plugin Ecosystem</td><td>Growing fast</td><td class="win-b">Enormous, 15+ years</td></tr><tr><td>Code Splitting</td><td class="win-a">Automatic, Rollup-based</td><td>Manual config required</td></tr><tr><td>Module Federation</td><td>Limited (plugin)</td><td class="win-b">First-class support</td></tr><tr><td>CSS Handling</td><td class="win-a">PostCSS, CSS Modules built-in</td><td>Requires loaders</td></tr><tr><td>Learning Curve</td><td class="win-a">Much simpler</td><td>Steep</td></tr><tr><td>Age / Maturity</td><td>Since 2020</td><td class="win-b">Since 2012</td></tr><tr><td>Framework Support</td><td class="win-a">React, Vue, Svelte, Lit, etc.</td><td>All frameworks</td></tr><tr><td>Large Apps</td><td>Good</td><td class="win-b">More battle-tested</td></tr></tbody></table>
+
+<h2 id="3">Performance &amp; Scores</h2>
+<p>Based on real-world usage, community feedback, and benchmark data, here's how each scores across key dimensions (out of 100):</p>
+<div class="score-grid"><div class="score-card a"><h4>Vite</h4><div class="score-item"><span class="score-label">Dev Speed</span><div class="score-bar"><div class="score-fill a" style="width:99%"></div></div><span class="score-num a">99</span></div><div class="score-item"><span class="score-label">Config Simplicity</span><div class="score-bar"><div class="score-fill a" style="width:92%"></div></div><span class="score-num a">92</span></div><div class="score-item"><span class="score-label">Plugin Ecosystem</span><div class="score-bar"><div class="score-fill a" style="width:72%"></div></div><span class="score-num a">72</span></div><div class="score-item"><span class="score-label">Production Build</span><div class="score-bar"><div class="score-fill a" style="width:85%"></div></div><span class="score-num a">85</span></div><div class="score-item"><span class="score-label">Learning Curve</span><div class="score-bar"><div class="score-fill a" style="width:90%"></div></div><span class="score-num a">90</span></div><div class="score-item"><span class="score-label">Module Federation</span><div class="score-bar"><div class="score-fill a" style="width:40%"></div></div><span class="score-num a">40</span></div></div><div class="score-card b"><h4>webpack</h4><div class="score-item"><span class="score-label">Dev Speed</span><div class="score-bar"><div class="score-fill b" style="width:45%"></div></div><span class="score-num b">45</span></div><div class="score-item"><span class="score-label">Config Simplicity</span><div class="score-bar"><div class="score-fill b" style="width:35%"></div></div><span class="score-num b">35</span></div><div class="score-item"><span class="score-label">Plugin Ecosystem</span><div class="score-bar"><div class="score-fill b" style="width:98%"></div></div><span class="score-num b">98</span></div><div class="score-item"><span class="score-label">Production Build</span><div class="score-bar"><div class="score-fill b" style="width:92%"></div></div><span class="score-num b">92</span></div><div class="score-item"><span class="score-label">Learning Curve</span><div class="score-bar"><div class="score-fill b" style="width:35%"></div></div><span class="score-num b">35</span></div><div class="score-item"><span class="score-label">Module Federation</span><div class="score-bar"><div class="score-fill b" style="width:95%"></div></div><span class="score-num b">95</span></div></div></div>
+
+<h2 id="4">Why Vite is So Much Faster</h2>
+<p>The key insight behind Vite is this: webpack bundles your entire application before serving it in development. Vite doesn't — it serves your source files directly as native ES modules and lets the browser handle imports. Bundling only happens when the browser actually requests a file.</p>
+<p>This means Vite's dev server starts in milliseconds regardless of how large your codebase is, because it doesn't scan and bundle everything upfront. webpack's startup time grows with your codebase size.</p>
+<pre><code># Typical startup comparison on a medium-sized app
+webpack dev server:  ~12 seconds
+Vite dev server:     ~300 milliseconds</code></pre>
+<p>HMR (Hot Module Replacement) is also dramatically faster in Vite because it only needs to invalidate the changed module, not re-process a bundle that includes it.</p>
+<h2 id="5">Configuration: Night and Day</h2>
+<p>A Vite config for a React project is often just:</p>
+<pre><code>// vite.config.js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+})</code></pre>
+<p>That's it. TypeScript, CSS Modules, PostCSS, and asset handling all work out of the box. The equivalent webpack config can be hundreds of lines, involving babel-loader, css-loader, style-loader, ts-loader, and more — each with their own options.</p>
+<p>For teams spending significant time on build tooling maintenance, switching to Vite can free up meaningful engineering time.</p>
+
+
+<h2 id="6">When to Use Which</h2>
+<div class="use-grid">
+<div class="use-card a"><h4>Use Vite when…</h4><ul><li>New projects of any size</li><li>React, Vue, Svelte, or Preact applications</li><li>When you want fast DX without config headaches</li><li>Most modern web applications</li></ul></div>
+<div class="use-card b"><h4>Use webpack when…</h4><ul><li>Existing large webpack codebases</li><li>Micro-frontend architectures (Module Federation)</li><li>When you need a specific webpack plugin with no Vite equivalent</li><li>Enterprise builds with complex custom loaders</li></ul></div>
+</div>
+<div class="pros-cons">
+<div class="pc-box pros"><h4>✓ Vite Pros</h4><ul><li>10-100x faster dev server startup</li><li>Near-instant Hot Module Replacement</li><li>Minimal configuration out of the box</li><li>Native ES modules in development</li><li>First-class framework templates (create-vite)</li><li>Active development, modern architecture</li></ul></div>
+<div class="pc-box cons"><h4>✗ Vite Cons</h4><ul><li>Less mature for very complex enterprise builds</li><li>Module Federation support is limited</li><li>Rollup production builds differ from esbuild dev</li><li>Plugin ecosystem smaller than webpack</li></ul></div>
+</div>
+<div class="pros-cons">
+<div class="pc-box pros"><h4>✓ webpack Pros</h4><ul><li>Massive, proven plugin ecosystem</li><li>First-class Module Federation for micro-frontends</li><li>Battle-tested for the most complex builds</li><li>Extremely flexible for edge cases</li><li>Well-documented, years of Stack Overflow coverage</li><li>Stable — changes slowly and deliberately</li></ul></div>
+<div class="pc-box cons"><h4>✗ webpack Cons</h4><ul><li>Slow dev server (full bundle required)</li><li>Configuration is notoriously complex</li><li>HMR can be slow in large apps</li><li>Steep learning curve for advanced features</li></ul></div>
+</div>
+
+<div class="faq-section" id="7"><h2>Frequently Asked Questions</h2><div class="faq-item"><div class="faq-q">Should I migrate from webpack to Vite?</div><div class="faq-a">If you have an existing webpack project, migration is often worth it — especially for developer experience. Tools like vite-plugin-commonjs and compatibility plugins ease the transition. Medium-sized projects can typically migrate in a day or two.</div></div><div class="faq-item"><div class="faq-q">Is Vite production-ready?</div><div class="faq-a">Yes. Vite uses Rollup for production builds, which is mature and battle-tested. Vite is used in production by thousands of companies including large ones. Next.js, Nuxt, and SvelteKit all use Vite or Vite-like approaches under the hood.</div></div><div class="faq-item"><div class="faq-q">Does Vite work with React?</div><div class="faq-a">Yes, perfectly. Vite has a first-class React plugin (@vitejs/plugin-react). You can scaffold a new React + Vite project with: npm create vite@latest my-app -- --template react-ts</div></div></div>
+
+<h2>Related Comparisons</h2><div class="related-grid"><a class="related-card" href="vs-typescript-vs-javascript.html"><div class="related-card-cat">Comparison</div><div class="related-card-title">TypeScript vs JavaScript: Should You Make the Switch?</div></a><a class="related-card" href="vs-nextjs-vs-remix.html"><div class="related-card-cat">Comparison</div><div class="related-card-title">Next.js vs Remix: Which React Framework?</div></a><a class="related-card" href="vs-npm-vs-pnpm-vs-bun.html"><div class="related-card-cat">Comparison</div><div class="related-card-title">npm vs pnpm vs Bun: Package Manager Showdown</div></a></div>
+
+</div>
+</div>
+<style>
+.wdf{background:#04080f;border-top:1px solid #0c1624;padding:56px 20px 0;font-family:"Inter","Plus Jakarta Sans",sans-serif;}
+.wdf-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;}
+@media(max-width:1100px){.wdf-inner{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:680px){.wdf-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.wdf-inner{grid-template-columns:1fr;}}
+.wdf-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;color:#e2e8f0;text-decoration:none;margin-bottom:12px;}
+.wdf-logo span{color:#6366f1;}
+.wdf-brand p{font-size:13px;color:#243550;line-height:1.75;margin-bottom:12px;max-width:230px;}
+.wdf-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.wdf-tags span{background:#0c1525;border:1px solid #141f33;border-radius:6px;padding:3px 9px;font-size:11px;color:#3d5570;font-weight:700;}
+.wdf-col h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#243550;margin-bottom:9px;}
+.wdf-col a{display:block;font-size:12.5px;color:#334d66;text-decoration:none;margin-bottom:6px;transition:color .15s;}
+.wdf-col a:hover{color:#7a9ab8;}
+.wdf-base{border-top:1px solid #0c1624;padding:18px 0;max-width:1280px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#172436;}
+</style>
+<footer class="wdf">
+<div class="wdf-inner">
+  <div class="wdf-brand">
+    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
+    <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
+  </div>
+  <div class="wdf-col">
+    <h4>&#127912; Design Tools</h4>
+    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
+    <a href="box-shadow-generator.html">Box Shadow Generator</a>
+    <a href="border-radius-generator.html">Border Radius Generator</a>
+    <a href="color-palette-generator.html">Color Palette Generator</a>
+    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128247; Image Tools</h4>
+    <a href="favicon-generator.html">Favicon Generator</a>
+    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
+    <a href="sitemap-generator.html">Sitemap Generator</a>
+    <a href="robots-txt-generator.html">Robots.txt Generator</a>
+    <a href="meta-tag-generator.html">Meta Tag Generator</a>
+    <a href="og-preview.html">Open Graph Preview</a>
+    <a href="schema-generator.html">Schema Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128203; Content Generators</h4>
+    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="js-formatter.html">JS / TS Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+    <a href="htaccess-generator.html">.htaccess Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128218; Resources</h4>
+    <a href="blog.html">Blog &amp; Tutorials</a>
+    <a href="downloads.html">Free PDF Downloads</a>
+    <h4 style="margin-top:18px">&#128101; Company</h4>
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <h4 style="margin-top:18px">&#128274; Legal</h4>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</div>
+<div class="wdf-base">
+  <span>&#169; 2025 WebDesign001.net &#8212; All tools are free forever.</span>
+  <span>Built for designers &amp; developers worldwide.</span>
+</div>
+</footer>
+<script>
+(function(){
+  var dds=document.querySelectorAll('.wdn-dd');
+  function closeAll(){dds.forEach(function(d){d.classList.remove('open');d.querySelector('.wdn-ddbtn').setAttribute('aria-expanded','false');});}
+  dds.forEach(function(dd){
+    dd.querySelector('.wdn-ddbtn').addEventListener('click',function(e){
+      e.stopPropagation();var o=dd.classList.contains('open');closeAll();
+      if(!o){dd.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  var ham=document.getElementById('wdn-ham'),dr=document.getElementById('wdn-drawer');
+  ham.addEventListener('click',function(){
+    var o=ham.classList.toggle('open');
+    ham.setAttribute('aria-expanded',String(o));
+    dr.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
+  });
+  document.querySelectorAll('.wdn-ahead').forEach(function(h){
+    h.addEventListener('click',function(){
+      var acc=this.closest('.wdn-acc'),o=acc.classList.contains('open');
+      document.querySelectorAll('.wdn-acc').forEach(function(a){a.classList.remove('open');});
+      if(!o)acc.classList.add('open');
+    });
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>960){ham.classList.remove('open');dr.classList.remove('open');document.body.style.overflow='';}});
+  var pg=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.wdn-item,.wdn-mlink').forEach(function(a){
+    if(a.getAttribute('href')===pg){a.classList.add('iscur');var d=a.closest('.wdn-dd');if(d)d.querySelector('.wdn-ddbtn').classList.add('iscur');}
+  });
+}());
+</script>
+<script>document.querySelectorAll(".wdn-item,.wdn-mlink").forEach(function(a){if(a.getAttribute("href")==='vs-vite-vs-webpack.html')a.classList.add("iscur");});</script>
+</body></html>

@@ -1,0 +1,958 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Color Picker &amp; HEX RGB HSL Converter | WebDesign001</title>
+<meta name="description" content="Free online color picker and converter. Convert HEX to RGB, RGB to HSL instantly. Adjust with sliders, check WCAG contrast ratios, copy any color format with one click."/>
+<meta name="keywords" content="color picker online, hex to rgb, rgb to hex, hex to hsl, color converter, wcag contrast checker, online color tool"/>
+<link rel="canonical" href="https://webdesign001.net/color-picker.html"/>
+<meta name="robots" content="index, follow"/>
+<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Color Picker &amp; HEX RGB HSL Converter"/>
+<meta property="og:description" content="Free online color picker. Convert HEX, RGB, HSL instantly. WCAG contrast checker included."/>
+<meta property="og:url" content="https://webdesign001.net/color-picker.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-images/og-index.png"/>
+<meta property="og:site_name" content="WebDesign001"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #060b14;
+  --surface: #0b1220;
+  --card: #0e1628;
+  --border: #162035;
+  --border-hover: #2a3f60;
+  --text: #dde8f8;
+  --muted: #4a6080;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --accent3: #ec4899;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* Gradient text */
+.gt { background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── Hero background ── */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 80px 20px 72px;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 60%, rgba(236,72,153,.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,92,246,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* Subtle grid */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(99,102,241,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* ── Search bar ── */
+.search-wrap {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.search-wrap input {
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 14px 20px 14px 48px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+.search-wrap input::placeholder { color: var(--muted); }
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* ── Stats row ── */
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99,102,241,.1);
+  border: 1px solid rgba(99,102,241,.2);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+/* ── Category section ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.section-label-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-label h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.section-label p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.section-count {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Tool card ── */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99,102,241,.05), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s;
+  border-radius: inherit;
+}
+.tool-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+}
+.tool-card:hover::before { opacity: 1; }
+
+.tool-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.tool-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+.tool-arrow {
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color .15s, gap .15s;
+}
+.tool-card:hover .tool-arrow {
+  color: #a5b4fc;
+  gap: 8px;
+}
+
+/* Category colour themes */
+.ic-design { background: rgba(99,102,241,.12); }
+.ic-seo    { background: rgba(20,184,166,.12); }
+.ic-content{ background: rgba(249,115,22,.12); }
+.ic-dev    { background: rgba(168,85,247,.12); }
+
+.border-design { border-left: 3px solid #6366f1; }
+.border-seo    { border-left: 3px solid #14b8a6; }
+.border-content{ border-left: 3px solid #f97316; }
+.border-dev    { border-left: 3px solid #a855f7; }
+
+/* ── No results ── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ── Footer ── */
+footer {
+  background: #04080f;
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-links a:hover { color: #a5b4fc; }
+
+/* ── Animations ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.fu { animation: fadeUp .4s ease forwards; opacity: 0; }
+.fu-1 { animation-delay: .05s; }
+.fu-2 { animation-delay: .12s; }
+.fu-3 { animation-delay: .19s; }
+.fu-4 { animation-delay: .26s; }
+.fu-5 { animation-delay: .33s; }
+
+/* ── Responsive ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .tools-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tool-card { padding: 14px; }
+  .tool-icon { width: 36px; height: 36px; font-size: 17px; margin-bottom: 10px; }
+  .tool-name { font-size: 13px; }
+  .tool-desc { display: none; }
+  .tool-arrow { display: none; }
+  .hero-bg { padding: 48px 20px 52px; }
+}
+@media (max-width: 380px) {
+  .tools-grid { grid-template-columns: 1fr; }
+}
+
+
+.tool-wrap{max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+.tool-hero{text-align:center;margin-bottom:40px;}
+.tool-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px;}
+.tool-hero p{color:var(--muted);font-size:1rem;max-width:560px;margin:0 auto;}
+.badge{display:inline-block;padding:3px 10px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);border-radius:20px;font-size:12px;color:#818cf8;font-weight:600;margin-bottom:14px;}
+
+/* ── COLOR PICKER ─ */
+.cp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:640px){.cp-grid{grid-template-columns:1fr;}}
+
+.cp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;}
+.cp-card h2{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:18px;}
+
+/* big color swatch + native picker */
+.cp-swatch-row{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.cp-swatch{width:80px;height:80px;border-radius:12px;border:2px solid var(--border);cursor:pointer;position:relative;overflow:hidden;flex-shrink:0;}
+.cp-swatch input[type=color]{position:absolute;inset:0;width:130%;height:130%;opacity:0;cursor:pointer;transform:translate(-15%,-15%);}
+.cp-hex-big{font-size:1.5rem;font-weight:800;color:var(--text);font-family:'JetBrains Mono','Fira Code',monospace;letter-spacing:.04em;}
+
+/* value rows */
+.cp-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.cp-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);width:36px;flex-shrink:0;}
+.cp-input{flex:1;background:#070e1c;border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'JetBrains Mono','Fira Code',monospace;font-size:13px;outline:none;transition:border-color .15s;}
+.cp-input:focus{border-color:var(--accent);}
+.cp-copy{padding:7px 10px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--muted);cursor:pointer;font-size:11px;transition:all .15s;white-space:nowrap;}
+.cp-copy:hover{background:var(--surface);color:var(--text);}
+.cp-copy.ok{color:#34d399;border-color:#065f46;}
+
+/* sliders */
+.cp-slider-wrap{margin-bottom:12px;}
+.cp-slider-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+input[type=range].cp-range{width:100%;-webkit-appearance:none;height:8px;border-radius:4px;outline:none;cursor:pointer;}
+input[type=range].cp-range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#6366f1;border:2px solid #fff;cursor:pointer;}
+.cp-range-r{background:linear-gradient(to right,#000,#f00);}
+.cp-range-g{background:linear-gradient(to right,#000,#0f0);}
+.cp-range-b{background:linear-gradient(to right,#000,#00f);}
+.cp-range-h{background:linear-gradient(to right,hsl(0,100%,50%),hsl(30,100%,50%),hsl(60,100%,50%),hsl(90,100%,50%),hsl(120,100%,50%),hsl(150,100%,50%),hsl(180,100%,50%),hsl(210,100%,50%),hsl(240,100%,50%),hsl(270,100%,50%),hsl(300,100%,50%),hsl(330,100%,50%),hsl(360,100%,50%));}
+.cp-range-s{background:linear-gradient(to right,#888,#f00);}
+.cp-range-l{background:linear-gradient(to right,#000,#888,#fff);}
+
+/* contrast checker */
+.cp-contrast{background:#070e1c;border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:16px;}
+.cp-contrast-preview{border-radius:8px;padding:14px 16px;margin-bottom:10px;font-weight:600;font-size:15px;transition:all .2s;}
+.cp-contrast-score{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);}
+.cp-contrast-ratio{font-size:1.1rem;font-weight:800;color:var(--text);font-family:'JetBrains Mono',monospace;}
+.cp-wcag{padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+.cp-wcag.pass{background:#064e3b;color:#34d399;}
+.cp-wcag.fail{background:#450a0a;color:#f87171;}
+
+/* color history */
+.cp-history{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.cp-hist-swatch{width:28px;height:28px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;}
+.cp-hist-swatch:hover{border-color:var(--text);}
+
+/* SEO */
+.seo-section{max-width:860px;margin:48px auto 0;padding:0 20px 64px;}
+.seo-section h2{font-size:1.15rem;font-weight:700;color:var(--text);margin:28px 0 10px;}
+.seo-section p{font-size:.9rem;line-height:1.75;color:var(--muted);margin-bottom:12px;}
+.seo-section ul{padding-left:1.4em;color:var(--muted);font-size:.9rem;line-height:1.8;margin-bottom:12px;}
+</style>
+</head><body>
+<style>
+.wdn,.wdn *{box-sizing:border-box;margin:0;padding:0;}
+.wdn a{text-decoration:none;color:inherit;}
+.wdn button{font-family:"Inter",sans-serif;cursor:pointer;border:none;background:none;}
+.wdn{font-family:"Inter",sans-serif;background:#07111f;border-bottom:1px solid #0f1e32;position:sticky;top:0;z-index:9999;}
+.wdn-bar{max-width:1300px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:6px;}
+.wdn-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:15px;color:#e2e8f0;margin-right:10px;white-space:nowrap;text-decoration:none;}
+.wdn-gem{width:26px;height:26px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+.wdn-logo em{color:#6366f1;font-style:normal;}
+.wdn-menu{display:flex;align-items:center;gap:1px;flex:1;}
+@media(max-width:960px){.wdn-menu{display:none;}}
+.wdn-dd{position:relative;}
+.wdn-ddbtn{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;color:#7a94ae;font-size:12.5px;font-weight:700;white-space:nowrap;transition:background .15s,color .15s;}
+.wdn-ddbtn svg{width:13px;height:13px;transition:transform .2s;}
+.wdn-ddbtn:hover,.wdn-dd.open .wdn-ddbtn{background:#0d1a2d;color:#dde8f8;}
+.wdn-dd.open .wdn-ddbtn svg{transform:rotate(180deg);}
+.wdn-ddbtn.iscur{color:#a5b4fc;}
+.wdn-panel{display:none;position:absolute;top:calc(100% + 5px);left:0;background:#0b1726;border:1px solid #1a2d45;border-radius:13px;padding:7px;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:1000;}
+.wdn-dd.open .wdn-panel{display:block;animation:wdnFade .15s ease;}
+@keyframes wdnFade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.wdn-cat{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#243550;padding:5px 9px 3px;}
+.wdn-sep{height:1px;background:#0f1e32;margin:4px 4px;}
+.wdn-item{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;font-size:12.5px;color:#5a7a96;white-space:nowrap;transition:background .12s,color .12s;}
+.wdn-item:hover{background:#111f35;color:#e2e8f0;}
+.wdn-item.iscur{background:#1a1f40;color:#a5b4fc;font-weight:700;}
+.wdn-ico{width:18px;text-align:center;font-size:13px;flex-shrink:0;line-height:1;}
+.wdn-right{display:flex;align-items:center;gap:6px;margin-left:auto;}
+@media(max-width:960px){.wdn-right{display:none;}}
+.wdn-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;border:1px solid #1a2d45;color:#6b8099;font-size:12px;font-weight:700;transition:all .15s;}
+.wdn-pill:hover{background:#0d1a2d;color:#dde8f8;border-color:#2a3f60;}
+.wdn-allbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12.5px;font-weight:800;transition:opacity .15s;}
+.wdn-allbtn:hover{opacity:.87;}
+.wdn-ham{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto;}
+.wdn-ham span{display:block;width:21px;height:2px;background:#6b8099;border-radius:2px;transition:transform .3s,opacity .3s;}
+.wdn-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.wdn-ham.open span:nth-child(2){opacity:0;}
+.wdn-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:960px){.wdn-ham{display:flex;}}
+.wdn-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:#07111f;z-index:9998;overflow-y:auto;}
+.wdn-drawer.open{display:block;}
+.wdn-dscroll{padding:8px 14px 40px;}
+.wdn-acc{border-bottom:1px solid #0d1a2d;}
+.wdn-ahead{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:#7a94ae;font-size:13.5px;font-weight:700;}
+.wdn-ahead svg{width:15px;height:15px;transition:transform .25s;flex-shrink:0;}
+.wdn-acc.open .wdn-ahead svg{transform:rotate(180deg);}
+.wdn-abody{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.wdn-acc.open .wdn-abody{max-height:500px;}
+.wdn-abinner{padding:2px 0 10px 24px;display:flex;flex-direction:column;gap:1px;}
+.wdn-mlink{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#5a7a96;transition:background .12s,color .12s;}
+.wdn-mlink:hover,.wdn-mlink.iscur{background:#0d1a2d;color:#e2e8f0;}
+.wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
+.wdn-dcta{padding:18px 4px 0;}
+.wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
+</style>
+<nav class="wdn">
+<div class="wdn-bar">
+  <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
+  <div class="wdn-menu">
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">CSS Generators</div>
+        <a class="wdn-item" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-item" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-item" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-item" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Units &amp; Convert</div>
+        <a class="wdn-item" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX &#8594; REM Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-item" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image &#8594; WebP Converter</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-item" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-item" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-item" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-item" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-item" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-item" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <div class="wdn-cat">Formatters</div>
+        <a class="wdn-item" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-item" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-item" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-item" href="js-formatter.html"><span class="wdn-ico">JS</span>JS / TS Formatter</a>
+        <div class="wdn-sep"></div>
+        <div class="wdn-cat">Utilities</div>
+        <a class="wdn-item" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-item" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+      </div>
+    </div>
+
+    <div class="wdn-dd">
+      <button class="wdn-ddbtn">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-panel">
+        <a class="wdn-item" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-item" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <div class="wdn-sep"></div>
+        <a class="wdn-item" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-item" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-item" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="wdn-right">
+    <a href="downloads.html" class="wdn-pill">&#11015; Free PDFs</a>
+    <a href="index.html" class="wdn-allbtn">&#10022; All 22 Tools</a>
+  </div>
+  <button class="wdn-ham" id="wdn-ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="wdn-drawer" id="wdn-drawer">
+  <div class="wdn-dscroll">
+    <div class="wdn-acc"><button class="wdn-ahead">&#127912; Design Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="css-gradient-generator.html"><span class="wdn-ico">&#127752;</span>CSS Gradient Generator</a>
+        <a class="wdn-mlink" href="box-shadow-generator.html"><span class="wdn-ico">&#9724;</span>Box Shadow Generator</a>
+        <a class="wdn-mlink" href="border-radius-generator.html"><span class="wdn-ico">&#11036;</span>Border Radius Generator</a>
+        <a class="wdn-mlink" href="color-palette-generator.html"><span class="wdn-ico">&#127912;</span>Color Palette Generator</a>
+        <a class="wdn-mlink" href="px-to-rem-converter.html"><span class="wdn-ico">&#128208;</span>PX to REM Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128247; Image Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="favicon-generator.html"><span class="wdn-ico">&#128444;</span>Favicon Generator</a>
+        <a class="wdn-mlink" href="image-to-webp.html"><span class="wdn-ico">&#9889;</span>Image to WebP Converter</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128269; SEO Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="sitemap-generator.html"><span class="wdn-ico">&#128506;</span>Sitemap XML Generator</a>
+        <a class="wdn-mlink" href="robots-txt-generator.html"><span class="wdn-ico">&#129302;</span>Robots.txt Generator</a>
+        <a class="wdn-mlink" href="meta-tag-generator.html"><span class="wdn-ico">&#127991;</span>Meta Tag Generator</a>
+        <a class="wdn-mlink" href="og-preview.html"><span class="wdn-ico">&#128065;</span>Open Graph Preview</a>
+        <a class="wdn-mlink" href="schema-generator.html"><span class="wdn-ico">&#128196;</span>Schema Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128203; Content Generators<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="privacy-policy-generator.html"><span class="wdn-ico">&#128274;</span>Privacy Policy Generator</a>
+        <a class="wdn-mlink" href="terms-conditions-generator.html"><span class="wdn-ico">&#128203;</span>Terms &amp; Conditions</a>
+        <a class="wdn-mlink" href="refund-policy-generator.html"><span class="wdn-ico">&#8617;</span>Refund Policy Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#9881; Dev Tools<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="html-formatter.html"><span class="wdn-ico">&#10216;/&#10217;</span>HTML Formatter</a>
+        <a class="wdn-mlink" href="css-minifier.html"><span class="wdn-ico">{}</span>CSS Minifier</a>
+        <a class="wdn-mlink" href="json-formatter.html"><span class="wdn-ico">[]</span>JSON Formatter</a>
+        <a class="wdn-mlink" href="js-formatter.html"><span class="wdn-ico">JS</span>JS/TS Formatter</a>
+        <a class="wdn-mlink" href="regex-tester.html"><span class="wdn-ico">.*</span>Regex Tester</a>
+        <a class="wdn-mlink" href="htaccess-generator.html"><span class="wdn-ico">&#9998;</span>.htaccess Generator</a>
+    </div></div></div>
+    <div class="wdn-acc"><button class="wdn-ahead">&#128218; Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="wdn-abody"><div class="wdn-abinner">
+        <a class="wdn-mlink" href="blog.html"><span class="wdn-ico">&#128221;</span>Blog &amp; Tutorials</a>
+        <a class="wdn-mlink" href="downloads.html"><span class="wdn-ico">&#11015;</span>Free PDF Downloads</a>
+        <a class="wdn-mlink" href="about.html"><span class="wdn-ico">&#128101;</span>About Us</a>
+        <a class="wdn-mlink" href="faq.html"><span class="wdn-ico">&#10067;</span>FAQ</a>
+        <a class="wdn-mlink" href="contact.html"><span class="wdn-ico">&#9993;</span>Contact</a>
+    </div></div></div>
+    <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
+  </div>
+</div>
+</nav>
+
+<main class="tool-wrap">
+  <div class="tool-hero">
+    <span class="badge">Free Online Tool</span>
+    <h1>Color Picker &amp; Converter</h1>
+    <p>Pick any color and instantly convert between HEX, RGB, and HSL. Copy values, adjust with sliders, and check WCAG contrast ratios.</p>
+  </div>
+
+  <div class="cp-grid">
+    <!-- Left: picker + values -->
+    <div class="cp-card">
+      <h2>Pick a Color</h2>
+      <div class="cp-swatch-row">
+        <div class="cp-swatch" id="cpSwatch">
+          <input type="color" id="cpNative" value="#6366f1" title="Open color picker"/>
+        </div>
+        <div class="cp-hex-big" id="cpHexBig">#6366F1</div>
+      </div>
+
+      <div class="cp-row">
+        <span class="cp-label">HEX</span>
+        <input class="cp-input" id="cpHex" value="#6366f1" maxlength="7" spellcheck="false"/>
+        <button class="cp-copy" data-copy="cpHex">Copy</button>
+      </div>
+      <div class="cp-row">
+        <span class="cp-label">RGB</span>
+        <input class="cp-input" id="cpRgb" value="rgb(99, 102, 241)" readonly/>
+        <button class="cp-copy" data-copy="cpRgb">Copy</button>
+      </div>
+      <div class="cp-row">
+        <span class="cp-label">HSL</span>
+        <input class="cp-input" id="cpHsl" value="hsl(239, 84%, 67%)" readonly/>
+        <button class="cp-copy" data-copy="cpHsl">Copy</button>
+      </div>
+      <div class="cp-row">
+        <span class="cp-label">CSS</span>
+        <input class="cp-input" id="cpCss" value="color: #6366f1;" readonly/>
+        <button class="cp-copy" data-copy="cpCss">Copy</button>
+      </div>
+
+      <div style="margin-top:18px;">
+        <div class="cp-slider-wrap">
+          <div class="cp-slider-label"><span>R</span><span id="vR">99</span></div>
+          <input type="range" class="cp-range cp-range-r" id="slR" min="0" max="255" value="99"/>
+        </div>
+        <div class="cp-slider-wrap">
+          <div class="cp-slider-label"><span>G</span><span id="vG">102</span></div>
+          <input type="range" class="cp-range cp-range-g" id="slG" min="0" max="255" value="102"/>
+        </div>
+        <div class="cp-slider-wrap">
+          <div class="cp-slider-label"><span>B</span><span id="vB">241</span></div>
+          <input type="range" class="cp-range cp-range-b" id="slB" min="0" max="255" value="241"/>
+        </div>
+        <hr style="border-color:var(--border);margin:14px 0;"/>
+        <div class="cp-slider-wrap">
+          <div class="cp-slider-label"><span>H</span><span id="vH">239°</span></div>
+          <input type="range" class="cp-range cp-range-h" id="slH" min="0" max="360" value="239"/>
+        </div>
+        <div class="cp-slider-wrap">
+          <div class="cp-slider-label"><span>S</span><span id="vS">84%</span></div>
+          <input type="range" class="cp-range cp-range-s" id="slS" min="0" max="100" value="84"/>
+        </div>
+        <div class="cp-slider-wrap">
+          <div class="cp-slider-label"><span>L</span><span id="vL">67%</span></div>
+          <input type="range" class="cp-range cp-range-l" id="slL" min="0" max="100" value="67"/>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px;">Recent Colors</div>
+        <div class="cp-history" id="cpHistory"></div>
+      </div>
+    </div>
+
+    <!-- Right: contrast checker + info -->
+    <div>
+      <div class="cp-card" style="margin-bottom:20px;">
+        <h2>WCAG Contrast Checker</h2>
+        <div class="cp-row" style="margin-bottom:14px;">
+          <span class="cp-label" style="width:60px;">Text</span>
+          <div class="cp-swatch" style="width:40px;height:40px;border-radius:8px;">
+            <input type="color" id="cpText" value="#ffffff"/>
+          </div>
+          <input class="cp-input" id="cpTextHex" value="#ffffff" maxlength="7" spellcheck="false"/>
+        </div>
+        <div class="cp-row" style="margin-bottom:18px;">
+          <span class="cp-label" style="width:60px;">BG</span>
+          <div class="cp-swatch" style="width:40px;height:40px;border-radius:8px;">
+            <input type="color" id="cpBg" value="#6366f1"/>
+          </div>
+          <input class="cp-input" id="cpBgHex" value="#6366f1" maxlength="7" spellcheck="false"/>
+        </div>
+        <div class="cp-contrast">
+          <div class="cp-contrast-preview" id="cpPreview">The quick brown fox jumps over the lazy dog</div>
+          <div class="cp-contrast-score">
+            <span>Ratio</span>
+            <span class="cp-contrast-ratio" id="cpRatio">—</span>
+            <span class="cp-wcag" id="cpAA">AA</span>
+            <span class="cp-wcag" id="cpAAA">AAA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-card">
+        <h2>Color Info</h2>
+        <div id="cpInfo" style="font-size:13px;line-height:1.9;color:var(--muted);"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="seo-section">
+  <h2>Free Color Picker &amp; HEX to RGB Converter</h2>
+  <p>WebDesign001's Color Picker lets you pick any color visually and instantly converts it to HEX, RGB, and HSL formats. Adjust colors with precision using the RGB and HSL sliders, check WCAG accessibility contrast ratios, and copy any value with one click.</p>
+  <h2>How to Convert HEX to RGB</h2>
+  <p>Enter any HEX color code (e.g. <code style="color:#818cf8">#6366f1</code>) in the HEX field and the tool instantly converts it to RGB and HSL. You can also type directly into the HEX field and press Enter to update all values.</p>
+  <h2>WCAG Contrast Ratio Checker</h2>
+  <p>The contrast checker uses the WCAG 2.1 luminance formula to calculate the contrast ratio between your text color and background color. A ratio of 4.5:1 passes AA for normal text, and 7:1 passes AAA.</p>
+</section>
+
+<style>
+.wdf{background:#04080f;border-top:1px solid #0c1624;padding:56px 20px 0;font-family:"Inter","Plus Jakarta Sans",sans-serif;}
+.wdf-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;}
+@media(max-width:1100px){.wdf-inner{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:680px){.wdf-inner{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.wdf-inner{grid-template-columns:1fr;}}
+.wdf-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px;color:#e2e8f0;text-decoration:none;margin-bottom:12px;}
+.wdf-logo span{color:#6366f1;}
+.wdf-brand p{font-size:13px;color:#243550;line-height:1.75;margin-bottom:12px;max-width:230px;}
+.wdf-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.wdf-tags span{background:#0c1525;border:1px solid #141f33;border-radius:6px;padding:3px 9px;font-size:11px;color:#3d5570;font-weight:700;}
+.wdf-col h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#243550;margin-bottom:9px;}
+.wdf-col a{display:block;font-size:12.5px;color:#334d66;text-decoration:none;margin-bottom:6px;transition:color .15s;}
+.wdf-col a:hover{color:#7a9ab8;}
+.wdf-base{border-top:1px solid #0c1624;padding:18px 0;max-width:1280px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#172436;}
+</style>
+<footer class="wdf">
+<div class="wdf-inner">
+  <div class="wdf-brand">
+    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
+    <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
+  </div>
+  <div class="wdf-col">
+    <h4>&#127912; Design Tools</h4>
+    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
+    <a href="box-shadow-generator.html">Box Shadow Generator</a>
+    <a href="border-radius-generator.html">Border Radius Generator</a>
+    <a href="color-palette-generator.html">Color Palette Generator</a>
+    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128247; Image Tools</h4>
+    <a href="favicon-generator.html">Favicon Generator</a>
+    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
+    <a href="sitemap-generator.html">Sitemap Generator</a>
+    <a href="robots-txt-generator.html">Robots.txt Generator</a>
+    <a href="meta-tag-generator.html">Meta Tag Generator</a>
+    <a href="og-preview.html">Open Graph Preview</a>
+    <a href="schema-generator.html">Schema Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128203; Content Generators</h4>
+    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
+    <a href="html-formatter.html">HTML Formatter</a>
+    <a href="css-minifier.html">CSS Minifier</a>
+    <a href="json-formatter.html">JSON Formatter</a>
+    <a href="js-formatter.html">JS / TS Formatter</a>
+    <a href="regex-tester.html">Regex Tester</a>
+    <a href="htaccess-generator.html">.htaccess Generator</a>
+  </div>
+  <div class="wdf-col">
+    <h4>&#128218; Resources</h4>
+    <a href="blog.html">Blog &amp; Tutorials</a>
+    <a href="downloads.html">Free PDF Downloads</a>
+    <h4 style="margin-top:18px">&#128101; Company</h4>
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <h4 style="margin-top:18px">&#128274; Legal</h4>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+</div>
+<div class="wdf-base">
+  <span>&#169; 2025 WebDesign001.net &#8212; All tools are free forever.</span>
+  <span>Built for designers &amp; developers worldwide.</span>
+</div>
+</footer>
+<script>
+(function(){
+  var dds=document.querySelectorAll('.wdn-dd');
+  function closeAll(){dds.forEach(function(d){d.classList.remove('open');d.querySelector('.wdn-ddbtn').setAttribute('aria-expanded','false');});}
+  dds.forEach(function(dd){
+    dd.querySelector('.wdn-ddbtn').addEventListener('click',function(e){
+      e.stopPropagation();var o=dd.classList.contains('open');closeAll();
+      if(!o){dd.classList.add('open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  var ham=document.getElementById('wdn-ham'),dr=document.getElementById('wdn-drawer');
+  ham.addEventListener('click',function(){
+    var o=ham.classList.toggle('open');
+    ham.setAttribute('aria-expanded',String(o));
+    dr.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
+  });
+  document.querySelectorAll('.wdn-ahead').forEach(function(h){
+    h.addEventListener('click',function(){
+      var acc=this.closest('.wdn-acc'),o=acc.classList.contains('open');
+      document.querySelectorAll('.wdn-acc').forEach(function(a){a.classList.remove('open');});
+      if(!o)acc.classList.add('open');
+    });
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>960){ham.classList.remove('open');dr.classList.remove('open');document.body.style.overflow='';}});
+  var pg=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.wdn-item,.wdn-mlink').forEach(function(a){
+    if(a.getAttribute('href')===pg){a.classList.add('iscur');var d=a.closest('.wdn-dd');if(d)d.querySelector('.wdn-ddbtn').classList.add('iscur');}
+  });
+}());
+</script>
+<script>document.querySelectorAll(".wdn-item,.wdn-mlink").forEach(function(a){if(a.getAttribute("href")==="color-picker.html")a.classList.add("iscur");});</script>
+<script>
+
+// ── utilities ──────────────────────────────────────────────────
+function hexToRgb(hex) {
+  hex = hex.replace(/^#/,'');
+  if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
+  var n = parseInt(hex,16);
+  return { r:(n>>16)&255, g:(n>>8)&255, b:n&255 };
+}
+function rgbToHex(r,g,b) {
+  return '#' + [r,g,b].map(function(v){return ('0'+Math.round(v).toString(16)).slice(-2);}).join('');
+}
+function rgbToHsl(r,g,b) {
+  r/=255; g/=255; b/=255;
+  var max=Math.max(r,g,b), min=Math.min(r,g,b), h,s,l=(max+min)/2;
+  if (max===min){ h=s=0; }
+  else {
+    var d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+    switch(max){ case r:h=(g-b)/d+(g<b?6:0);break; case g:h=(b-r)/d+2;break; case b:h=(r-g)/d+4;break; }
+    h/=6;
+  }
+  return {h:Math.round(h*360), s:Math.round(s*100), l:Math.round(l*100)};
+}
+function hslToRgb(h,s,l) {
+  h/=360; s/=100; l/=100;
+  var r,g,b;
+  if (s===0){ r=g=b=l; }
+  else {
+    function hue2rgb(p,q,t){ if(t<0)t+=1; if(t>1)t-=1; if(t<1/6)return p+(q-p)*6*t; if(t<1/2)return q; if(t<2/3)return p+(q-p)*(2/3-t)*6; return p; }
+    var q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q;
+    r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+  }
+  return {r:Math.round(r*255), g:Math.round(g*255), b:Math.round(b*255)};
+}
+function luminance(r,g,b) {
+  var a=[r,g,b].map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});
+  return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];
+}
+function contrastRatio(r1,g1,b1,r2,g2,b2) {
+  var l1=luminance(r1,g1,b1)+0.05, l2=luminance(r2,g2,b2)+0.05;
+  return l1>l2?l1/l2:l2/l1;
+}
+
+var history = [];
+var current = {r:99,g:102,b:241};
+
+function syncFromRgb(r,g,b,source) {
+  current={r:r,g:g,b:b};
+  var hex=rgbToHex(r,g,b);
+  var hsl=rgbToHsl(r,g,b);
+
+  if(source!=='native') document.getElementById('cpNative').value=hex;
+  document.getElementById('cpSwatch').style.background=hex;
+  document.getElementById('cpHexBig').textContent=hex.toUpperCase();
+  document.getElementById('cpHex').value=hex;
+  document.getElementById('cpRgb').value='rgb('+r+', '+g+', '+b+')';
+  document.getElementById('cpHsl').value='hsl('+hsl.h+', '+hsl.s+'%, '+hsl.l+'%)';
+  document.getElementById('cpCss').value='color: '+hex+';';
+
+  if(source!=='rgb'){
+    document.getElementById('slR').value=r;
+    document.getElementById('slG').value=g;
+    document.getElementById('slB').value=b;
+  }
+  if(source!=='hsl'){
+    document.getElementById('slH').value=hsl.h;
+    document.getElementById('slS').value=hsl.s;
+    document.getElementById('slL').value=hsl.l;
+  }
+  document.getElementById('vR').textContent=r;
+  document.getElementById('vG').textContent=g;
+  document.getElementById('vB').textContent=b;
+  document.getElementById('vH').textContent=hsl.h+'°';
+  document.getElementById('vS').textContent=hsl.s+'%';
+  document.getElementById('vL').textContent=hsl.l+'%';
+
+  // Update contrast BG
+  document.getElementById('cpBg').value=hex;
+  document.getElementById('cpBgHex').value=hex;
+  updateContrast();
+  updateInfo(r,g,b,hsl);
+  addHistory(hex);
+}
+
+function addHistory(hex) {
+  if(history.length && history[0]===hex) return;
+  history.unshift(hex);
+  if(history.length>12) history.pop();
+  var el=document.getElementById('cpHistory');
+  el.innerHTML=history.map(function(c){
+    return '<div class="cp-hist-swatch" style="background:'+c+'" title="'+c+'" onclick="syncFromHex(\''+c+'\')"></div>';
+  }).join('');
+}
+
+function syncFromHex(hex) {
+  if(!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+  var c=hexToRgb(hex);
+  syncFromRgb(c.r,c.g,c.b,'hex');
+}
+
+function updateContrast() {
+  var tHex=document.getElementById('cpTextHex').value;
+  var bHex=document.getElementById('cpBgHex').value;
+  if(!/^#[0-9a-fA-F]{6}$/.test(tHex)||!/^#[0-9a-fA-F]{6}$/.test(bHex)) return;
+  var t=hexToRgb(tHex), b=hexToRgb(bHex);
+  var ratio=contrastRatio(t.r,t.g,t.b,b.r,b.g,b.b);
+  document.getElementById('cpRatio').textContent=ratio.toFixed(2)+':1';
+  document.getElementById('cpPreview').style.color=tHex;
+  document.getElementById('cpPreview').style.background=bHex;
+  var aa=ratio>=4.5, aaa=ratio>=7;
+  var aaEl=document.getElementById('cpAA'), aaaEl=document.getElementById('cpAAA');
+  aaEl.textContent='AA'; aaEl.className='cp-wcag '+(aa?'pass':'fail');
+  aaaEl.textContent='AAA'; aaaEl.className='cp-wcag '+(aaa?'pass':'fail');
+}
+
+function updateInfo(r,g,b,hsl) {
+  var hex=rgbToHex(r,g,b);
+  var lum=luminance(r,g,b);
+  var isDark=lum<0.179;
+  var info=document.getElementById('cpInfo');
+  info.innerHTML=[
+    '<div><span style="color:var(--text);font-weight:600">HEX</span> &nbsp;'+hex.toUpperCase()+'</div>',
+    '<div><span style="color:var(--text);font-weight:600">RGB</span> &nbsp;'+r+', '+g+', '+b+'</div>',
+    '<div><span style="color:var(--text);font-weight:600">HSL</span> &nbsp;'+hsl.h+'°, '+hsl.s+'%, '+hsl.l+'%</div>',
+    '<div><span style="color:var(--text);font-weight:600">Luminance</span> &nbsp;'+lum.toFixed(4)+'</div>',
+    '<div><span style="color:var(--text);font-weight:600">Perceived</span> &nbsp;'+(isDark?'Dark':'Light')+'</div>',
+    '<div><span style="color:var(--text);font-weight:600">Hue name</span> &nbsp;'+getHueName(hsl.h,hsl.s,hsl.l)+'</div>',
+  ].join('');
+}
+
+function getHueName(h,s,l) {
+  if(s<10) return l<30?'Very Dark Gray':l<60?'Gray':'Light Gray';
+  if(l<15) return 'Near Black'; if(l>90) return 'Near White';
+  var names=[['Red',0],['Orange',30],['Yellow',60],['Lime',90],['Green',120],['Teal',165],['Cyan',180],['Sky Blue',210],['Blue',240],['Indigo',255],['Violet',270],['Purple',285],['Magenta',300],['Pink',330],['Red',360]];
+  for(var i=0;i<names.length-1;i++){
+    var mid=(names[i][1]+names[i+1][1])/2;
+    if(h<=mid) return names[i][0];
+  }
+  return 'Red';
+}
+
+// ── events ──────────────────────────────────────────────────────
+document.getElementById('cpNative').addEventListener('input',function(){
+  syncFromHex(this.value);
+});
+document.getElementById('cpHex').addEventListener('change',function(){
+  syncFromHex(this.value.trim());
+});
+
+['slR','slG','slB'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){
+    syncFromRgb(+document.getElementById('slR').value,+document.getElementById('slG').value,+document.getElementById('slB').value,'rgb');
+  });
+});
+['slH','slS','slL'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){
+    var c=hslToRgb(+document.getElementById('slH').value,+document.getElementById('slS').value,+document.getElementById('slL').value);
+    syncFromRgb(c.r,c.g,c.b,'hsl');
+  });
+});
+
+// contrast pickers
+['cpText','cpTextHex'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){
+    var hex=this.value; if(!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+    document.getElementById('cpText').value=hex;
+    document.getElementById('cpTextHex').value=hex;
+    updateContrast();
+  });
+});
+['cpBg','cpBgHex'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){
+    var hex=this.value; if(!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+    document.getElementById('cpBg').value=hex;
+    document.getElementById('cpBgHex').value=hex;
+    updateContrast();
+  });
+});
+
+// copy buttons
+document.querySelectorAll('.cp-copy').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var val=document.getElementById(btn.dataset.copy).value;
+    navigator.clipboard.writeText(val).then(function(){
+      btn.textContent='Copied!'; btn.classList.add('ok');
+      setTimeout(function(){btn.textContent='Copy';btn.classList.remove('ok');},1500);
+    });
+  });
+});
+
+// init
+syncFromRgb(99,102,241,'init');
+
+</script>
+</body></html>

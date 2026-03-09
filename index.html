@@ -8,20 +8,20 @@
 <meta name="keywords" content="free web design tools, css generator online, seo tools free, web developer tools, online css tools, html formatter, json formatter, favicon generator"/>
 <link rel="canonical" href="https://webdesign001.net/"/>
 <meta name="robots" content="index, follow"/>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
 
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="22 Free Web Design Tools — No Login Required"/>
+<meta property="og:title" content="Webdesign001.net - Free Web Design Tools — No Login Required"/>
 <meta property="og:description" content="CSS generators, SEO tools, image converters, code formatters and more. All run in your browser. No account. No limits. Forever free."/>
 <meta property="og:url" content="https://webdesign001.net/"/>
-<meta property="og:image" content="https://webdesign001.net/og-index.png"/>
+<meta property="og:image" content="https://webdesign001.net/og-images/og-index.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="22 Free Web Design Tools — No Login Required"/>
+<meta property="og:image:alt" content="Free Web Design, SEO Tools — No Login Required"/>
 <meta property="og:site_name" content="WebDesign001"/>
 <meta property="og:locale" content="en_US"/>
 
@@ -375,8 +375,49 @@ footer {
 .wdn-mlink.iscur{color:#a5b4fc;font-weight:700;}
 .wdn-dcta{padding:18px 4px 0;}
 .wdn-dcta a{display:block;text-align:center;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:11px;font-weight:800;font-size:14px;}
+
+/* Hero mascot character */
+.hero-character{
+  position:absolute;
+  right:5%;
+  bottom:-20px;
+  width:360px;
+  max-width:32vw;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* Keep hero content above character */
+.hero-bg > div{
+  position:relative;
+  z-index:2;
+}
+
+/* Responsive */
+@media (max-width:1100px){
+  .hero-character{
+    width:300px;
+    right:0;
+  }
+}
+
+@media (max-width:900px){
+  .hero-character{
+    display:none;
+  }
+}
+
+@keyframes mascotFloat{
+  0%{ transform:translateY(0px); }
+  50%{ transform:translateY(-10px); }
+  100%{ transform:translateY(0px); }
+}
+
+.hero-character{
+  animation: mascotFloat 4s ease-in-out infinite;
+}
 </style>
-<nav class="wdn">
+<!-- <nav class="wdn">
 <div class="wdn-bar">
   <a href="index.html" class="wdn-logo"><div class="wdn-gem">&#9670;</div>WebDesign<em>001</em></a>
   <div class="wdn-menu">
@@ -508,7 +549,10 @@ footer {
     <div class="wdn-dcta"><a href="index.html">&#10022; All 22 Free Tools</a></div>
   </div>
 </div>
-</nav>
+</nav> -->
+<link rel="stylesheet" href="css/navigation.css">
+<div id="nav"></div>
+<script src="js/navigation.js"></script>
 <script>
 (function(){
   var dds=document.querySelectorAll('.wdn-dd');
@@ -927,10 +971,12 @@ footer {
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <div class="hero-bg">
+    <!-- Character -->
+  <img src="images/mascot.webp" class="hero-character" alt="WebDesign Mascot">
   <div style="max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1;">
 
     <div class="stat-pill fu fu-1" style="margin-bottom:20px;">
-      ✦ 22 Free Tools · No Sign-up · 100% Browser-based
+      ✦ 25+ Free Tools · No Sign-up · 100% Browser-based
     </div>
 
     <h1 class="fu fu-2" style="font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.08;margin-bottom:16px;letter-spacing:-.02em;">
@@ -949,7 +995,7 @@ footer {
 
     <!-- Quick category pills -->
     <div class="fu fu-5" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;">
-      <button onclick="filterByCategory('all')" class="cat-pill active" data-cat="all">All 22</button>
+      <button onclick="filterByCategory('all')" class="cat-pill active" data-cat="all">All Tools</button>
       <button onclick="filterByCategory('design')" class="cat-pill" data-cat="design">🎨 Design</button>
       <button onclick="filterByCategory('seo')" class="cat-pill" data-cat="seo">🔍 SEO</button>
       <button onclick="filterByCategory('content')" class="cat-pill" data-cat="content">📄 Content</button>
@@ -998,35 +1044,35 @@ footer {
     </div>
     <div class="tools-grid">
 
-      <a href="css-gradient-generator.html" class="tool-card border-design" data-name="css gradient generator" data-cat="design">
+      <a href="design-tools/css-gradient-generator/" class="tool-card border-design" data-name="css gradient generator" data-cat="design">
         <div class="tool-icon ic-design">🌈</div>
         <div class="tool-name">CSS Gradient Generator</div>
         <div class="tool-desc">Create linear, radial, and conic CSS gradients visually with live preview and instant code output.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="box-shadow-generator.html" class="tool-card border-design" data-name="box shadow generator css" data-cat="design">
+      <a href="design-tools/box-shadow-generator/" class="tool-card border-design" data-name="box shadow generator css" data-cat="design">
         <div class="tool-icon ic-design">🟦</div>
         <div class="tool-name">Box Shadow Generator</div>
         <div class="tool-desc">Design layered CSS box shadows with real-time controls for offset, blur, spread, colour and opacity.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="border-radius-generator.html" class="tool-card border-design" data-name="border radius generator css rounded corners" data-cat="design">
+      <a href="design-tools/border-radius-generator/" class="tool-card border-design" data-name="border radius generator css rounded corners" data-cat="design">
         <div class="tool-icon ic-design">⬜</div>
         <div class="tool-name">Border Radius Generator</div>
         <div class="tool-desc">Generate any border-radius shape — from simple rounded corners to complex asymmetric blobs.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="color-palette-generator.html" class="tool-card border-design" data-name="color palette generator scheme" data-cat="design">
+      <a href="design-tools/color-palette-generator/" class="tool-card border-design" data-name="color palette generator scheme" data-cat="design">
         <div class="tool-icon ic-design">🎨</div>
         <div class="tool-name">Color Palette Generator</div>
         <div class="tool-desc">Generate harmonious colour palettes — complementary, triadic, analogous — with hex and CSS variables.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="px-to-rem-converter.html" class="tool-card border-design" data-name="px to rem converter unit" data-cat="design">
+      <a href="design-tools/px-to-rem-converter/" class="tool-card border-design" data-name="px to rem converter unit" data-cat="design">
         <div class="tool-icon ic-design">📐</div>
         <div class="tool-name">PX → REM Converter</div>
         <div class="tool-desc">Quickly convert pixel values to rem units. Set your base font size and convert entire lists at once.</div>
@@ -1048,42 +1094,42 @@ footer {
     </div>
     <div class="tools-grid">
 
-      <a href="sitemap-generator.html" class="tool-card border-seo" data-name="sitemap xml generator seo" data-cat="seo">
+      <a href="seo-tools/sitemap-generator/" class="tool-card border-seo" data-name="sitemap xml generator seo" data-cat="seo">
         <div class="tool-icon ic-seo">🗺️</div>
         <div class="tool-name">Sitemap XML Generator</div>
         <div class="tool-desc">Fetch your website, extract all internal links, and generate a valid sitemap.xml ready for Google Search Console.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="robots-txt-generator.html" class="tool-card border-seo" data-name="robots txt generator seo crawl" data-cat="seo">
+      <a href="seo-tools/robots-txt-generator/" class="tool-card border-seo" data-name="robots txt generator seo crawl" data-cat="seo">
         <div class="tool-icon ic-seo">🤖</div>
         <div class="tool-name">Robots.txt Generator</div>
         <div class="tool-desc">Control which pages search engines crawl and index. Generate a proper robots.txt with custom rules.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="meta-tag-generator.html" class="tool-card border-seo" data-name="meta tag generator seo html head" data-cat="seo">
+      <a href="seo-tools/meta-tag-generator/" class="tool-card border-seo" data-name="meta tag generator seo html head" data-cat="seo">
         <div class="tool-icon ic-seo">🏷️</div>
         <div class="tool-name">Meta Tag Generator</div>
         <div class="tool-desc">Generate complete meta tags — SEO, Open Graph, Twitter Cards, canonical, robots — with live Google preview.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="og-preview.html" class="tool-card border-seo" data-name="open graph preview social media og tag" data-cat="seo">
+      <a href="seo-tools/og-preview/" class="tool-card border-seo" data-name="open graph preview social media og tag" data-cat="seo">
         <div class="tool-icon ic-seo">👁️</div>
         <div class="tool-name">Open Graph Preview</div>
         <div class="tool-desc">See exactly how your page looks when shared on Facebook, Twitter/X, LinkedIn, and WhatsApp.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="schema-generator.html" class="tool-card border-seo" data-name="json ld schema generator structured data rich results" data-cat="seo">
+      <a href="seo-tools/schema-generator/" class="tool-card border-seo" data-name="json ld schema generator structured data rich results" data-cat="seo">
         <div class="tool-icon ic-seo">🧩</div>
         <div class="tool-name">JSON-LD Schema Generator</div>
         <div class="tool-desc">Build structured data for Articles, Products, FAQs, LocalBusiness, Events and more. Boost Google rich results.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="htaccess-generator.html" class="tool-card border-seo" data-name="htaccess generator apache redirect https www" data-cat="seo">
+      <a href="seo-tools/htaccess-generator/" class="tool-card border-seo" data-name="htaccess generator apache redirect https www" data-cat="seo">
         <div class="tool-icon ic-seo">⚙️</div>
         <div class="tool-name">.htaccess Generator</div>
         <div class="tool-desc">Force HTTPS, www redirects, enable GZIP, set caching headers, block bad bots — with a simple toggle UI.</div>
@@ -1098,28 +1144,28 @@ footer {
     <div class="section-label">
       <div class="section-label-icon ic-content">📄</div>
       <div>
-        <h2>Content Generators</h2>
+        <h2>Legal Generators</h2>
         <p>Legal pages ready in seconds</p>
       </div>
       <span class="section-count">3 tools</span>
     </div>
     <div class="tools-grid">
 
-      <a href="privacy-policy-generator.html" class="tool-card border-content" data-name="privacy policy generator gdpr ccpa" data-cat="content">
+      <a href="legal-generators/privacy-policy-generator/" class="tool-card border-content" data-name="privacy policy generator gdpr ccpa" data-cat="content">
         <div class="tool-icon ic-content">🔒</div>
         <div class="tool-name">Privacy Policy Generator</div>
         <div class="tool-desc">Generate a GDPR & CCPA compliant privacy policy for your website or app in under 60 seconds.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="terms-conditions-generator.html" class="tool-card border-content" data-name="terms conditions generator legal" data-cat="content">
+      <a href="legal-generators/terms-conditions-generator/" class="tool-card border-content" data-name="terms conditions generator legal" data-cat="content">
         <div class="tool-icon ic-content">📋</div>
         <div class="tool-name">Terms & Conditions Generator</div>
         <div class="tool-desc">Create a comprehensive terms and conditions page tailored to your website's type and jurisdiction.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="refund-policy-generator.html" class="tool-card border-content" data-name="refund policy generator return policy ecommerce" data-cat="content">
+      <a href="legal-generators/refund-policy-generator/" class="tool-card border-content" data-name="refund policy generator return policy ecommerce" data-cat="content">
         <div class="tool-icon ic-content">↩️</div>
         <div class="tool-name">Refund Policy Generator</div>
         <div class="tool-desc">Generate a clear refund and return policy for your e-commerce store or SaaS product instantly.</div>
@@ -1141,35 +1187,35 @@ footer {
     </div>
     <div class="tools-grid">
 
-      <a href="html-formatter.html" class="tool-card border-dev" data-name="html formatter beautifier minifier" data-cat="dev">
+      <a href="developer-tools/html-formatter/" class="tool-card border-dev" data-name="html formatter beautifier minifier" data-cat="dev">
         <div class="tool-icon ic-dev">⟨/⟩</div>
         <div class="tool-name">HTML Formatter & Beautifier</div>
         <div class="tool-desc">Paste minified HTML and get clean, indented, syntax-highlighted output. Supports custom indent and minify mode.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="css-minifier.html" class="tool-card border-dev" data-name="css minifier beautifier formatter compress" data-cat="dev">
+      <a href="developer-tools/css-minifier/" class="tool-card border-dev" data-name="css minifier beautifier formatter compress" data-cat="dev">
         <div class="tool-icon ic-dev">{ }</div>
         <div class="tool-name">CSS Minifier & Beautifier</div>
         <div class="tool-desc">Compress CSS for production or beautify minified CSS for editing. Shows live compression ratio and savings.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="json-formatter.html" class="tool-card border-dev" data-name="json formatter validator beautifier minifier" data-cat="dev">
+      <a href="developer-tools/json-formatter/" class="tool-card border-dev" data-name="json formatter validator beautifier minifier" data-cat="dev">
         <div class="tool-icon ic-dev">{ }</div>
         <div class="tool-name">JSON Formatter & Validator</div>
         <div class="tool-desc">Format, validate, and explore JSON with syntax highlighting, tree view, error location, and minification.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="regex-tester.html" class="tool-card border-dev" data-name="regex tester regular expression live" data-cat="dev">
+      <a href="developer-tools/regex-tester/" class="tool-card border-dev" data-name="regex tester regular expression live" data-cat="dev">
         <div class="tool-icon ic-dev">.*</div>
         <div class="tool-name">Regex Tester</div>
         <div class="tool-desc">Test regular expressions live with real-time match highlighting, capture group breakdown, and a cheat sheet.</div>
         <div class="tool-arrow">Open tool <span>→</span></div>
       </a>
 
-      <a href="htaccess-generator.html" class="tool-card border-dev" data-name="htaccess apache config security headers gzip" data-cat="dev">
+      <a href="developer-tools/htaccess-generator/" class="tool-card border-dev" data-name="htaccess apache config security headers gzip" data-cat="dev">
         <div class="tool-icon ic-dev">⚙️</div>
         <div class="tool-name">.htaccess Generator</div>
         <div class="tool-desc">Generate Apache config with HTTPS redirects, security headers, GZIP, caching, hotlink protection and more.</div>
@@ -1286,7 +1332,7 @@ footer {
 
 
       <!-- NEW TOOLS -->
-      <a href="favicon-generator.html" class="tool-card border-design" data-name="favicon generator icon png ico" data-cat="design">
+      <a href="favicon-generator/" class="tool-card border-design" data-name="favicon generator icon png ico" data-cat="design">
         <div class="tool-icon">🖼️</div>
         <div class="tool-content">
           <div class="tool-name">Favicon Generator</div>
@@ -1294,7 +1340,7 @@ footer {
           <div class="tool-arrow">→</div>
         </div>
       </a>
-      <a href="image-to-webp.html" class="tool-card border-design" data-name="image webp converter jpg png convert" data-cat="design">
+      <a href="image-to-webp/" class="tool-card border-design" data-name="image webp converter jpg png convert" data-cat="design">
         <div class="tool-icon">⚡</div>
         <div class="tool-content">
           <div class="tool-name">Image to WebP Converter</div>
@@ -1302,7 +1348,7 @@ footer {
           <div class="tool-arrow">→</div>
         </div>
       </a>
-      <a href="js-formatter.html" class="tool-card border-dev" data-name="javascript typescript formatter validator linter js ts" data-cat="dev">
+      <a href="js-formatter/" class="tool-card border-dev" data-name="javascript typescript formatter validator linter js ts" data-cat="dev">
         <div class="tool-icon">⚙️</div>
         <div class="tool-content">
           <div class="tool-name">JS / TS Formatter & Validator</div>
@@ -1372,53 +1418,53 @@ document.addEventListener('keydown', function(e) {
 <footer class="wdf">
 <div class="wdf-inner">
   <div class="wdf-brand">
-    <a href="index.html" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
+    <a href="index/" class="wdf-logo">&#9670; WebDesign<span>001</span></a>
     <p>22 free tools for web designers &amp; developers. No signup. No limits. Forever free.</p>
     <div class="wdf-tags"><span>&#9733; 22 Tools</span><span>&#127775; Always Free</span><span>&#128274; No Account</span></div>
   </div>
   <div class="wdf-col">
     <h4>&#127912; Design Tools</h4>
-    <a href="css-gradient-generator.html">CSS Gradient Generator</a>
-    <a href="box-shadow-generator.html">Box Shadow Generator</a>
-    <a href="border-radius-generator.html">Border Radius Generator</a>
-    <a href="color-palette-generator.html">Color Palette Generator</a>
-    <a href="px-to-rem-converter.html">PX to REM Converter</a>
+    <a href="css-gradient-generator/">CSS Gradient Generator</a>
+    <a href="box-shadow-generator/">Box Shadow Generator</a>
+    <a href="border-radius-generator/">Border Radius Generator</a>
+    <a href="color-palette-generator/">Color Palette Generator</a>
+    <a href="px-to-rem-converter/">PX to REM Converter</a>
   </div>
   <div class="wdf-col">
     <h4>&#128247; Image Tools</h4>
-    <a href="favicon-generator.html">Favicon Generator</a>
-    <a href="image-to-webp.html">Image to WebP Converter</a>
+    <a href="favicon-generator/">Favicon Generator</a>
+    <a href="image-to-webp/">Image to WebP Converter</a>
     <h4 style="margin-top:18px">&#128269; SEO Tools</h4>
-    <a href="sitemap-generator.html">Sitemap Generator</a>
-    <a href="robots-txt-generator.html">Robots.txt Generator</a>
-    <a href="meta-tag-generator.html">Meta Tag Generator</a>
-    <a href="og-preview.html">Open Graph Preview</a>
-    <a href="schema-generator.html">Schema Generator</a>
+    <a href="sitemap-generator/">Sitemap Generator</a>
+    <a href="robots-txt-generator/">Robots.txt Generator</a>
+    <a href="meta-tag-generator/">Meta Tag Generator</a>
+    <a href="og-preview/">Open Graph Preview</a>
+    <a href="schema-generator/">Schema Generator</a>
   </div>
   <div class="wdf-col">
     <h4>&#128203; Content Generators</h4>
-    <a href="privacy-policy-generator.html">Privacy Policy Generator</a>
-    <a href="terms-conditions-generator.html">Terms &amp; Conditions</a>
-    <a href="refund-policy-generator.html">Refund Policy Generator</a>
+    <a href="privacy-policy-generator/">Privacy Policy Generator</a>
+    <a href="terms-conditions-generator/">Terms &amp; Conditions</a>
+    <a href="refund-policy-generator/">Refund Policy Generator</a>
     <h4 style="margin-top:18px">&#9881; Dev Tools</h4>
-    <a href="html-formatter.html">HTML Formatter</a>
-    <a href="css-minifier.html">CSS Minifier</a>
-    <a href="json-formatter.html">JSON Formatter</a>
-    <a href="js-formatter.html">JS / TS Formatter</a>
-    <a href="regex-tester.html">Regex Tester</a>
-    <a href="htaccess-generator.html">.htaccess Generator</a>
+    <a href="html-formatter/">HTML Formatter</a>
+    <a href="css-minifier/">CSS Minifier</a>
+    <a href="json-formatter/">JSON Formatter</a>
+    <a href="js-formatter/">JS / TS Formatter</a>
+    <a href="regex-tester/">Regex Tester</a>
+    <a href="htaccess-generator/">.htaccess Generator</a>
   </div>
   <div class="wdf-col">
     <h4>&#128218; Resources</h4>
-    <a href="blog.html">Blog &amp; Tutorials</a>
-    <a href="downloads.html">Free PDF Downloads</a>
+    <a href="blog/">Blog &amp; Tutorials</a>
+    <a href="downloads/">Free PDF Downloads</a>
     <h4 style="margin-top:18px">&#128101; Company</h4>
-    <a href="about.html">About Us</a>
-    <a href="faq.html">FAQ</a>
-    <a href="contact.html">Contact</a>
+    <a href="about/">About Us</a>
+    <a href="faq/">FAQ</a>
+    <a href="contact/">Contact</a>
     <h4 style="margin-top:18px">&#128274; Legal</h4>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
+    <a href="privacy-policy/">Privacy Policy</a>
+    <a href="terms/">Terms of Service</a>
   </div>
 </div>
 <div class="wdf-base">

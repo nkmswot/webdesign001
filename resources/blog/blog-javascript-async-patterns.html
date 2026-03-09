@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Privacy Policy | WebDesign001</title>
-<meta name="description" content="WebDesign001's privacy policy. All tools run in your browser — your code, images, and data are never sent to our servers. GDPR compliant."/>
-<meta name="keywords" content="webdesign001 privacy policy, web tools privacy, gdpr compliant tools, browser based privacy"/>
-<link rel="canonical" href="https://webdesign001.net/privacy-policy.html"/>
+<title>JavaScript Async Patterns: Promises, async/await & Beyond | WebDesign001 Blog</title>
+<meta name="description" content="Master async JavaScript — parallel execution with Promise.all, AbortController cancellation, async generators, Promise.any, and robust error handling patterns."/>
+<meta name="keywords" content="javascript async patterns, promise.all, async await tutorial, abortcontroller javascript, async generators js, javascript promises 2025"/>
+<link rel="canonical" href="https://webdesign001.net/blog-javascript-async-patterns.html"/>
 <meta name="robots" content="index, follow"/>
 <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
@@ -14,51 +14,90 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
 
 <!-- Open Graph -->
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="Privacy Policy — WebDesign001"/>
-<meta property="og:description" content="All tools run in your browser. Your data never leaves your device. Full GDPR-compliant privacy policy for WebDesign001.net."/>
-<meta property="og:url" content="https://webdesign001.net/privacy-policy.html"/>
-<meta property="og:image" content="https://webdesign001.net/og-images/og-about.png"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="JavaScript Async Patterns — From Promises to Generators"/>
+<meta property="og:description" content="Parallel execution, AbortController for search cancellation, async generators for pagination, Promise combinators, and safe error handling. Full examples."/>
+<meta property="og:url" content="https://webdesign001.net/blog-javascript-async-patterns.html"/>
+<meta property="og:image" content="https://webdesign001.net/og-images/og-blog-js-async.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="Privacy Policy — WebDesign001"/>
+<meta property="og:image:alt" content="JavaScript Async Patterns — From Promises to Generators"/>
 <meta property="og:site_name" content="WebDesign001"/>
 <meta property="og:locale" content="en_US"/>
+<meta property="article:published_time" content="2025-03-12T00:00:00Z"/>
+<meta property="article:author" content="WebDesign001"/>
 
 <!-- Twitter / X -->
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Privacy Policy — WebDesign001"/>
-<meta name="twitter:description" content="All tools run in your browser. Your data never leaves your device. Full GDPR-compliant privacy policy for WebDesign001.net."/>
-<meta name="twitter:image" content="https://webdesign001.net/og-about.png"/>
-<meta name="twitter:image:alt" content="Privacy Policy — WebDesign001"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="JavaScript Async Patterns — From Promises to Generators"/>
+<meta name="twitter:description" content="Parallel execution, AbortController for search cancellation, async generators for pagination, Promise combinators, and safe error handling. Full examples."/>
+<meta name="twitter:image" content="https://webdesign001.net/og-blog-js-async.png"/>
+<meta name="twitter:image:alt" content="JavaScript Async Patterns — From Promises to Generators"/>
 <meta name="twitter:site" content="@webdesign001"/>
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Privacy Policy",
-  "url": "https://webdesign001.net/privacy-policy.html"
+  "@type": "Article",
+  "headline": "JavaScript Async Patterns: Promises, async/await, and Beyond",
+  "datePublished": "2025-03-12",
+  "dateModified": "2025-03-12",
+  "author": {
+    "@type": "Organization",
+    "name": "WebDesign001"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "WebDesign001",
+    "url": "https://webdesign001.net"
+  },
+  "url": "https://webdesign001.net/blog-javascript-async-patterns.html",
+  "description": "JavaScript async patterns including Promise.all, AbortController, async generators and error handling."
 }
 </script>
-<link rel="canonical" href="https://webdesign001.net/privacy-policy.html"/>
+<link rel="canonical" href="https://webdesign001.net/blog-javascript-async-patterns.html"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-.gt{background:linear-gradient(135deg,#6366f1,#14b8a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-hero{padding:72px 20px 48px;text-align:center;position:relative;overflow:hidden;}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(99,102,241,.1),transparent 70%);}
-.page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;position:relative;margin-bottom:12px;}
-.page-hero p{font-size:15px;color:#2d4060;position:relative;}
-.page-wrap{max-width:800px;margin:0 auto;padding:32px 20px 80px;}
-.page-wrap h2{font-size:1.05rem;font-weight:800;color:#c8d8f0;margin:36px 0 12px;padding-top:24px;border-top:1px solid #0c1624;}
-.page-wrap h2:first-child{border-top:none;padding-top:0;margin-top:0;}
-.page-wrap p{font-size:14.5px;color:#6b8099;line-height:1.9;margin-bottom:14px;}
-.page-wrap ul{padding-left:20px;margin-bottom:14px;}
-.page-wrap li{font-size:14.5px;color:#6b8099;line-height:1.8;margin-bottom:7px;}
-.page-wrap a{color:#6366f1;}
-.updated-badge{background:#0c1525;border:1px solid #111e32;border-radius:10px;padding:11px 18px;margin-bottom:32px;font-size:13px;color:#3d5570;}
+*{box-sizing:border-box;}
+.art-outer{max-width:860px;margin:0 auto;padding:44px 22px 80px;}
+.art-back{display:inline-flex;align-items:center;gap:6px;color:#3d5570;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:28px;transition:color .15s;border:1px solid #0f1e32;border-radius:8px;padding:7px 14px;background:#0c1525;}
+.art-back:hover{color:#7a9ab8;border-color:#1a2d45;}
+.art-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.art-cat{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:6px;}
+.art-date,.art-mins{font-size:12px;color:#243550;}
+.art-emoji{font-size:60px;display:block;margin-bottom:24px;line-height:1;}
+h1.art-title{font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;line-height:1.15;color:#f1f5f9;margin-bottom:16px;}
+.art-lead{font-size:16px;color:#3d5570;line-height:1.85;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid #0c1624;}
+.art-body h2{font-size:1.15rem;font-weight:800;color:#c8d8f0;margin:40px 0 14px;padding-top:28px;border-top:1px solid #0c1624;}
+.art-body h2:first-child{border-top:none;padding-top:0;margin-top:0;}
+.art-body h3{font-size:1rem;font-weight:700;color:#90aac8;margin:28px 0 10px;}
+.art-body p{font-size:15px;color:#6b8099;line-height:1.95;margin-bottom:18px;}
+.art-body ul,.art-body ol{padding-left:22px;margin-bottom:18px;}
+.art-body li{font-size:15px;color:#6b8099;line-height:1.85;margin-bottom:9px;}
+.art-body strong{color:#c8d8f0;font-weight:700;}
+.art-body a{color:#6366f1;text-decoration:none;}
+.art-body a:hover{text-decoration:underline;}
+.art-body code{background:#080e1c;border:1px solid #162035;padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.84em;color:#7dd3fc;}
+.art-body pre{background:#050c18;border:1px solid #162035;border-radius:12px;padding:22px 20px;margin:22px 0;overflow-x:auto;}
+.art-body pre code{border:none;background:none;padding:0;font-size:13px;line-height:1.75;color:#86efac;}
+.art-body blockquote{border-left:3px solid #6366f1;padding:14px 20px;margin:24px 0;background:#080e1c;border-radius:0 10px 10px 0;}
+.art-body blockquote p{margin:0;color:#90aac8;font-style:italic;}
+.art-nav{display:flex;gap:14px;margin-top:52px;padding-top:32px;border-top:1px solid #0c1624;flex-wrap:wrap;}
+.art-nav a{flex:1;min-width:220px;background:#0c1525;border:1px solid #111e32;border-radius:12px;padding:16px 20px;text-decoration:none;transition:border-color .15s;}
+.art-nav a:hover{border-color:#1a2d45;}
+.art-nav-dir{font-size:11px;color:#243550;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;}
+.art-nav-title{font-size:13px;color:#7a9ab8;font-weight:700;line-height:1.4;}
+.art-nav-next{text-align:right;}
+.art-share{display:flex;align-items:center;gap:10px;margin-top:32px;flex-wrap:wrap;}
+.art-share span{font-size:12px;color:#243550;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.sh-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-decoration:none;transition:opacity .15s;}
+.sh-btn:hover{opacity:.85;}
+.sh-tw{background:#000;color:#fff;}
+.sh-li{background:#0a66c2;color:#fff;}
+.sh-cp{background:#1e2d45;color:#94a3b8;border:1px solid #162035;}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
 </head>
 <body style="background:#060b14;color:#dde8f8;min-height:100vh;margin:0;font-family:'Plus Jakarta Sans',sans-serif;">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
@@ -282,53 +321,109 @@
   });
 }());
 </script>
+<div class="art-outer">
+  <a href="blog.html" class="art-back">&#8592; Back to Blog</a>
+  <div class="art-meta-row">
+    <span class="art-cat" style="color:#f97316;background:rgba(249,115,22,.15)">JavaScript</span>
+    <span class="art-date">&#128197; 12 Mar 2025</span>
+    <span class="art-mins">&#9201; 15 min read</span>
+  </div>
+  <span class="art-emoji">⚙️</span>
+  <h1 class="art-title">JavaScript Async Patterns: Promises, async/await, and Beyond</h1>
+  <p class="art-lead">From callbacks to async generators — parallel execution, AbortController, robust error handling, and production async code patterns.</p>
+  <div class="art-body"><h2>Why Async Mastery Matters</h2>
+<p>Async programming is the foundation of every JavaScript application. Network requests, timers, user interactions, and database queries all operate asynchronously. Writing clean, correct async code is one of the most valuable skills in the JavaScript toolkit.</p>
+<h2>The Callback Problem</h2>
+<pre><code>getUser(id, function(err, user) {
+  if (err) { handleError(err); return; }
+  getPosts(user.id, function(err, posts) {
+    if (err) { handleError(err); return; }
+    getComments(posts[0].id, function(err, comments) {
+      if (err) { handleError(err); return; }
+      renderPage(user, posts, comments);
+    });
+  });
+}); // callback hell — repeated error handling, infinite nesting</code></pre>
+<h2>Promises</h2>
+<pre><code>getUser(id)
+  .then(user    =&gt; getPosts(user.id))
+  .then(posts   =&gt; getComments(posts[0].id))
+  .then(comments =&gt; renderPage(comments))
+  .catch(err    =&gt; handleError(err)); // one catch for all
 
-<style>
-.gt{background:linear-gradient(135deg,#6366f1,#14b8a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-hero{padding:72px 20px 48px;text-align:center;position:relative;overflow:hidden;}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(99,102,241,.1),transparent 70%);}
-.page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;position:relative;margin-bottom:12px;}
-.page-hero p{font-size:15px;color:#2d4060;position:relative;}
-.page-wrap{max-width:800px;margin:0 auto;padding:32px 20px 80px;}
-.page-wrap h2{font-size:1.05rem;font-weight:800;color:#c8d8f0;margin:36px 0 12px;padding-top:24px;border-top:1px solid #0c1624;}
-.page-wrap h2:first-child{border-top:none;padding-top:0;margin-top:0;}
-.page-wrap p{font-size:14.5px;color:#6b8099;line-height:1.9;margin-bottom:14px;}
-.page-wrap ul{padding-left:20px;margin-bottom:14px;}
-.page-wrap li{font-size:14.5px;color:#6b8099;line-height:1.8;margin-bottom:7px;}
-.page-wrap a{color:#6366f1;}
-.updated-badge{background:#0c1525;border:1px solid #111e32;border-radius:10px;padding:11px 18px;margin-bottom:32px;font-size:13px;color:#3d5570;}
-</style>
-<div class="page-hero"><h1>Privacy <span class="gt">Policy</span></h1><p>Effective: 1 January 2025</p></div>
-<div class="page-wrap">
-<div class="updated-badge">&#128197; Last updated: 1 January 2025</div>
-<h2>1. Introduction</h2>
-<p>WebDesign001.net operates a free collection of web design and development tools. This Privacy Policy explains what information we collect, how we use it, and your rights regarding it.</p>
-<h2>2. What We Collect</h2>
-<p><strong>Tool input data:</strong> Not collected. All tool processing happens in your browser. Code, images, and generated documents are never sent to our servers.</p>
-<p><strong>Server logs:</strong> Our hosting provider automatically logs standard access data including IP address, browser type, operating system, referring URL, and pages visited. This is used in aggregate to understand traffic patterns.</p>
-<p><strong>Cookies:</strong> We use Google Analytics (anonymised usage data) and Google AdSense (advertising). You can control cookies through your browser settings.</p>
-<h2>3. How We Use Information</h2>
-<ul>
-<li>To provide and improve our tools and website</li>
-<li>To understand how visitors use the site through aggregated analytics</li>
-<li>To display relevant advertising via Google AdSense</li>
-<li>To respond to contact form submissions</li>
-<li>To comply with legal obligations</li>
-</ul>
-<h2>4. Third-Party Services</h2>
-<p><strong>Google Analytics:</strong> Anonymised visitor data. Opt out via Google Analytics Opt-out Browser Add-on.</p>
-<p><strong>Google AdSense:</strong> Contextual advertising. Opt out of personalised ads at Google's Ads Settings.</p>
-<p><strong>Google Fonts:</strong> Font requests are logged by Google. See Google's Privacy Policy for details.</p>
-<h2>5. Your Rights (GDPR)</h2>
-<p>If you are in the EEA you have rights under GDPR: access, correction, erasure, restriction, portability, and objection. Contact us via the <a href="contact.html">Contact page</a> to exercise these rights.</p>
-<h2>6. Data Retention</h2>
-<p>Server logs are retained for 90 days. Contact form submissions are retained for up to 12 months. We hold no database of user-entered tool content.</p>
-<h2>7. Children's Privacy</h2>
-<p>Our services are not directed at children under 13. We do not knowingly collect information from children under 13.</p>
-<h2>8. Changes</h2>
-<p>We may update this policy. Changes are indicated by updating the date above. Continued use constitutes acceptance.</p>
-<h2>9. Contact</h2>
-<p>Questions? Use the <a href="contact.html">Contact page</a>.</p>
+function wait(ms) {
+  return new Promise(resolve =&gt; setTimeout(resolve, ms));
+}</code></pre>
+<h2>async/await</h2>
+<pre><code>async function loadDashboard(userId) {
+  try {
+    const user  = await getUser(userId);
+    const posts = await getPosts(user.id);
+    renderPage(user, posts);
+  } catch (error) {
+    handleError(error);
+  } finally {
+    hideSpinner(); // always runs
+  }
+}</code></pre>
+<h2>Parallel Execution — The Critical Optimisation</h2>
+<pre><code>// Sequential: 600ms — each waits for the previous
+const user     = await getUser(id);     // 200ms
+const settings = await getSettings(id); // 200ms
+const posts    = await getPosts(id);    // 200ms
+
+// Parallel: ~200ms — all run simultaneously
+const [user, settings, posts] = await Promise.all([
+  getUser(id), getSettings(id), getPosts(id)
+]);</code></pre>
+<h2>Promise Combinators</h2>
+<pre><code>// allSettled: wait for all, never rejects
+const results = await Promise.allSettled([fetch(a), fetch(b)]);
+results.forEach(r =&gt;
+  r.status === 'fulfilled' ? process(r.value) : log(r.reason)
+);
+
+// any: first SUCCESS wins
+const data = await Promise.any([loadFromCache(k), fetchFromAPI(url)]);</code></pre>
+<h2>AbortController — Request Cancellation</h2>
+<pre><code>class SearchService {
+  constructor() { this.controller = null; }
+  async search(query) {
+    if (this.controller) this.controller.abort();
+    this.controller = new AbortController();
+    try {
+      const res = await fetch(
+        '/api/search?q=' + encodeURIComponent(query),
+        { signal: this.controller.signal }
+      );
+      return await res.json();
+    } catch (e) {
+      if (e.name === 'AbortError') return null; // expected
+      throw e;
+    }
+  }
+}</code></pre>
+<h2>Async Generators for Pagination</h2>
+<pre><code>async function* fetchAllPages(url) {
+  let nextUrl = url;
+  while (nextUrl) {
+    const res  = await fetch(nextUrl);
+    const data = await res.json();
+    yield data.items;
+    nextUrl = data.nextPageUrl || null;
+  }
+}
+for await (const items of fetchAllPages('/api/products')) {
+  appendToUI(items);
+}</code></pre>
+<blockquote><p>Parallel execution with Promise.all, cancellation with AbortController, and streaming with async generators — these three patterns separate senior JavaScript developers from intermediate ones.</p></blockquote></div>
+  <div class="art-share">
+    <span>Share:</span>
+    <a class="sh-btn sh-tw" href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href)+'&text='+encodeURIComponent(document.title),'_blank');return false;">&#120143; Twitter</a>
+    <a class="sh-btn sh-li" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank');return false;">in LinkedIn</a>
+    <button class="sh-btn sh-cp" onclick="navigator.clipboard.writeText(location.href);this.textContent='&#10003; Copied!';setTimeout(()=>this.textContent='&#128279; Copy Link',2000)">&#128279; Copy Link</button>
+  </div>
+  <div class="art-nav"><a href="blog-web-accessibility-guide.html"><div class="art-nav-dir">&#8592; Previous</div><div class="art-nav-title">Building Accessible Web Components: The Complete WCAG Guide</div></a><a href="blog-web-typography-guide.html" class="art-nav-next"><div class="art-nav-dir">Next &#8594;</div><div class="art-nav-title">The Complete Guide to Web Typography in 2025</div></a></div>
 </div>
 <footer class="wdf">
 <div class="wdf-inner">
